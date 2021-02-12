@@ -7,7 +7,7 @@ package javafxchatserver;
 
 
 
-
+import java.sql.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -30,6 +30,15 @@ public class Javafxchatserver {
 
     public void start() {
         ServerSocket serversocket;
+        
+        Connection sqlite= null;
+        try {
+         Class.forName("org.sqlite.JDBC");
+         sqlite = DriverManager.getConnection("jdbc:sqlite:test.db");
+      } catch ( Exception e ) {
+         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+         System.exit(0);
+      }
         try {
             serversocket = new ServerSocket(4999);
             while (true) {
