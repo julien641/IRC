@@ -5,15 +5,15 @@
  */
 package javafxchatserver;
 
-
-
-import java.sql.*;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import socketconnection.Socketwrapper;
-
+import Commands.*;
+import Commands.help;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,54 +21,109 @@ import socketconnection.Socketwrapper;
  */
 public class Javafxchatserver {
 
-    ArrayList<chatthread> chatthreads;
+	private final String invalidinput = "Invalid command entered";
+	private boolean running = true;
+	private boolean debug = true;
+	private Thread thread;
+	private ServerThread server;
+	
+	public boolean isDebug() {
+		return debug;
+	}
 
-    public Javafxchatserver() {
-        chatthreads = new ArrayList<>();
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 
-    }
+	public Thread getThread() {
+		return thread;
+	}
 
-    public void start() {
-        ServerSocket serversocket;
-        
-        Connection sqlite= null;
-        try {
-         Class.forName("org.sqlite.JDBC");
-         sqlite = DriverManager.getConnection("jdbc:sqlite:test.db");
-      } catch ( Exception e ) {
-         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-         System.exit(0);
-      }
-        try {
-            serversocket = new ServerSocket(4999);
-            while (true) {
-                System.out.println("loop");
-                Socket s = serversocket.accept();
-                Socketwrapper sw = new Socketwrapper(); 
-                sw.connect(s);
-                chatthread chat = new chatthread(sw);
-                chatthreads.add(chat);
-                chat.start();
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
 
-            }
+	public ServerThread getServer() {
+		return server;
+	}
 
-            
-            
-            
-        } catch (IOException e) {
-            System.out.println("IOException");
-            System.out.println(e.toString());
-        }
+	public void setServer(ServerThread server) {
+		this.server = server;
+	}
 
-    }
+	public boolean isRunning() {
+		return running;
+	}
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Javafxchatserver server = new Javafxchatserver();
-        server.start();
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
 
-    }
+	public Javafxchatserver() {
+
+	}
+
+	public void start() {
+
+		Scanner kb = new Scanner(System.in);
+
+		while (running) {
+			String input = kb.nextLine();
+			String[] inputparsed = input.split(" ");
+			try {
+				Class commandclass = Class.forName("Commands."+inputparsed[0]);
+				
+				Class[] types = {this.getClass(), String.class};
+
+				Constructor constructor = commandclass.getConstructor(types);
+				Object[] parameters = {this, input};
+				Commands command = (Commands) constructor.newInstance(parameters);
+				command.run();
+			} catch (ClassNotFoundException ex) {
+				commandlineerror(ex);
+			} catch (InstantiationException ex) {
+				commandlineerror(ex);
+			} catch (IllegalAccessException ex) {
+				commandlineerror(ex);
+			} catch (IllegalArgumentException ex) {
+				commandlineerror(ex);
+			} catch (InvocationTargetException ex) {
+				commandlineerror(ex);
+			} catch (NoSuchMethodException ex) {
+				commandlineerror(ex);
+			} catch (SecurityException ex) {
+				commandlineerror(ex);
+			}
+
+		}
+
+	}
+
+	public void commandlineerror(Exception ex) {
+		if (debug) {
+			ex.printStackTrace();
+		}
+		System.out.println(invalidinput);
+	}
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		Javafxchatserver server = new Javafxchatserver();
+		server.start();
+
+	}
+
+	public int locate(String[] command, String arguments) {
+		boolean found = false;
+		for (int i = 0; i < command.length; i++) {
+			if (command.equals(arguments)) {
+				return i;
+			}
+
+		}
+		return -1;
+	}
 
 }

@@ -1,0 +1,13 @@
+NAME
+	help -Displays all commands
+
+SYNOPSIS
+	help
+DESCRIPTION
+	The help command display all commands to the command line
+
+OPTIONS
+	<NA>
+SEE ALSO
+	man
+BUGS
