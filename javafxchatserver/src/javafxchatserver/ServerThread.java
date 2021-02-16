@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import socketconnection.Socketwrapper;
 
 /**
@@ -16,7 +18,7 @@ import socketconnection.Socketwrapper;
  * @author julien
  */
 public class ServerThread implements Runnable {
-
+    private ServerSocket serversocket;
     private boolean running;
     final private int port;
     private ArrayList<chatthread> chatthreads;
@@ -29,29 +31,46 @@ public class ServerThread implements Runnable {
 
     @Override
     public void run() {
-
-        ServerSocket serversocket;
-        while (running) {
-
-            try {
-                serversocket = new ServerSocket(port);
-                while (running) {
-                    Socket s = serversocket.accept();
-                    Socketwrapper sw = new Socketwrapper();
-                    sw.connect(s);
-                    chatthread chat = new chatthread(sw);
-                    chatthreads.add(chat);
-                    chat.start();
-
+	    
+		serversocket=startingserversocket(port);
+        
+		
+		
+		while (running && serversocket !=null) {
+			Socket s=socketcreation();    
+			if(s!=null){
+			
+				Socketwrapper sw = new Socketwrapper();
+                		sw.connect(s);
+                    		chatthread chat = new chatthread(sw);
+                    		chatthreads.add(chat);
+                    		chat.start();
+			}
                 }
-
-            } catch (IOException e) {
-                System.out.println("IOException");
-                System.out.println(e.toString());
-            }
-
-        }
+		System.out.println("Closing server");
+		cleanend();
     }
+    public ServerSocket startingserversocket(int port){
+    	ServerSocket serversocket =null;
+	    try {
+		    serversocket = new ServerSocket(port);
+		    serversocket.setSoTimeout(1000);
+	    } catch (IOException ex) {
+		    Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+   return serversocket; 
+    }
+    public Socket socketcreation(){
+    
+                    Socket s = null;
+			try {
+				s = serversocket.accept();
+			} catch (IOException ex) {
+			//	Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		return s;
+
+	}
 
 	public boolean isRunning() {
 		return running;
@@ -67,6 +86,21 @@ public class ServerThread implements Runnable {
 
 	public void setChatthreads(ArrayList<chatthread> chatthreads) {
 		this.chatthreads = chatthreads;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	private void cleanend() {
+		try {
+			serversocket.close();
+			serversocket=null;
+			
+		} catch (IOException ex) {
+			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 	}
 
 }

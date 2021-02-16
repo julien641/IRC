@@ -7,7 +7,6 @@ package javafxchatserver;
 
 import Commands.*;
 import Commands.help;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -26,38 +25,9 @@ public class Javafxchatserver {
 	private boolean debug = true;
 	private Thread thread;
 	private ServerThread server;
-	
-	public boolean isDebug() {
-		return debug;
-	}
+	private boolean testing= false;	
 
-	public void setDebug(boolean debug) {
-		this.debug = debug;
-	}
 
-	public Thread getThread() {
-		return thread;
-	}
-
-	public void setThread(Thread thread) {
-		this.thread = thread;
-	}
-
-	public ServerThread getServer() {
-		return server;
-	}
-
-	public void setServer(ServerThread server) {
-		this.server = server;
-	}
-
-	public boolean isRunning() {
-		return running;
-	}
-
-	public void setRunning(boolean running) {
-		this.running = running;
-	}
 
 	public Javafxchatserver() {
 
@@ -68,7 +38,11 @@ public class Javafxchatserver {
 		Scanner kb = new Scanner(System.in);
 
 		while (running) {
-			String input = kb.nextLine();
+			String input="";
+			if(!testing){	
+			input = kb.nextLine();
+			}
+			
 			String[] inputparsed = input.split(" ");
 			try {
 				Class commandclass = Class.forName("Commands."+inputparsed[0]);
@@ -125,5 +99,34 @@ public class Javafxchatserver {
 		}
 		return -1;
 	}
+	public boolean isDebug() {
+		return debug;
+	}
 
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
+	public Thread getThread() {
+		return thread;
+	}
+
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
+	public ServerThread getServer() {
+		return server;
+	}
+
+	public void setServer(ServerThread server) {
+		this.server = server;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
 }
