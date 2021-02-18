@@ -11,5 +11,7 @@ package socketconnection;
  */
 public interface messageInterface {
     public void process();
+
+    public void setupController();
     
 }

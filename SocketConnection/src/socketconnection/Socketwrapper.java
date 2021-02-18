@@ -37,7 +37,8 @@ public class Socketwrapper {
     
 
 
-    public Message receivemessage()  {
+    public synchronized Message receivemessage()  {
+	    
         Message message = null;
         try {
             message=(Message)objectInputStream.readObject();
@@ -51,7 +52,7 @@ public class Socketwrapper {
         return message;
     }
 
-    public RC sendMessage(Message message) {
+    public synchronized RC sendMessage(Message message) {
         RC rc=RC.disconnected;
         if (connected) {
             rc = RC.connected;

@@ -71,14 +71,14 @@ public class start implements Commands{
 			server.setThread(null);
 		
 		}
-		System.out.println("Server startng on port:"+port);	
+		System.out.println("Server starting on port:"+port);	
 		ServerThread serverthread =new ServerThread(port);
 		
 		Thread thread =new Thread(serverthread);
 		thread.start();
 		server.setServer(serverthread);
 		server.setThread(thread);
-	System.out.println("Server started on port:"+port);
+		System.out.println("Server started on port:"+port);
 	
 	}
 

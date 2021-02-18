@@ -34,7 +34,7 @@ public class Javafxchatserver {
 	}
 
 	public void start() {
-
+		startingmessage();
 		Scanner kb = new Scanner(System.in);
 
 		while (running) {
@@ -72,7 +72,11 @@ public class Javafxchatserver {
 		}
 
 	}
-
+	public void startingmessage(){
+	System.out.println("Welcome to the chat server");
+	
+	
+	}
 	public void commandlineerror(Exception ex) {
 		if (debug) {
 			ex.printStackTrace();

@@ -52,10 +52,10 @@ public class CLIFUNCTION {
 	public static int getnumberargument(String[] inputparsed, String argument) {
 		int rc;
 		int portargument = CLIFUNCTION.locate(inputparsed, argument);
-		if (portargument > 0 ) {
-			if( inputparsed.length-1>portargument){
-			try {
-				rc = Integer.valueOf(inputparsed[portargument + 1].trim());
+		if (portargument > 0) {
+			if (inputparsed.length - 1 > portargument) {
+				try {
+					rc = Integer.valueOf(inputparsed[portargument + 1].trim());
 
 				} catch (NumberFormatException x) {
 					rc = -2;
