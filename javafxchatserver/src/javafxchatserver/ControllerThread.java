@@ -6,6 +6,7 @@
 package javafxchatserver;
 
 import java.net.Socket;
+import socketconnection.RC;
 import socketconnection.Socketwrapper;
 
 /**
@@ -17,7 +18,7 @@ public class ControllerThread {
 	private RecThread recthread;
 	private Thread sdthread;
 	private Thread rcthread;
-	private boolean running;
+	private volatile boolean running;
 	private MessagesToSend messagetosend;
 	private Socketwrapper sw;
 	
@@ -31,7 +32,11 @@ public class ControllerThread {
 		this.rcthread =new Thread(this.recthread);
 		
 	}	
-
+	public RC Start(){
+	
+	
+	return RC.failed;	
+	}	
 	public SendThread getSendthread() {
 		return sendthread;
 	}

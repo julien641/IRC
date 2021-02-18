@@ -21,6 +21,11 @@ public class connectionMessage extends Message {
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+	@Override
+	public void setupController() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
 
     
 }

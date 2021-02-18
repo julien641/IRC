@@ -7,9 +7,13 @@ package javafxchatserver;
 
 import Commands.*;
 import Commands.help;
+import Properties.PropertyManager;
+import Properties.ServerConfig;
+import Properties.ServerConfig.ServerConfigBuilder;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,17 +30,53 @@ public class Javafxchatserver {
 	private Thread thread;
 	private ServerThread server;
 	private boolean testing= false;	
+	private ServerConfig serverconfig;
+	private String configpath ="server.properties";
 
+	public ServerConfig getServerconfig() {
+		return serverconfig;
+	}
 
+	public void setServerconfig(ServerConfig serverconfig) {
+		this.serverconfig = serverconfig;
+	}
 
 	public Javafxchatserver() {
 
 	}
-
+	private ServerConfig loadserverproperties(String file) {
+		try{
+		PropertyManager propertymanager = new PropertyManager();
+			
+			Properties  property;
+		
+			property = propertymanager.PropertyManager(file);
+		
+		
+			ServerConfig config = ServerConfig.newInstance(property);
+				
+		return config;
+		}catch(NumberFormatException number){
+			
+		System.out.println("error loading config file");
+		number.printStackTrace();
+		
+		return null;	
+		}catch(NullPointerException n){
+			System.err.println(n.getMessage());
+			n.printStackTrace();
+			
+			return null;
+			
+			}
+				
+	}
 	public void start() {
 		startingmessage();
+		serverconfig=loadserverproperties(configpath);
+		
 		Scanner kb = new Scanner(System.in);
-
+			
 		while (running) {
 			String input="";
 			if(!testing){	
@@ -133,4 +173,6 @@ public class Javafxchatserver {
 	public void setRunning(boolean running) {
 		this.running = running;
 	}
+
+
 }

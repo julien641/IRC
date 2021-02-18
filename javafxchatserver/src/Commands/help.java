@@ -4,31 +4,26 @@
  * and open the template in the editor.
  */
 package Commands;
-import Commands.Commands;
-import java.util.Set;
 import javafxchatserver.Javafxchatserver;
+import socketconnection.RC;
 /**
  *
  * @author julien
  */
-public class help implements Commands{
-	private Javafxchatserver server;	
+public class help extends Commands{
 	private final String[]commands ={"help","start","stop"};
-	public help(Javafxchatserver server,String input){
-	this.server =server;
+	public help(Javafxchatserver cli,String input){
+		super(cli,input);
 	
 	}
-	@Override
-	 public void man() {
-	
-	}
-	public void run(){
+	public RC run(){
 		System.out.println("Commands list");
 
 		
 		for(int i  = 0; i<commands.length;i++){
-			System.out.println(commands[i].toString());
+			System.out.println(commands[i]);
 		}
+		return RC.success;
 	}
 		
 

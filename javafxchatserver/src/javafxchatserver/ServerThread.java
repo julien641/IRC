@@ -20,14 +20,14 @@ import socketconnection.Socketwrapper;
 public class ServerThread implements Runnable {
 
 	private ServerSocket serversocket;
-	private boolean running;
+	private volatile boolean running;
 	final private int port;
-	private ArrayList<ControllerThread> chatthreads;
+	private ArrayList<ControllerThread> controllerthreads;
 	final private int timeout = 1000;
 	
 	public ServerThread(int port) {
 		this.port = port;
-		chatthreads = new ArrayList<>();
+		controllerthreads = new ArrayList<>();
 		this.running = true;
 	}
 
@@ -39,12 +39,12 @@ public class ServerThread implements Runnable {
 		while (running && serversocket != null) {
 			Socket s = socketcreation();
 			if (s != null) {
+				ControllerThread current= new ControllerThread(s);
 				
-				Socketwrapper sw = new Socketwrapper();
-				sw.connect(s);
-				chatthread chat = new chatthread(sw);
-				chatthreads.add(chat);
-				chat.start();
+				controllerthreads.add(current);
+				
+				
+				
 			}
 		}
 		System.out.println("Closing server");
@@ -82,13 +82,7 @@ public class ServerThread implements Runnable {
 		this.running = running;
 	}
 
-	public ArrayList<chatthread> getChatthreads() {
-		return chatthreads;
-	}
 
-	public void setChatthreads(ArrayList<chatthread> chatthreads) {
-		this.chatthreads = chatthreads;
-	}
 
 	public int getPort() {
 		return port;

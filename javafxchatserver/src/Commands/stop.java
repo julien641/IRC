@@ -8,45 +8,37 @@ package Commands;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafxchatserver.Javafxchatserver;
+import socketconnection.RC;
 
 /**
  *
  * @author julien
  */
-public class stop implements Commands{
-	private final Javafxchatserver cli;
-	private final String[] inputparsed;
-	private final String[] argumen = {""};
-	private final String input;
+public class stop extends Commands{
 	
 	public stop(Javafxchatserver cli, String input){
+	super(cli,input);
 	
-	this.cli=cli;
-	this.input =input;
-	this.inputparsed =input.split(" ");	
-	
-	}
-	@Override
-	public void man() {
 	}
 
 	@Override
-	public void run() {
+	public RC run() {
 		System.out.println("Stoping server");
-		if(cli.getServer()!=null){
-			cli.getServer().setRunning(false);
-			cli.setServer(null);
+		if(super.getCli().getServer()!=null){
+			super.getCli().getServer().setRunning(false);
+			super.getCli().setServer(null);
 		
 		}	
-		if(cli.getThread()!=null){
+		if(super.getCli().getThread()!=null){
 			try {
-				cli.getThread().join();
+				super.getCli().getThread().join();
 			} catch (InterruptedException ex) {
 				Logger.getLogger(start.class.getName()).log(Level.SEVERE, null, ex);
 			}
-			cli.setThread(null);
+			super.getCli().setThread(null);
 		
 		}
+	return RC.success;
 	}
 	
 }
