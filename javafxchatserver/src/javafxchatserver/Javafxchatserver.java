@@ -6,17 +6,12 @@
 package javafxchatserver;
 
 import Commands.*;
-import Commands.help;
 import Properties.PropertyManager;
 import Properties.ServerConfig;
-import Properties.ServerConfig.ServerConfigBuilder;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -85,27 +80,16 @@ public class Javafxchatserver {
 			
 			String[] inputparsed = input.split(" ");
 			try {
-				Class commandclass = Class.forName("Commands."+inputparsed[0]);
-				
-				Class[] types = {this.getClass(), String.class};
-
-				Constructor constructor = commandclass.getConstructor(types);
+				Class<?> commandclass =  Class.forName("Commands."+inputparsed[0]);
+				Constructor<?> constructor;
+				constructor = commandclass.getConstructor(this.getClass(),String.class);
 				Object[] parameters = {this, input};
 				Commands command = (Commands) constructor.newInstance(parameters);
 				command.run();
-			} catch (ClassNotFoundException ex) {
-				commandlineerror(ex);
-			} catch (InstantiationException ex) {
-				commandlineerror(ex);
-			} catch (IllegalAccessException ex) {
-				commandlineerror(ex);
-			} catch (IllegalArgumentException ex) {
-				commandlineerror(ex);
-			} catch (InvocationTargetException ex) {
-				commandlineerror(ex);
-			} catch (NoSuchMethodException ex) {
-				commandlineerror(ex);
-			} catch (SecurityException ex) {
+			} catch (ClassNotFoundException | InstantiationException | 
+				IllegalAccessException | IllegalArgumentException 
+				| InvocationTargetException | NoSuchMethodException 
+				| SecurityException ex) {
 				commandlineerror(ex);
 			}
 

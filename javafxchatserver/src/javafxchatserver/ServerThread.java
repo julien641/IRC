@@ -5,24 +5,25 @@
  */
 package javafxchatserver;
 
+import Interface.IControllerThread;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import socketconnection.Socketwrapper;
+import Interface.IServerThread;
 
 /**
  *
  * @author julien
  */
-public class ServerThread implements Runnable {
-
+public class ServerThread implements Runnable ,IServerThread {
+	
 	private ServerSocket serversocket;
 	private volatile boolean running;
 	final private int port;
-	private ArrayList<ControllerThread> controllerthreads;
+	private ArrayList<IControllerThread> controllerthreads;
 	final private int timeout = 1000;
 	
 	public ServerThread(int port) {
@@ -30,6 +31,8 @@ public class ServerThread implements Runnable {
 		controllerthreads = new ArrayList<>();
 		this.running = true;
 	}
+
+
 
 	@Override
 	public void run() {
@@ -39,8 +42,8 @@ public class ServerThread implements Runnable {
 		while (running && serversocket != null) {
 			Socket s = socketcreation();
 			if (s != null) {
-				ControllerThread current= new ControllerThread(s);
-				
+				ControllerThread current= new ControllerThread(s,this);
+				current.Start();
 				controllerthreads.add(current);
 				
 				
@@ -51,6 +54,7 @@ public class ServerThread implements Runnable {
 		cleanend();
 	}
 
+	@Override
 	public ServerSocket startingserversocket(int port) {
 		ServerSocket serversocket = null;
 		try {
@@ -62,6 +66,7 @@ public class ServerThread implements Runnable {
 		return serversocket;
 	}
 
+	@Override
 	public Socket socketcreation() {
 
 		Socket s = null;
@@ -74,16 +79,19 @@ public class ServerThread implements Runnable {
 
 	}
 
+	@Override
 	public boolean isRunning() {
 		return running;
 	}
 
+	@Override
 	public void setRunning(boolean running) {
 		this.running = running;
 	}
 
 
 
+	@Override
 	public int getPort() {
 		return port;
 	}
@@ -98,5 +106,25 @@ public class ServerThread implements Runnable {
 		}
 
 	}
+	@Override
+	public ServerSocket getServersocket() {
+		return serversocket;
+	}
 
+	@Override
+	public void setServersocket(ServerSocket serversocket) {
+		this.serversocket = serversocket;
+	}
+
+	@Override
+	public ArrayList<IControllerThread> getControllerthreads() {
+		return controllerthreads;
+	}
+
+	@Override
+	public void setControllerthreads(ArrayList<IControllerThread> controllerthreads) {
+		this.controllerthreads = controllerthreads;
+	}
+
+	
 }

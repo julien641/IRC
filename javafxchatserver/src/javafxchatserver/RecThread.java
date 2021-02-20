@@ -6,23 +6,24 @@
 package javafxchatserver;
 
 
-import java.util.ArrayList;
-import socketconnection.Socketwrapper;
-import socketconnection.messageInterface;
+import Interface.IControllerThread;
+import Interface.IRecThread;
+import clientMessage.Iservermessage;
+import clientMessage.Message;
 
 
 /**
  *
  * @author julien
  */
-public class RecThread implements Runnable {
-	private ControllerThread controller;
+public class RecThread implements  IRecThread {
+	private IControllerThread controller;
     
 	public RecThread() {
 
     }
 
-    public RecThread(ControllerThread controller) {
+    public RecThread(IControllerThread controller) {
    	this.controller =controller; 
     
     }
@@ -32,10 +33,12 @@ public class RecThread implements Runnable {
         System.out.println("Thread running");
     	 
             while(controller.isRunning()){
-             messageInterface message =  controller.getSw().receivemessage();
-	     message.setupController();
-             message.process();
-            
+
+		    
+             Message message =  (Message) controller.getSw().receivemessage();
+		((Iservermessage)message).setDefaultAction(controller);
+		message.activateAction();
+	     	
             }
            
             
@@ -43,6 +46,16 @@ public class RecThread implements Runnable {
 
            
         }//end run
+
+	@Override
+	public IControllerThread getController() {
+		return  controller;
+	}
+
+	@Override
+	public void setController(IControllerThread controller) {
+		this.controller =  controller;
+	}
     
     
         

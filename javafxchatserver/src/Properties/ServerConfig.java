@@ -34,7 +34,9 @@ public class ServerConfig {
 
 	@Override
 	public String toString() {
-		return "ServerConfig{" + "ADMIN_USERNAME=" + ADMIN_USERNAME + ", ADMIN_PASSWORD=" + ADMIN_PASSWORD + ", enable_whitelist=" + enable_whitelist + ", MAXUSER=" + MAXUSER + ", name=" + name + ", PASS_REQ=" + PASS_REQ + '}';
+		return "ServerConfig{" + "ADMIN_USERNAME=" + ADMIN_USERNAME + 
+			", ADMIN_PASSWORD=" + ADMIN_PASSWORD + ", enable_whitelist=" + enable_whitelist + ", MAXUSER="
+			+ MAXUSER + ", name=" + name + ", PASS_REQ=" + PASS_REQ + '}';
 	}
 
 	public String getADMIN_PASSWORD() {
@@ -57,7 +59,6 @@ public class ServerConfig {
 		return PASS_REQ;
 	}
 	public static ServerConfig newInstance(Properties p)throws NumberFormatException,NullPointerException{
-System.out.println("hello");
 		
 			return	new ServerConfigBuilder() 
 				.setADMIN_USERNAME(p.getProperty("ADMIN_USERNAME"))
