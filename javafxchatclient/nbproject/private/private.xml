@@ -3,19 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/javafxchatclient/src/socketconnection/Messagestype.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/socketconnection/Message.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/socketconnection/RC.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/javafxchatclient/ChattabController.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/socketconnection/receivedMessage.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/javafxchatclient/ConnectButton.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/javafxchatclient/Javafxchatclient.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/socketconnection/messageInterface.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/javafxchatclient/ChatclientController.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/socketconnection/connectionMessage.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/javafxchatserver/chatthread.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/socketconnection/Socketwrapper.java</file>
-            <file>file:/C:/wamp64/javafxchatclient/src/javafxchatserver/Javafxchatserver.java</file>
+            <file>file:/G:/Users/julien/Documents/NetBeansProjects/javafxchats/javafxchatclient/src/javafxchatclient/ConnectButton.java</file>
         </group>
     </open-files>
 </project-private>

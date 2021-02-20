@@ -5,6 +5,8 @@
  */
 package javafxchatclient;
 
+import clientMessage.Message;
+import clientMessage.messageLogin;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +19,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import socketconnection.RC;
 import socketconnection.Socketwrapper;
-import socketconnection.connectionMessage;
 
 /**
  *
@@ -52,8 +53,8 @@ public class ConnectButton implements EventHandler{
             int numberport=Integer.valueOf(port);
             RC rc = sw.connect(hostname, numberport);
             if(rc==RC.success){
-                sw.sendMessage(new connectionMessage(username,password));
-                
+                sw.sendMessage(new messageLogin(username,username,password));
+                Message m=(Message)sw.receivemessage();
                
                
                 try {

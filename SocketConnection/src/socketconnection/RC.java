@@ -19,5 +19,6 @@ public enum RC{
    unknownHostException,
    IOException,
    ClassNotFoundException,
-   ConnectException
+   ConnectException,
+   
 }
