@@ -15,7 +15,7 @@ import javafx.scene.control.TextArea;
  *
  * @author julien
  */
-public class clientchatthread extends Thread {
+public class clientchatthread implements Runnable {
 
     private Socketwrapper sw;
     private String name;

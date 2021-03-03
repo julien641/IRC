@@ -129,13 +129,13 @@ public class ServerConfig {
 		}
 
 		public ServerConfigBuilder setName(String name) {
-			if(name ==null){
-			
-				throw new NullPointerException("name" + onnullerror); 
-			
-			}else{
-			this.name = name;
-			return this;
+			if (name == null) {
+
+				throw new NullPointerException("name" + onnullerror);
+
+			} else {
+				this.name = name;
+				return this;
 			}
 		}
 

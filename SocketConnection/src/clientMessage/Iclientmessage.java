@@ -11,6 +11,6 @@ import Interface.Iclient;
  *
  * @author julien
  */
-public interface Iclientmessage {
+public interface IClientMessage {
 	public void setDefaultAction(Iclient client);	
 }

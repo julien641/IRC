@@ -6,7 +6,7 @@
 package javafxchatclient;
 
 import clientMessage.Message;
-import clientMessage.messageLogin;
+import clientMessage.MessageLogin;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,9 +53,9 @@ public class ConnectButton implements EventHandler{
             int numberport=Integer.valueOf(port);
             RC rc = sw.connect(hostname, numberport);
             if(rc==RC.success){
-                sw.sendMessage(new messageLogin(username,username,password));
-                Message m=(Message)sw.receivemessage();
-               
+                sw.sendMessage(new MessageLogin(username,username,password));
+                //Message m=(Message)sw.receivemessage();
+              	//	((Iclientmessage)m).setDefaultAction(this);
                
                 try {
                     Chattabloader = new FXMLLoader(getClass().getResource("Chattab.fxml"));

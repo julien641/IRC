@@ -11,7 +11,7 @@ import socketconnection.RC;
  * @author julien
  */
 public class help extends Commands{
-	private final String[]commands ={"help","start","stop"};
+	private final String[]commands ={"help","start","stop","security","config"};
 	public help(Javafxchatserver cli,String input){
 		super(cli,input);
 	

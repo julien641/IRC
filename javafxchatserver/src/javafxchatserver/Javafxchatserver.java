@@ -18,7 +18,11 @@ import java.util.Scanner;
  * @author julien
  */
 public class Javafxchatserver {
-
+	public static void main(String[] args) {
+		Javafxchatserver server = new Javafxchatserver();
+		server.start();
+	}
+	
 	private final String invalidinput = "Invalid command entered";
 	private boolean running = true;
 	private boolean debug = true;
@@ -91,6 +95,7 @@ public class Javafxchatserver {
 				| InvocationTargetException | NoSuchMethodException 
 				| SecurityException ex) {
 				commandlineerror(ex);
+				
 			}
 
 		}
@@ -111,11 +116,7 @@ public class Javafxchatserver {
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(String[] args) {
-		Javafxchatserver server = new Javafxchatserver();
-		server.start();
-
-	}
+	
 
 	public int locate(String[] command, String arguments) {
 		boolean found = false;
@@ -142,6 +143,7 @@ public class Javafxchatserver {
 	public void setThread(Thread thread) {
 		this.thread = thread;
 	}
+
 	public ServerThread getServer() {
 		return server;
 	}
@@ -157,6 +159,5 @@ public class Javafxchatserver {
 	public void setRunning(boolean running) {
 		this.running = running;
 	}
-
 
 }

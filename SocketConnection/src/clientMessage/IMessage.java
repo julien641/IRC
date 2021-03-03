@@ -6,7 +6,7 @@
 package clientMessage;
 
 import java.sql.Timestamp;
-import messageActions.Imessageaction;
+import messageAction.IMessageAction;
 
 /**
  *
@@ -14,7 +14,7 @@ import messageActions.Imessageaction;
  */
 public interface IMessage {
 
-	public Imessageaction getAction();
+	public IMessageAction getAction();
 
 	public String getFrom();
 
@@ -22,6 +22,6 @@ public interface IMessage {
 
 	public Timestamp getTimestamp();
 
-	public void setAction(Imessageaction action);
+	public void setAction(IMessageAction action);
 	
 }

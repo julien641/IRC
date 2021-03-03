@@ -5,18 +5,21 @@
  */
 package clientMessage;
 
-import messageActions.ActionLogin;
+import messageAction.ActionLogin;
 import Interface.IControllerThread;
 
 /**
  *
  * @author julien
  */
-public class messageLogin extends Message implements Iservermessage{
+public class MessageLogin extends Message implements IServerMessage{
 	private String username;
 	private String password;	
-	public messageLogin(String from,String username,String password) {
+	public MessageLogin(String from,String username,String password) {
 		super(from);
+		this.username =username;
+		this.password =password;
+	
 	}
 
 	public String getUsername() {

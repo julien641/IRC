@@ -44,13 +44,20 @@ public class NewChattabController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("initialize-----------NewChattabController");
     }    
-    public void setupController(TabPane tabPane)
+    public void setupController(TabPane tabPane, ChatclientController chatclientcontroller)
     {
-        System.out.println("initialize-----------setup");
+	  this.chatclientController = chatclientController; 
+          System.out.println("initialize-----------setup");
           this.tabPane =tabPane;
           connectButton= new ConnectButton(this,this.tabPane);
           connectNewChatTab.setOnAction(connectButton);
     }
+
+	public ChatclientController getChatclientController() {
+		return chatclientController;
+	}
+
+	public void setChatclientController(ChatclientController chatclientController) { this.chatclientController = chatclientController; }
 
     public TextField getUsernameNewChatTab() {
         return usernameNewChatTab;

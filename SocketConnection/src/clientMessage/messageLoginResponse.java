@@ -6,22 +6,25 @@
 package clientMessage;
 
 import Interface.Iclient;
+import messageAction.ActionLoginResponse;
 
 /**
  *
  * @author julien
  */
-public class messageLoginResponse extends Message implements Iclientmessage{
-	//toclient	
-	public messageLoginResponse(String from) {
+public class MessageLoginResponse extends Message implements IClientMessage{
+	//toclient
+	private String response;
+	public MessageLoginResponse(String response,String from) {
 		super(from);
+		this.response =response;
 	}
 
 
 
 	@Override
 	public void setDefaultAction(Iclient client) {
-	
+		super.setAction(new ActionLoginResponse(client,response));
 	
 	}
 	

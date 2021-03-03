@@ -8,6 +8,8 @@ package javafxchatserver;
 import Interface.IControllerThread;
 import Interface.ISendThread;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import socketconnection.Socketwrapper;
 
 /**
@@ -24,12 +26,17 @@ public class SendThread implements ISendThread {
 	} 
 	@Override
 	public void run() {
-		
+			
 		while(controller.isRunning()){
-			//this.wait();
-				
-			//sw.sendMessage(message);
-		
+			
+			while(controller.getMessagetosend().hasremaining()){
+				controller.getSw().sendMessage(controller.getMessagetosend().getRemMessage());
+			}
+			try {
+				this.wait();
+			} catch (InterruptedException ex) {
+				System.out.println("send thread interrupted exception");
+			}
 		}
 	}
 

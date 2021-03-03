@@ -88,10 +88,15 @@ public class ChatclientController implements Initializable {
     private Label rightStatusLabel;
     @FXML
     private TabPane tabPane;
-    
+
+
+    //custom fields
     private Tab addChat;
     private NewChattabController newChattabController;
     private ArrayList<Tab> tabarray;
+    private ArrayList<ChatController> chatcontrollers;
+    private Javafxchatclient javafxchatclient;
+    //end custom fields
     /**
      * Initializes the controller class.
      * @param url
@@ -101,34 +106,55 @@ public class ChatclientController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("ChatclientController - Initializer");
         AnchorPane newChattabtab;
-
-     
-        try { 
-            FXMLLoader newChattabloader = new FXMLLoader(getClass().getResource("newChattab.fxml"));
-            
+        try {
+            FXMLLoader newtabloader = new FXMLLoader(getClass().getResource("newChattab.fxml"));
             ///load before getting the controller
-            newChattabtab =  newChattabloader.load();
-            newChattabController = (NewChattabController) newChattabloader.<NewChattabController>getController();
-            
-            
-            addChat = new Tab("+",newChattabtab); 
-            tabPane.getTabs().add(addChat); 
-            
-            
-            System.out.println("before-----------setup");
-            newChattabController.setupController(tabPane);
+            newChattabtab =  newtabloader.load();
+            newChattabController =  newtabloader.<NewChattabController>getController();
+            addChat = new Tab("+",newChattabtab);
+            tabPane.getTabs().add(addChat);
+            newChattabController.setupController(tabPane,this);
         } catch (IOException ex) {
             Logger.getLogger(ChatclientController.class.getName()).log(Level.SEVERE, null, ex);
            // System.exit(1);
         }finally{
-            
         }
-        System.out.println("ChatclientController - end");
-         
-            
-        
-       
-        
-    }    
-    
+    }
+
+
+
+    public void setAddChat(Tab addChat) { this.addChat = addChat; }
+    public void setNewChattabController(NewChattabController newChattabController) { this.newChattabController = newChattabController; }
+    public void setTabarray(ArrayList<Tab> tabarray) { this.tabarray = tabarray; }
+    public void setChatcontrollers(ArrayList<ChatController> chatcontrollers) { this.chatcontrollers = chatcontrollers; }
+    public void setJavafxchatclient(Javafxchatclient javafxchatclient) { this.javafxchatclient = javafxchatclient; }
+    public MenuItem getNewChannelMenuItem() { return newChannelMenuItem; }
+    public ListView<?> getChannelListView() { return channelListView; }
+    public Button getSendChatButton() { return sendChatButton; }
+    public ListView<?> getUserListview() { return userListview; }
+    public Color getX4() { return x4; }
+    public Font getX3() { return x3; }
+    public VBox getWindowVBox() { return windowVBox; }
+    public MenuBar getMenuBar() { return menuBar; }
+    public Menu getMenuFile() { return menuFile; }
+    public MenuItem getMenuItemOpen() { return menuItemOpen; }
+    public Menu getOpenRecentMenu() { return openRecentMenu; }
+    public MenuItem getCloseMenuItem() { return closeMenuItem; }
+    public MenuItem getSaveMenuItem() { return saveMenuItem; }
+    public MenuItem getSaveAsMenuItem() { return saveAsMenuItem; }
+    public MenuItem getRevertMenuItem() { return revertMenuItem; }
+    public MenuItem getPreferencesMenuItems() { return preferencesMenuItems; }
+    public MenuItem getQuitMenuItem() { return quitMenuItem; }
+    public MenuItem getAbout() { return about; }
+    public SplitPane getMainSplitPane() { return mainSplitPane; }
+    public HBox getBottomHbox() { return bottomHbox; }
+    public Label getLeftStatusLabel() { return leftStatusLabel; }
+    public Pane getMiddleBottomPane() { return middleBottomPane; }
+    public Label getRightStatusLabel() { return rightStatusLabel; }
+    public TabPane getTabPane() { return tabPane; }
+    public Tab getAddChat() { return addChat; }
+    public NewChattabController getNewChattabController() { return newChattabController; }
+    public ArrayList<Tab> getTabarray() { return tabarray; }
+    public ArrayList<ChatController> getChatcontrollers() { return chatcontrollers; }
+    public Javafxchatclient getJavafxchatclient() { return javafxchatclient; }
 }

@@ -8,7 +8,7 @@ package javafxchatserver;
 
 import Interface.IControllerThread;
 import Interface.IRecThread;
-import clientMessage.Iservermessage;
+import clientMessage.IServerMessage;
 import clientMessage.Message;
 
 
@@ -36,7 +36,7 @@ public class RecThread implements  IRecThread {
 
 		    
              Message message =  (Message) controller.getSw().receivemessage();
-		((Iservermessage)message).setDefaultAction(controller);
+		((IServerMessage)message).setDefaultAction(controller);
 		message.activateAction();
 	     	
             }

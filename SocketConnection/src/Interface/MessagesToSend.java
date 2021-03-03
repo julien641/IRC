@@ -14,12 +14,13 @@ import clientMessage.Message;
  * @author julien
  */
 public class MessagesToSend {
-	  
+
 	private final ReentrantLock lock = new ReentrantLock();
 	private ArrayList<Message> messagetosend = new ArrayList<>();
 	private Thread sendthread;
+
 	public MessagesToSend(Thread sendthread) {
-	this.sendthread =sendthread;
+		this.sendthread = sendthread;
 	}
 
 	public boolean addMessage(Message message) {
@@ -49,15 +50,16 @@ public class MessagesToSend {
 		return rc;
 
 	}
-	public boolean hasremaining(){
-	boolean rc=false;
-		
+
+	public boolean hasremaining() {
+		boolean rc = false;
+
 		lock.lock();
-	try{	
-		rc= !messagetosend.isEmpty();
-	}finally{
-	lock.unlock();
-	return rc;	
-		}	
+		try {
+			rc = !messagetosend.isEmpty();
+		} finally {
+			lock.unlock();
+			return rc;
+		}
 	}
 }
