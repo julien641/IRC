@@ -1,6 +1,6 @@
 package messageAction;
 
-import Interface.IControllerThread;
+import Interface.Server.IControllerThread;
 import clientMessage.MessageLoginResponse;
 
 /*

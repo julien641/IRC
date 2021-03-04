@@ -6,29 +6,21 @@
 package clientMessage;
 
 import messageAction.ActionLogin;
-import Interface.IControllerThread;
+import Interface.Server.IControllerThread;
 
 /**
  *
  * @author julien
  */
 public class MessageLogin extends Message implements IServerMessage{
-	private String username;
-	private String password;	
-	public MessageLogin(String from,String username,String password) {
+	private String password;
+	public MessageLogin(String from,String password) {
 		super(from);
-		this.username =username;
 		this.password =password;
 	
 	}
 
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public String getPassword() {
 		return password;
@@ -39,7 +31,7 @@ public class MessageLogin extends Message implements IServerMessage{
 	}
 	@Override
 	public void setDefaultAction(IControllerThread controllerthread){
-		super.setAction(new ActionLogin(controllerthread,username,password));
+		super.setAction(new ActionLogin(controllerthread,super.getFrom(),password));
 	}
 
 

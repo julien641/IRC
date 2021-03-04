@@ -14,9 +14,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -25,14 +23,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafxchatclient.thread.ChatThreadController;
 
 /**
  * FXML Controller class
@@ -94,7 +91,7 @@ public class ChatclientController implements Initializable {
     private Tab addChat;
     private NewChattabController newChattabController;
     private ArrayList<Tab> tabarray;
-    private ArrayList<ChatController> chatcontrollers;
+    private ArrayList<ChatThreadController> chatcontrollers;
     private Javafxchatclient javafxchatclient;
     //end custom fields
     /**
@@ -126,7 +123,7 @@ public class ChatclientController implements Initializable {
     public void setAddChat(Tab addChat) { this.addChat = addChat; }
     public void setNewChattabController(NewChattabController newChattabController) { this.newChattabController = newChattabController; }
     public void setTabarray(ArrayList<Tab> tabarray) { this.tabarray = tabarray; }
-    public void setChatcontrollers(ArrayList<ChatController> chatcontrollers) { this.chatcontrollers = chatcontrollers; }
+    public void setChatcontrollers(ArrayList<ChatThreadController> chatcontrollers) { this.chatcontrollers = chatcontrollers; }
     public void setJavafxchatclient(Javafxchatclient javafxchatclient) { this.javafxchatclient = javafxchatclient; }
     public MenuItem getNewChannelMenuItem() { return newChannelMenuItem; }
     public ListView<?> getChannelListView() { return channelListView; }
@@ -155,6 +152,6 @@ public class ChatclientController implements Initializable {
     public Tab getAddChat() { return addChat; }
     public NewChattabController getNewChattabController() { return newChattabController; }
     public ArrayList<Tab> getTabarray() { return tabarray; }
-    public ArrayList<ChatController> getChatcontrollers() { return chatcontrollers; }
+    public ArrayList<ChatThreadController> getChatcontrollers() { return chatcontrollers; }
     public Javafxchatclient getJavafxchatclient() { return javafxchatclient; }
 }

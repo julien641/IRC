@@ -5,7 +5,7 @@
  */
 package messageAction;
 
-import Interface.Iclient;
+import Interface.client.Iclient;
 
 /**
  *

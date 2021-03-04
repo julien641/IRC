@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="SocketConnection">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../SocketConnection" />
       <root url="jar://$PROJECT_DIR$/../../SocketConnection/dist/SocketConnection.jar!/" />
+      <root url="file://$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

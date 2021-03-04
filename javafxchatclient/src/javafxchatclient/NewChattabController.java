@@ -42,12 +42,10 @@ public class NewChattabController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("initialize-----------NewChattabController");
-    }    
-    public void setupController(TabPane tabPane, ChatclientController chatclientcontroller)
+    }
+    public void setupController(TabPane tabPane, ChatclientController chatclientController)
     {
-	  this.chatclientController = chatclientController; 
-          System.out.println("initialize-----------setup");
+	  this.chatclientController = chatclientController;
           this.tabPane =tabPane;
           connectButton= new ConnectButton(this,this.tabPane);
           connectNewChatTab.setOnAction(connectButton);

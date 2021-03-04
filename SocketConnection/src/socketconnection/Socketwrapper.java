@@ -25,11 +25,7 @@ public class Socketwrapper<E extends Message> {
 
 
 
-	private int port;
-	private String website;
 	private Socket socket;
-	private int personalid;
-
 	private boolean connected;
 	private OutputStream outputstream;
 	private ObjectOutputStream objectOutputStream;
@@ -118,21 +114,6 @@ public class Socketwrapper<E extends Message> {
 		}
 		return rc;
 	}
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public String getWebsite() {
-		return website;
-	}
-
-	public void setWebsite(String website) {
-		this.website = website;
-	}
 
 	public Socket getSocket() {
 		return socket;
@@ -142,13 +123,7 @@ public class Socketwrapper<E extends Message> {
 		this.socket = socket;
 	}
 
-	public int getPersonalid() {
-		return personalid;
-	}
 
-	public void setPersonalid(int personalid) {
-		this.personalid = personalid;
-	}
 
 	public boolean isConnected() {
 		return connected;

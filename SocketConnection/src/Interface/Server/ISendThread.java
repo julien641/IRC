@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientMessage;
+package Interface.Server;
 
 import Interface.Server.IControllerThread;
 
@@ -11,7 +11,10 @@ import Interface.Server.IControllerThread;
  *
  * @author julien
  */
-public interface IServerMessage {
-	public abstract void setDefaultAction(IControllerThread controllerthread);
+public interface ISendThread extends Runnable{
+	public IControllerThread getController();
+
+
+	public void setController(IControllerThread controller);
 	
 }

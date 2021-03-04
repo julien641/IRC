@@ -7,6 +7,8 @@ package javafxchatclient;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Interface.client.IChatTabController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,7 +24,7 @@ import socketconnection.Socketwrapper;
  *
  * @author julien
  */
-public class ChattabController implements Initializable {
+public class ChattabController implements IChatTabController {
 
     @FXML
     private BorderPane borderPane;
@@ -35,8 +37,6 @@ public class ChattabController implements Initializable {
     @FXML
     private TextFlow chatbox;
     
-    private Socketwrapper sw;
-    private Tab tab;
     /**
      * Initializes the controller class.
      */
@@ -47,25 +47,30 @@ public class ChattabController implements Initializable {
         
         
         
-    }    
-
-    public Socketwrapper getSw() {
-        return sw;
     }
 
-    public void setSw(Socketwrapper sw) {
-        this.sw = sw;
+    @Override
+    public BorderPane getBorderPane() {
+        return borderPane;
     }
 
-    public Tab getTab() {
-        return tab;
+    @Override
+    public ButtonBar getChatbuttonbar() {
+        return chatbuttonbar;
     }
-    
-    
-    
 
-    public void setTab(Tab tab) {
-        this.tab = tab;
+    @Override
+    public TextArea getSendchattextarea() {
+        return sendchattextarea;
     }
-    
+
+    @Override
+    public Button getSendchatbutton() {
+        return sendchatbutton;
+    }
+
+    @Override
+    public TextFlow getChatbox() {
+        return chatbox;
+    }
 }

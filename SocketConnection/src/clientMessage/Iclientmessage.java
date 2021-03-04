@@ -5,7 +5,7 @@
  */
 package clientMessage;
 
-import Interface.Iclient;
+import Interface.client.Iclient;
 
 /**
  *

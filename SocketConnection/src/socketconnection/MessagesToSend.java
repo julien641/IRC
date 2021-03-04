@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interface;
+package socketconnection;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
 import clientMessage.Message;
 
@@ -13,17 +14,17 @@ import clientMessage.Message;
  *
  * @author julien
  */
-public class MessagesToSend {
+public class MessagesToSend <T>{
 
 	private final ReentrantLock lock = new ReentrantLock();
-	private ArrayList<Message> messagetosend = new ArrayList<>();
+	private ArrayList<T> messagetosend = new ArrayList<>();
 	private Thread sendthread;
 
 	public MessagesToSend(Thread sendthread) {
 		this.sendthread = sendthread;
 	}
 
-	public boolean addMessage(Message message) {
+	public boolean addMessage(T message) {
 		boolean rc = false;
 		lock.lock();
 		try {
@@ -37,8 +38,8 @@ public class MessagesToSend {
 
 	}
 
-	public Message getRemMessage() {
-		Message rc = null;
+	public T getRemMessage() {
+		T rc = null;
 		lock.lock();
 		try {
 			rc = messagetosend.get(0);

@@ -14,8 +14,6 @@ import messageAction.IMessageAction;
 /**
  *
  * @author julien
- * @param <T>
- * @param <B>
  */
 public abstract class Message implements Serializable, IMessage {
 

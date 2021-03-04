@@ -1,4 +1,4 @@
-package Interface;
+package Interface.Server;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,9 +6,7 @@ package Interface;
  * and open the template in the editor.
  */
 
-import Interface.IRecThread;
-import Interface.ISendThread;
-import Interface.MessagesToSend;
+import socketconnection.MessagesToSend;
 import socketconnection.RC;
 import socketconnection.Socketwrapper;
 
