@@ -7,10 +7,11 @@ package javafxchatclient.thread;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import Interface.client.IChatTabController;
+import Interface.client.IChatThreadController;
 import clientMessage.Message;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafxchatclient.ChattabController;
 import socketconnection.Login;
 import socketconnection.MessagesToSend;
 import socketconnection.Socketwrapper;
@@ -31,9 +32,13 @@ public class ChatThreadController implements IChatThreadController {
 	private TabPane tabpane;
 	private Tab tab;
 	private Socketwrapper sw;
-	private IChat chattabController;
+	private IChatTabController chattabController;
 
 	public ChatThreadController() {
+			running = new AtomicBoolean();
+
+
+
 	}
 	@Override
 	public void start(){
@@ -45,6 +50,38 @@ public class ChatThreadController implements IChatThreadController {
 		mts = new MessagesToSend<>(tsend);
 		trec.start();
 		tsend.start();
+	}
+
+	public Thread getTrec() {
+		return trec;
+	}
+
+	public void setTrec(Thread trec) {
+		this.trec = trec;
+	}
+
+	public Thread getTsend() {
+		return tsend;
+	}
+
+	public void setTsend(Thread tsend) {
+		this.tsend = tsend;
+	}
+
+	public RecChatThread getRecChatThread() {
+		return recChatThread;
+	}
+
+	public void setRecChatThread(RecChatThread recChatThread) {
+		this.recChatThread = recChatThread;
+	}
+
+	public SendChatThread getSendChatThread() {
+		return sendChatThread;
+	}
+
+	public void setSendChatThread(SendChatThread sendChatThread) {
+		this.sendChatThread = sendChatThread;
 	}
 
 
@@ -112,6 +149,7 @@ public class ChatThreadController implements IChatThreadController {
 	public IChatTabController getChattabController() {
 		return chattabController;
 	}
+
 
 	@Override
 	public void setChattabController(IChatTabController chattabController) {

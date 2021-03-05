@@ -1,27 +1,50 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Interface.client;
 
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.text.TextFlow;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import socketconnection.Login;
+import socketconnection.MessagesToSend;
+import socketconnection.Socketwrapper;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public interface IChatThreadController extends Initializable {
+/**
+ *
+ * @author julien
+ */
+public interface IChatThreadController {
+    void start();
 
-    @Override
-    void initialize(URL url, ResourceBundle rb);
+    AtomicBoolean getRunning();
 
-    BorderPane getBorderPane();
+    void setRunning(AtomicBoolean running);
 
-    ButtonBar getChatbuttonbar();
+    MessagesToSend getMts();
 
-    TextArea getSendchattextarea();
+    void setMts(MessagesToSend mts);
 
-    Button getSendchatbutton();
+    Login getLogin();
 
-    TextFlow getChatbox();
+    void setLogin(Login login);
+
+    TabPane getTabpane();
+
+    void setTabpane(TabPane tabpane);
+
+    Tab getTab();
+
+    void setTab(Tab tab);
+
+    Socketwrapper getSw();
+
+    void setSw(Socketwrapper sw);
+
+    IChatTabController getChattabController();
+
+    void setChattabController(IChatTabController chattabController);
 }

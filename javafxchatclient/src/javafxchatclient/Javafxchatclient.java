@@ -21,8 +21,8 @@ public class Javafxchatclient extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatclient.fxml"));
-        controller = loader.<ChatclientController>getController();
-        controller.setJavafxchatclient(this);
+        controller = (ChatclientController)loader.getController();
+       //controller.setJavafxchatclient(this);
         Parent root = loader.load();
         Scene  scene = new Scene(root,900,600);
         primaryStage.setScene(scene);

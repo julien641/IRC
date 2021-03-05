@@ -5,12 +5,12 @@
  */
 package clientMessage;
 
-import Interface.client.Iclient;
+import Interface.client.IChatThreadController;
 
 /**
  *
  * @author julien
  */
-public interface IClientMessage {
-	public void setDefaultAction(Iclient client);	
+public interface IClientMessage{
+	 void setDefaultAction(IChatThreadController client);
 }

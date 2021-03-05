@@ -23,6 +23,7 @@ public class RecChatThread implements Runnable{
 	  
 	@Override
 	public void run() {
+
 		while(chatThreadController.getRunning().get()){
 			Message message = chatThreadController.getSw().receivemessage();
 			//TODO find what to pass in so it can interact with the whole client

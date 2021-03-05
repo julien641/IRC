@@ -31,7 +31,10 @@ public class MessagesToSend <T>{
 			rc = messagetosend.add(message);
 		} finally {
 			lock.unlock();
-			sendthread.notify();
+			synchronized (sendthread) {
+
+				sendthread.notify();
+			}
 		}
 
 		return rc;

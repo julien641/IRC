@@ -5,7 +5,7 @@
  */
 package clientMessage;
 
-import Interface.client.Iclient;
+import Interface.client.IChatThreadController;
 import messageAction.ActionLoginResponse;
 
 /**
@@ -23,7 +23,7 @@ public class MessageLoginResponse extends Message implements IClientMessage{
 
 
 	@Override
-	public void setDefaultAction(Iclient client) {
+	public void setDefaultAction(IChatThreadController client) {
 		super.setAction(new ActionLoginResponse(client,response));
 	
 	}

@@ -49,6 +49,7 @@ public class ConnectButton implements EventHandler{
                if(rc ==RC.success){
                    ChatThreadController chatThreadController = new ChatThreadController();
                    chatThreadController.setSw(sw);
+                   chatThreadController.start();
                    MessageLogin messageLogin=new MessageLogin(login.getUsername(), login.getPassword());
                    chatThreadController.getMts().addMessage(messageLogin);
 

@@ -5,7 +5,8 @@
  */
 package messageAction;
 
-import Interface.client.Iclient;
+import Interface.client.IChatTabController;
+import Interface.client.IChatThreadController;
 
 /**
  *
@@ -14,7 +15,7 @@ import Interface.client.Iclient;
 public class ActionLoginResponse implements IMessageAction{
 	private String response;
 
-	public ActionLoginResponse(Iclient client,String response) {
+	public ActionLoginResponse(IChatThreadController client, String response) {
 		this.response = response;
 	}
 	

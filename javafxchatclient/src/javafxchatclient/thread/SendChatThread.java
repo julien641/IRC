@@ -20,9 +20,11 @@ public class SendChatThread implements Runnable{
     @Override
     public void run() {
         while(chatThreadController.getRunning().get()){
-            while(chatThreadController.getMts().hasremaining()){
+            while(!chatThreadController.getMts().hasremaining()){
                 try {
-                    this.wait();
+                    synchronized(chatThreadController.getTsend()) {
+                        chatThreadController.getTsend().wait();
+                    }
                 } catch (InterruptedException e) {
                 }
             }
