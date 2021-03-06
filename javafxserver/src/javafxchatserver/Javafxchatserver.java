@@ -114,7 +114,6 @@ public class Javafxchatserver {
 	}
 
 	/**
-	 * @param args the command line arguments
 	 */
 	
 

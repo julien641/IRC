@@ -101,6 +101,11 @@ public class ServerThread implements Runnable , IServerThread {
 		try {
 			serversocket.close();
 			serversocket = null;
+			for(IControllerThread thread:controllerthreads){
+				thread.getRunning().set(false);
+				thread.getSw().getSocket().close();
+
+			}
 
 		} catch (IOException ex) {
 			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);

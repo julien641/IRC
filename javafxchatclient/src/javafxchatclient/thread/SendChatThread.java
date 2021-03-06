@@ -19,19 +19,19 @@ public class SendChatThread implements Runnable{
 
     @Override
     public void run() {
-        while(chatThreadController.getRunning().get()){
-            while(!chatThreadController.getMts().hasremaining()){
-                try {
-                    synchronized(chatThreadController.getTsend()) {
-                        chatThreadController.getTsend().wait();
-                    }
-                } catch (InterruptedException e) {
+
+        synchronized(chatThreadController.getMts().getMessagetosend()) {
+            while (chatThreadController.getRunning().get()) {
+                while (!chatThreadController.getMts().hasremaining()) {
+                    try {
+                            chatThreadController.getMts().getMessagetosend().wait();
+                    } catch (InterruptedException ignored) {}
                 }
+                System.out.println("sending message");
+                chatThreadController.getSw().sendMessage((Message) chatThreadController.getMts().getRemMessage());
+                System.out.println("sent message");
             }
-            chatThreadController.getSw().sendMessage((Message) chatThreadController.getMts().getRemMessage());
-
         }
-
 
 
 

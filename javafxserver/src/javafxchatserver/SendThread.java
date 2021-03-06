@@ -25,19 +25,15 @@ public class SendThread implements ISendThread {
 	@Override
 	public void run() {
 			
-		while(controller.isRunning()){
+		while(controller.getRunning().get()){
 			
 			while(controller.getMessagetosend().hasremaining()){
 
 				controller.getSw().sendMessage((Message) controller.getMessagetosend().getRemMessage());
 
 			}
-			try {
-				wait();
-			} catch (InterruptedException ex) {
-				System.out.println("send thread interrupted exception");
-			}
 		}
+		System.out.println("closing send thread");
 	}
 
 	@Override

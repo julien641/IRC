@@ -7,6 +7,7 @@ package messageAction;
 
 import Interface.client.IChatTabController;
 import Interface.client.IChatThreadController;
+import javafx.application.Platform;
 import javafx.scene.text.Text;
 
 /**
@@ -25,7 +26,8 @@ public class ActionLoginResponse implements IMessageAction{
 	
 	@Override
 	public void action() {
-		client.getChattabController().getChatbox().getChildren().add(new Text("response"));
+		System.out.println("Response");
+		Platform.runLater(() -> client.getChattabController().getChatbox().getChildren().add(new Text("Welcome to this server")));
 
 
 	}

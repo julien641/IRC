@@ -30,12 +30,14 @@ public class RecThread implements IRecThread {
 
     @Override
     public void run() {
-        System.out.println("Thread running");
+        System.out.println("rec Thread running");
     	 
-            while(controller.isRunning()){
+            while(true){
 
 		    
-             Message message =  (Message) controller.getSw().receivemessage();
+             Message message =   controller.getSw().receivemessage();
+             	System.out.println("hello");
+
 		((IServerMessage)message).setDefaultAction(controller);
 		message.activateAction();
 	     	
@@ -44,7 +46,7 @@ public class RecThread implements IRecThread {
             
          
 
-           
+          //System.out.println("rec close");
         }//end run
 
 	@Override

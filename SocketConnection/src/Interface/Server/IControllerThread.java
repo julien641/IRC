@@ -10,41 +10,43 @@ import socketconnection.MessagesToSend;
 import socketconnection.RC;
 import socketconnection.Socketwrapper;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  *
  * @author julien
  */
 public interface IControllerThread {
 
-	public RC Start();
+	RC Start();
 
-	public MessagesToSend getMessagetosend();
+	MessagesToSend getMessagetosend();
 
-	public Thread getRcthread();
+	Thread getRcthread();
 
-	public IRecThread getRecthread();
+	IRecThread getRecthread();
 
-	public Thread getSdthread();
+	Thread getSdthread();
 
-	public ISendThread getSendthread();
+	ISendThread getSendthread();
 
-	public Socketwrapper getSw();
+	Socketwrapper getSw();
 
-	public boolean isRunning();
 
-	public void setMessagetosend(MessagesToSend messagetosend);
+	void setMessagetosend(MessagesToSend messagetosend);
 
-	public void setRcthread(Thread rcthread);
+	void setRcthread(Thread rcthread);
 
-	public void setRecthread(IRecThread recthread);
+	void setRecthread(IRecThread recthread);
 
-	public void setRunning(boolean running);
 
-	public void setSdthread(Thread sdthread);
+	void setSdthread(Thread sdthread);
 
-	public void setSendthread(ISendThread sendthread);
+	void setSendthread(ISendThread sendthread);
 
-	public void setSw(Socketwrapper sw);
-	public IServerThread getServerthread();
-	
+	void setSw(Socketwrapper sw);
+	IServerThread getServerthread();
+
+	AtomicBoolean getRunning();
+	void setRunning(AtomicBoolean running);
 }

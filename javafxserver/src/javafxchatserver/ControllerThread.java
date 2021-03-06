@@ -5,11 +5,13 @@
  */
 package javafxchatserver;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import Interface.Server.IControllerThread;
 import Interface.Server.IRecThread;
 import Interface.Server.ISendThread;
 import Interface.Server.IServerThread;
+import clientMessage.Message;
 import socketconnection.MessagesToSend;
 import socketconnection.RC;
 import socketconnection.Socketwrapper;
@@ -23,9 +25,9 @@ public class ControllerThread implements IControllerThread {
 	private IRecThread recthread;
 	private Thread sdthread;
 	private Thread rcthread;
-	private volatile boolean running;
+	private volatile AtomicBoolean running;
 	private MessagesToSend messagetosend;
-	private Socketwrapper sw;
+	private Socketwrapper <Message>sw;
 	private IServerThread serverthread;
 
 	public IServerThread getServerthread() {
@@ -35,21 +37,26 @@ public class ControllerThread implements IControllerThread {
 	
 	public ControllerThread(Socket socket,IServerThread serverthread){
 		this.serverthread =serverthread;
-		
+		running = new AtomicBoolean(true);
 		sw = new Socketwrapper();
 		sw.connect(socket);
+
 		this.sendthread = new SendThread(this);
 		this.recthread = new RecThread(this);
 
 		
 		this.sdthread = new Thread( this.sendthread);
 		this.rcthread =new Thread(  this.recthread);
-		this.messagetosend =new MessagesToSend(sdthread);	
-	}	
+		this.messagetosend =new <Message>MessagesToSend(sdthread);
+
+		sdthread.start();
+
+		rcthread.start();
+	}
 	@Override
 	public RC Start(){
-		sdthread.start();
-		rcthread.start();
+	//	sdthread.start();
+	//	rcthread.start();
 	return RC.failed;	
 	}	
 	@Override
@@ -92,15 +99,6 @@ public class ControllerThread implements IControllerThread {
 		this.rcthread = rcthread;
 	}
 
-	@Override
-	public boolean isRunning() {
-		return running;
-	}
-
-	@Override
-	public void setRunning(boolean running) {
-		this.running = running;
-	}
 
 	@Override
 	public MessagesToSend getMessagetosend() {
@@ -117,9 +115,17 @@ public class ControllerThread implements IControllerThread {
 		return sw;
 	}
 
+
 	@Override
 	public void setSw(Socketwrapper sw) {
 		this.sw = sw;
 	}
-	
+	@Override
+	public AtomicBoolean getRunning() {
+		return running;
+	}
+	@Override
+	public void setRunning(AtomicBoolean running) {
+		this.running = running;
+	}
 }

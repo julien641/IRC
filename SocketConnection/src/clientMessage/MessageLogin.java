@@ -8,11 +8,13 @@ package clientMessage;
 import messageAction.ActionLogin;
 import Interface.Server.IControllerThread;
 
+import java.io.Serializable;
+
 /**
  *
  * @author julien
  */
-public class MessageLogin extends Message implements IServerMessage{
+public class MessageLogin extends Message implements IServerMessage, Serializable {
 	private String password;
 	public MessageLogin(String from,String password) {
 		super(from);

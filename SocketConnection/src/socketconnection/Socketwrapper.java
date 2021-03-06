@@ -32,7 +32,7 @@ public class Socketwrapper<E extends Message> {
 	private InputStream inputStream;
 	private ObjectInputStream objectInputStream;
 
-	public synchronized E receivemessage() {
+	public  E receivemessage() {
 
 		E message = null;
 		try {
@@ -47,7 +47,7 @@ public class Socketwrapper<E extends Message> {
 		return message;
 	}
 
-	public synchronized RC sendMessage(E message) {
+	public  RC sendMessage(E message) {
 
 		RC rc = RC.disconnected;
 		if (connected) {
