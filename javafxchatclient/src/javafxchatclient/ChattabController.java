@@ -17,6 +17,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.TextFlow;
+import javafxchatclient.thread.ChatThreadController;
 
 /**
  * FXML Controller class
@@ -39,13 +40,19 @@ public class ChattabController implements IChatTabController {
     /**
      * Initializes the controller class.
      */
+    ChatThreadController chatThreadController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("ChattabController - Initializer");
-        
-        
-        
+    }
+
+    public ChatThreadController getChatThreadController() {
+        return chatThreadController;
+    }
+
+    public void setChatThreadController(ChatThreadController chatThreadController) {
+        this.chatThreadController = chatThreadController;
     }
 
     @Override
