@@ -19,8 +19,8 @@ import socketconnection.Socketwrapper;
  * @author julien
  */
 public class ControllerThread implements IControllerThread {
-	private SendThread sendthread;
-	private RecThread recthread;
+	private ISendThread sendthread;
+	private IRecThread recthread;
 	private Thread sdthread;
 	private Thread rcthread;
 	private volatile boolean running;
@@ -59,7 +59,7 @@ public class ControllerThread implements IControllerThread {
 
 	@Override
 	public void setSendthread(ISendThread sendthread) {
-		this.sendthread = (SendThread)sendthread;
+		this.sendthread = sendthread;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class ControllerThread implements IControllerThread {
 
 	@Override
 	public void setRecthread(IRecThread recthread) {
-		this.recthread = (RecThread)recthread;
+		this.recthread = recthread;
 	}
 
 	@Override

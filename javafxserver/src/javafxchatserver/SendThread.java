@@ -28,10 +28,12 @@ public class SendThread implements ISendThread {
 		while(controller.isRunning()){
 			
 			while(controller.getMessagetosend().hasremaining()){
+
 				controller.getSw().sendMessage((Message) controller.getMessagetosend().getRemMessage());
+
 			}
 			try {
-				this.wait();
+				wait();
 			} catch (InterruptedException ex) {
 				System.out.println("send thread interrupted exception");
 			}

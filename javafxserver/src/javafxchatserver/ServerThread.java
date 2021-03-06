@@ -42,6 +42,7 @@ public class ServerThread implements Runnable , IServerThread {
 		while (running && serversocket != null) {
 			Socket s = socketcreation();
 			if (s != null) {
+				System.out.println("Socket Initialized");
 				ControllerThread current= new ControllerThread(s,this);
 				current.Start();
 				controllerthreads.add(current);

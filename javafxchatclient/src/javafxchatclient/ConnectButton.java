@@ -49,11 +49,10 @@ public class ConnectButton implements EventHandler{
                if(rc ==RC.success){
                    ChatThreadController chatThreadController = new ChatThreadController();
                    chatThreadController.setSw(sw);
+                   chatTabLoader(chatThreadController);
                    chatThreadController.start();
                    MessageLogin messageLogin=new MessageLogin(login.getUsername(), login.getPassword());
                    chatThreadController.getMts().addMessage(messageLogin);
-
-
 
                }else {
                    //connection failed
@@ -94,9 +93,9 @@ public class ConnectButton implements EventHandler{
         try {
             Chattabloader = new FXMLLoader(getClass().getResource("Chattab.fxml"));
             borderPane = Chattabloader.load();
-            chattabController = Chattabloader.<ChattabController>getController();
+            chattabController = Chattabloader.getController();
             chatThreadController.setChattabController( chattabController);
-            server = new Tab(chatThreadController.getLogin().getIp(),borderPane);
+            server = new Tab("hi",borderPane);
             chatThreadController.setTab(server);
             tabPane.getTabs().add(tabPane.getTabs().size()-1,server);
 

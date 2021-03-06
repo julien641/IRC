@@ -27,6 +27,7 @@ public class RecChatThread implements Runnable{
 		while(chatThreadController.getRunning().get()){
 			Message message = chatThreadController.getSw().receivemessage();
 			//TODO find what to pass in so it can interact with the whole client
+			System.out.println("message");
 			((IClientMessage)message).setDefaultAction(chatThreadController);
 			message.activateAction();
 			

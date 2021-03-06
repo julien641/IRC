@@ -7,6 +7,7 @@ package messageAction;
 
 import Interface.client.IChatTabController;
 import Interface.client.IChatThreadController;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -14,14 +15,19 @@ import Interface.client.IChatThreadController;
  */
 public class ActionLoginResponse implements IMessageAction{
 	private String response;
-
-	public ActionLoginResponse(IChatThreadController client, String response) {
+	private IChatThreadController client;
+	public ActionLoginResponse(IChatThreadController client, String response)
+	{
 		this.response = response;
+		this.client =client;
 	}
 	
 	
 	@Override
 	public void action() {
+		client.getChattabController().getChatbox().getChildren().add(new Text("you are logged in"));
+
+
 	}
 	
 }
