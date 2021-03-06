@@ -97,7 +97,9 @@ public class ConnectButton implements EventHandler{
             chatThreadController.setChattabController( chattabController);
             server = new Tab("hi",borderPane);
             chatThreadController.setTab(server);
+
             tabPane.getTabs().add(tabPane.getTabs().size()-1,server);
+            tabPane.getSelectionModel().select(server);
 
         } catch (IOException ex) {
             Logger.getLogger(ConnectButton.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,7 +25,7 @@ public class ActionLoginResponse implements IMessageAction{
 	
 	@Override
 	public void action() {
-		client.getChattabController().getChatbox().getChildren().add(new Text("you are logged in"));
+		client.getChattabController().getChatbox().getChildren().add(new Text("response"));
 
 
 	}
