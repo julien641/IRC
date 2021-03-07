@@ -5,11 +5,14 @@
  */
 package clientMessage;
 
+import clientMessage.MessageData.IMessage;
+import clientMessage.messageAction.IMessageAction;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Random;
-import messageAction.IMessageAction;
+
 
 /**
  *

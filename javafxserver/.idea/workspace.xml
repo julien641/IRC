@@ -2,11 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b01fa3f-dc26-460c-9c47-5e9c4a40a13e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/SendButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/MessageData/ClientToServer/MessageLogin.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/MessageData/IMessage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/MessageData/ServerToClient/MessageLoginResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/messageAction/ClientToServer/ActionLogin.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/messageAction/IMessageAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/messageAction/ServerToClient/ActionLoginResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageData/ClientToServer/MessageSendChat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/messageAction/ClientToServer/SendChatAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/messageAction/ServerToClient/SendBackMessageAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SocketConnection/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SocketConnection/out/artifacts/SocketConnection_jar/SocketConnection.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/out/artifacts/SocketConnection_jar/SocketConnection.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/Interface/client/IChatTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/Interface/client/IChatTabController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/IClientMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/IMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/IServerMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/MessageLogin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/clientMessage/MessageLoginResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/messageAction/ActionLogin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/messageAction/ActionLoginResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/messageAction/IMessageAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/socketconnection/MessagesToSend.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/socketconnection/MessagesToSend.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/Interface/client/IChatTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/Interface/client/IChatTabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/IClientMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageData/IClientMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/IMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageData/IMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/IServerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageData/IServerMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageData/ClientToServer/MessageLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageLoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/MessageData/ServerToClient/MessageLoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/messageAction/ActionLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/messageAction/ClientToServer/ActionLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/messageAction/ActionLoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/messageAction/ServerToClient/ActionLoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/messageAction/IMessageAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/messageAction/IMessageAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/socketconnection/MessagesToSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/socketconnection/MessagesToSend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/ChattabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/ChattabController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/ConnectButton.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/NewChattabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/NewChattabController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/thread/RecChatThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/thread/RecChatThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/ChatclientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/ChatclientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Chattab.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Button/Chattab.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/ChattabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/ChattabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/ConnectButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Button/ConnectButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/NewChattabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/NewChattabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/SendButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Button/SendButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/thread/RecChatThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/thread/RecChatThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxserver.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/javafxserver/javafxchatserver/RecThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/javafxserver/javafxchatserver/RecThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/javafxserver/javafxchatserver/SendThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/javafxserver/javafxchatserver/SendThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/javafxchatserver/RecThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javafxchatserver/RecThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/javafxchatserver/SendThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javafxchatserver/SendThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +68,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1pLx0dRXbGqHYsl76WMJPxpYOkG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,18 +91,6 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="Javafxchatserver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -71,7 +112,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -90,12 +131,11 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

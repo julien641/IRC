@@ -5,8 +5,8 @@
  */
 package javafxchatclient.thread;
 
-import clientMessage.IClientMessage;
 import clientMessage.Message;
+import clientMessage.MessageData.IClientMessage;
 
 /**
  *

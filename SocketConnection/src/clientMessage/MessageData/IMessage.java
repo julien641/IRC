@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientMessage;
+package clientMessage.MessageData;
 
 import java.sql.Timestamp;
-import messageAction.IMessageAction;
+import clientMessage.messageAction.IMessageAction;
 
 /**
  *

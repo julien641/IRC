@@ -6,9 +6,7 @@
 package socketconnection;
 
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
-import clientMessage.Message;
 
 /**
  *

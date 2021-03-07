@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientMessage;
+package clientMessage.MessageData.ClientToServer;
 
-import messageAction.ActionLogin;
+import clientMessage.Message;
+import clientMessage.messageAction.ClientToServer.ActionLogin;
 import Interface.Server.IControllerThread;
-
+import clientMessage.MessageData.IServerMessage;
 import java.io.Serializable;
 
 /**

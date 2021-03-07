@@ -109,6 +109,7 @@ public class ChatclientController implements Initializable {
             newChattabtab =  newtabloader.load();
             newChattabController =  newtabloader.<NewChattabController>getController();
             addChat = new Tab("+",newChattabtab);
+            addChat.closableProperty().setValue(false);
             tabPane.getTabs().add(addChat);
             newChattabController.setupController(tabPane,this);
         } catch (IOException ex) {

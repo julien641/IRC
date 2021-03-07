@@ -1,8 +1,8 @@
-package messageAction;
+package clientMessage.messageAction.ClientToServer;
 
 import Interface.Server.IControllerThread;
-import clientMessage.MessageLoginResponse;
-
+import clientMessage.MessageData.ServerToClient.MessageLoginResponse;
+import  clientMessage.messageAction.IMessageAction;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

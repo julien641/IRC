@@ -8,8 +8,8 @@ package javafxchatserver;
 
 import Interface.Server.IControllerThread;
 import Interface.Server.IRecThread;
-import clientMessage.IServerMessage;
 import clientMessage.Message;
+import clientMessage.MessageData.IServerMessage;
 
 
 /**

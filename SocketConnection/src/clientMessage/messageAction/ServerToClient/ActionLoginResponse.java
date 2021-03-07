@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package messageAction;
+package clientMessage.messageAction.ServerToClient;
 
-import Interface.client.IChatTabController;
 import Interface.client.IChatThreadController;
 import javafx.application.Platform;
 import javafx.scene.text.Text;
-
+import clientMessage.messageAction.IMessageAction;
 /**
  *
  * @author julien

@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package messageAction;
+package clientMessage.messageAction;
 
 /**
  *
  * @author julien
  */
 public interface IMessageAction {
-    public void action();
+    void action();
 
     
 }

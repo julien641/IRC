@@ -24,4 +24,6 @@ public interface IChatTabController extends Initializable {
     Button getSendchatbutton();
 
     TextFlow getChatbox();
+    IChatThreadController getIChatThreadController();
+    void setIChatThreadController(IChatThreadController iChatThreadController);
 }

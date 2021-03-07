@@ -24,11 +24,13 @@ public class SendThread implements ISendThread {
 	} 
 	@Override
 	public void run() {
-			
-		while(controller.getRunning().get()){
-			
-			while(controller.getMessagetosend().hasremaining()){
-
+		synchronized (controller.getMessagetosend().getMessagetosend()) {
+			while (controller.getRunning().get()) {
+				while (!controller.getMessagetosend().hasremaining()) {
+					try {
+						controller.getMessagetosend().getMessagetosend().wait();
+					} catch (InterruptedException ignore) {}
+				}
 				controller.getSw().sendMessage((Message) controller.getMessagetosend().getRemMessage());
 
 			}

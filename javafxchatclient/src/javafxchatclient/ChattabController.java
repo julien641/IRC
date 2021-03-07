@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Interface.client.IChatTabController;
+import Interface.client.IChatThreadController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.TextFlow;
+import javafxchatclient.Button.SendButton;
 import javafxchatclient.thread.ChatThreadController;
 
 /**
@@ -40,20 +42,14 @@ public class ChattabController implements IChatTabController {
     /**
      * Initializes the controller class.
      */
-    ChatThreadController chatThreadController;
+   private IChatThreadController ichatThreadController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("ChattabController - Initializer");
+        sendchatbutton.setOnAction(new SendButton(this));
     }
 
-    public ChatThreadController getChatThreadController() {
-        return chatThreadController;
-    }
-
-    public void setChatThreadController(ChatThreadController chatThreadController) {
-        this.chatThreadController = chatThreadController;
-    }
 
     @Override
     public BorderPane getBorderPane() {
@@ -78,5 +74,15 @@ public class ChattabController implements IChatTabController {
     @Override
     public TextFlow getChatbox() {
         return chatbox;
+    }
+
+    @Override
+    public IChatThreadController getIChatThreadController() {
+        return ichatThreadController;
+    }
+
+    @Override
+    public void setIChatThreadController(IChatThreadController iChatThreadController) {
+        this.ichatThreadController =iChatThreadController;
     }
 }
