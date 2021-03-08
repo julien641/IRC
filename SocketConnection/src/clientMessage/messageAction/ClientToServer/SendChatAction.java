@@ -1,6 +1,7 @@
 package clientMessage.messageAction.ClientToServer;
 
 import Interface.Server.IControllerThread;
+import clientMessage.MessageData.ServerToClient.SendBackMessage;
 import clientMessage.messageAction.IMessageAction;
 
 public class SendChatAction implements IMessageAction {
@@ -19,7 +20,7 @@ public class SendChatAction implements IMessageAction {
         for(IControllerThread x :controllerThread.getServerthread().getControllerthreads()) {
             //TODO
 
-            x.getMessagetosend().addMessage(null);
+            x.getMessagetosend().addMessage(new SendBackMessage(from,text));
         }
     }
 }

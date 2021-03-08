@@ -30,6 +30,7 @@ public class RecChatThread implements Runnable{
 			System.out.println("message");
 			((IClientMessage)message).setDefaultAction(chatThreadController);
 			message.activateAction();
+
 			
 		
 		}

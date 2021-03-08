@@ -16,7 +16,7 @@ import clientMessage.MessageData.IClientMessage;
 public class MessageLoginResponse extends Message implements IClientMessage {
 	//toclient
 	private String response;
-	public MessageLoginResponse(String response,String from) {
+	public MessageLoginResponse(String from,String response) {
 		super(from);
 		this.response =response;
 	}
@@ -25,7 +25,7 @@ public class MessageLoginResponse extends Message implements IClientMessage {
 
 	@Override
 	public void setDefaultAction(IChatThreadController client) {
-		super.setAction(new ActionLoginResponse(client,response));
+		super.setAction(new ActionLoginResponse(client,response,this));
 	
 	}
 	

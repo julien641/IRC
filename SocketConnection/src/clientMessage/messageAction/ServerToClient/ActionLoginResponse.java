@@ -6,6 +6,7 @@
 package clientMessage.messageAction.ServerToClient;
 
 import Interface.client.IChatThreadController;
+import clientMessage.Message;
 import javafx.application.Platform;
 import javafx.scene.text.Text;
 import clientMessage.messageAction.IMessageAction;
@@ -16,8 +17,10 @@ import clientMessage.messageAction.IMessageAction;
 public class ActionLoginResponse implements IMessageAction{
 	private String response;
 	private IChatThreadController client;
-	public ActionLoginResponse(IChatThreadController client, String response)
+	private Message message;
+	public ActionLoginResponse(IChatThreadController client, String response, Message message)
 	{
+		this.message =message;
 		this.response = response;
 		this.client =client;
 	}
@@ -26,7 +29,7 @@ public class ActionLoginResponse implements IMessageAction{
 	@Override
 	public void action() {
 		System.out.println("Response");
-		Platform.runLater(() -> client.getChattabController().getChatbox().getChildren().add(new Text("Welcome to this server")));
+		Platform.runLater(() -> client.getChattabController().getChatbox().getChildren().add(new Text(message.getFrom()+" welcome to my server \n")));
 
 
 	}

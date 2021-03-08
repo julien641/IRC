@@ -32,7 +32,7 @@ public class RecThread implements IRecThread {
     public void run() {
         System.out.println("rec Thread running");
     	 
-            while(true){
+            while(controller.getRunning().get()){
 
 		    
              Message message =   controller.getSw().receivemessage();

@@ -34,6 +34,10 @@ public class ActionLogin implements IMessageAction{
 		
 		controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(username,response));
 		}
+	//	MessageLoginResponse x = new MessageLoginResponse(username, response);
+	//	x.
+
+
 		
 	}
 	
