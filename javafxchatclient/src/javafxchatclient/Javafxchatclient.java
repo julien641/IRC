@@ -5,6 +5,9 @@
  */
 package javafxchatclient;
 
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
+import javafxchatclient.thread.ChatThreadController;
 import socketconnection.RC;
 import socketconnection.Socketwrapper;
 import javafx.application.Application;
@@ -12,6 +15,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+
+import java.net.SocketException;
+
 /**
  *
  * @author julien
@@ -25,7 +31,25 @@ public class Javafxchatclient extends Application {
        //controller.setJavafxchatclient(this);
         Parent root = loader.load();
         Scene  scene = new Scene(root,900,600);
+
         primaryStage.setScene(scene);
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+               for(ChatThreadController x:controller.getChatcontrollers()){
+                x.getRunning().set(false);
+                   try {
+                       x.getSw().getSocket().setSoTimeout(1);
+                   } catch (SocketException e) {
+                       e.printStackTrace();
+                   }
+
+               }
+        }
+        });
+
+
         primaryStage.show();
     }
     public static void main(String[] args) {

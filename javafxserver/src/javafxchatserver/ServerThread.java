@@ -44,6 +44,7 @@ public class ServerThread implements Runnable , IServerThread {
 			if (s != null) {
 				System.out.println("Socket Initialized");
 				ControllerThread current= new ControllerThread(s,this);
+
 				current.Start();
 				controllerthreads.add(current);
 				
@@ -108,7 +109,8 @@ public class ServerThread implements Runnable , IServerThread {
 			}
 
 		} catch (IOException ex) {
-			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+			System.out.println("");
+			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, "Cleaning error", ex);
 		}
 
 	}
