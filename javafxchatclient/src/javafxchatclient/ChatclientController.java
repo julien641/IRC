@@ -42,7 +42,6 @@ public class ChatclientController implements Initializable {
     private MenuItem newChannelMenuItem;
     @FXML
     private ListView<?> channelListView;
-    private Button sendChatButton;
     @FXML
     private ListView<?> userListview;
     @FXML
@@ -102,7 +101,7 @@ public class ChatclientController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("ChatclientController - Initializer");
-        AnchorPane newChattabtab;
+        VBox newChattabtab;
         try {
             FXMLLoader newtabloader = new FXMLLoader(getClass().getResource("newChattab.fxml"));
             ///load before getting the controller
@@ -113,7 +112,7 @@ public class ChatclientController implements Initializable {
             tabPane.getTabs().add(addChat);
             newChattabController.setupController(tabPane,this);
         } catch (IOException ex) {
-            Logger.getLogger(ChatclientController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChatclientController.class.getName()).log(Level.SEVERE, "IOException failed to load (+)new tab", ex);
            // System.exit(1);
         }finally{
         }
@@ -128,7 +127,6 @@ public class ChatclientController implements Initializable {
     public void setJavafxchatclient(Javafxchatclient javafxchatclient) { this.javafxchatclient = javafxchatclient; }
     public MenuItem getNewChannelMenuItem() { return newChannelMenuItem; }
     public ListView<?> getChannelListView() { return channelListView; }
-    public Button getSendChatButton() { return sendChatButton; }
     public ListView<?> getUserListview() { return userListview; }
     public Color getX4() { return x4; }
     public Font getX3() { return x3; }

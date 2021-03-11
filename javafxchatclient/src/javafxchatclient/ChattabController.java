@@ -11,15 +11,12 @@ import java.util.ResourceBundle;
 import Interface.client.IChatTabController;
 import Interface.client.IChatThreadController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.TextFlow;
 import javafxchatclient.Button.SendButton;
-import javafxchatclient.thread.ChatThreadController;
 
 /**
  * FXML Controller class

@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="windowVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxchatclient.ChatclientController">
+<VBox fx:id="windowVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxchatclient.ChatclientController">
   <children>
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
       <menus>
@@ -56,10 +56,10 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane fx:id="mainSplitPane" dividerPositions="0.18040089086859687, 0.7906458797327395" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane fx:id="mainSplitPane" dividerPositions="0.18040089086859687, 0.7906458797327395" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0">
       <items>
             <ListView fx:id="channelListView" prefHeight="551.0" prefWidth="234.0" />
-            <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" />
+            <TabPane fx:id="tabPane" SplitPane.resizableWithParent="false" />
             <ListView fx:id="userListview" prefHeight="200.0" prefWidth="200.0" />
       </items>
     </SplitPane>
@@ -70,7 +70,7 @@
             <Font size="11.0" fx:id="x3" />
           </font>
           <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
           </textFill>
         </Label>
         <Pane fx:id="middleBottomPane" prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />

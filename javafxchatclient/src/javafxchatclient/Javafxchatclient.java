@@ -8,8 +8,6 @@ package javafxchatclient;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import javafxchatclient.thread.ChatThreadController;
-import socketconnection.RC;
-import socketconnection.Socketwrapper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,6 +19,7 @@ import java.net.SocketException;
 /**
  *
  * @author julien
+ *
  */
 public class Javafxchatclient extends Application {
 	private ChatclientController controller;
@@ -37,16 +36,25 @@ public class Javafxchatclient extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-               for(ChatThreadController x:controller.getChatcontrollers()){
-                x.getRunning().set(false);
-                   try {
-                       x.getSw().getSocket().setSoTimeout(1);
-                   } catch (SocketException e) {
-                       e.printStackTrace();
-                   }
+                if(controller != null && controller.getChatcontrollers()!=null) {
+                    for (ChatThreadController x : controller.getChatcontrollers()) {
+                        x.getRunning().set(false);
+                        try {
+                            //TODO Send message to signal the server that the client logged off
 
-               }
-        }
+                          //  x.getMts().addMessage();
+                            x.getSw().getSocket().setSoTimeout(1);
+
+                        } catch (SocketException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }
+                primaryStage.close();
+            }
+
         });
 
 
@@ -58,72 +66,4 @@ public class Javafxchatclient extends Application {
     public ChatclientController getController() {
         return controller;
     }
-    /*
-    private class sendchatbutton implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-            String messages = getSendtextfield().getCharacters().toString();
-            if (messages.length() != 0) {
-                getSw().sendMessage(new Message<>(Messagestype.name, messages));
-            }
-        }
-
-    }
-    */
-/*
-    private class setupNamebutton implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-            RC sendingmessage;
-        
-            
-            setName(getSendtextfield().getCharacters().toString());
-            Message<String> message = new Message<>(Messagestype.name, getName());
-            primaryStage.setTitle(message.getMessage());
-            getSendtextfield().clear();
-            sendingmessage =getSw().sendMessage(message);
-            
-            switch (sendingmessage){
-                
-                case success:    
-                    System.out.println("Name sent");
-                    setNamesent(true);
-                    getSendchat().setText("Send Message");
-                    setChat(new clientchatthread(getSw(), getChatarea()));
-                    getChat().start();
-                    getSendchat().setOnAction(new sendchatbutton());
-                    getLabel().setText("success");
-                    break;
-                    
-                default:
-                    getLabel().setText("failed");
-             
-            }
-            
-            
-            
-            
-            
-            }
-           
-
-            
-        }
-        public RC connectToServer(){
-            RC socketconnection;
-            Socketwrapper sw =    new Socketwrapper();
-           socketconnection =sw.connect(website, port);
-            setSw(sw);
-            
-
-           return socketconnection;
-        }
-    
-*/
-
-
-
-
 }

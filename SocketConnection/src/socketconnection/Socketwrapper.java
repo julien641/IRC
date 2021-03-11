@@ -39,10 +39,8 @@ public class Socketwrapper<E extends Message> {
 			message = (E) objectInputStream.readObject();
 		} catch (IOException ex) {
 			System.out.println("IOException");
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (ClassNotFoundException ex) {
 			System.out.println("ClassNotFoundException");
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return message;
 	}
@@ -83,7 +81,6 @@ public class Socketwrapper<E extends Message> {
 			objectInputStream = new ObjectInputStream(inputStream);
 			rc = RC.success;
 		} catch (IOException ex) {
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, null, ex);
 			rc = RC.IOException;
 		} finally {
 
@@ -106,10 +103,8 @@ public class Socketwrapper<E extends Message> {
 			connected = socket.isConnected();
 			System.out.println("Connected to Website: " + website + " Port : " + port);
 		} catch (ConnectException CE) {
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, "ConnectException", CE);
 			rc = RC.ConnectException;
 		} catch (IOException ex) {
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, "IOException", ex);
 			rc = RC.IOException;
 		}
 		return rc;
