@@ -20,5 +20,6 @@ public enum RC{
    IOException,
    ClassNotFoundException,
    ConnectException,
-   
+   debug
+
 }

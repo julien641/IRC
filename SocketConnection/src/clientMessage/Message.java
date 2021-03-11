@@ -5,25 +5,22 @@
  */
 package clientMessage;
 
-import Interface.IControllerThread;
-import Interface.IServerThread;
-import Interface.Iclient;
-import messageActions.Imessageaction;
+import clientMessage.MessageData.IMessage;
+import clientMessage.messageAction.IMessageAction;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Random;
+
 
 /**
  *
  * @author julien
- * @param <T>
- * @param <B>
  */
 public abstract class Message implements Serializable, IMessage {
 
-	private Imessageaction action;
+	private IMessageAction action;
 	private final static Random RANDOM = new Random();
 	final private int id;
 	final private Timestamp timestamp;
@@ -51,12 +48,12 @@ public abstract class Message implements Serializable, IMessage {
 	}
 
 	@Override
-	public Imessageaction getAction() {
+	public IMessageAction getAction() {
 		return action;
 	}
 
 	@Override
-	public void setAction(Imessageaction action) {
+	public void setAction(IMessageAction action) {
 		this.action = action;
 	}
 	public void activateAction(){

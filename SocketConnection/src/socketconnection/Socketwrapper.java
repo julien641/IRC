@@ -25,33 +25,27 @@ public class Socketwrapper<E extends Message> {
 
 
 
-	private int port;
-	private String website;
 	private Socket socket;
-	private int personalid;
-
 	private boolean connected;
 	private OutputStream outputstream;
 	private ObjectOutputStream objectOutputStream;
 	private InputStream inputStream;
 	private ObjectInputStream objectInputStream;
 
-	public synchronized E receivemessage() {
+	public  E receivemessage() {
 
 		E message = null;
 		try {
 			message = (E) objectInputStream.readObject();
 		} catch (IOException ex) {
 			System.out.println("IOException");
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (ClassNotFoundException ex) {
 			System.out.println("ClassNotFoundException");
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return message;
 	}
 
-	public synchronized RC sendMessage(E message) {
+	public  RC sendMessage(E message) {
 
 		RC rc = RC.disconnected;
 		if (connected) {
@@ -87,7 +81,6 @@ public class Socketwrapper<E extends Message> {
 			objectInputStream = new ObjectInputStream(inputStream);
 			rc = RC.success;
 		} catch (IOException ex) {
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, null, ex);
 			rc = RC.IOException;
 		} finally {
 
@@ -110,28 +103,11 @@ public class Socketwrapper<E extends Message> {
 			connected = socket.isConnected();
 			System.out.println("Connected to Website: " + website + " Port : " + port);
 		} catch (ConnectException CE) {
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, "ConnectException", CE);
 			rc = RC.ConnectException;
 		} catch (IOException ex) {
-			Logger.getLogger(Socketwrapper.class.getName()).log(Level.SEVERE, "IOException", ex);
 			rc = RC.IOException;
 		}
 		return rc;
-	}
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public String getWebsite() {
-		return website;
-	}
-
-	public void setWebsite(String website) {
-		this.website = website;
 	}
 
 	public Socket getSocket() {
@@ -142,13 +118,7 @@ public class Socketwrapper<E extends Message> {
 		this.socket = socket;
 	}
 
-	public int getPersonalid() {
-		return personalid;
-	}
 
-	public void setPersonalid(int personalid) {
-		this.personalid = personalid;
-	}
 
 	public boolean isConnected() {
 		return connected;

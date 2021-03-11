@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SocketConnection">
+    <output-path>$PROJECT_DIR$/out/artifacts/SocketConnection</output-path>
+    <properties id="ant-preprocessing">
+      <options enabled="true" />
+    </properties>
+    <root id="archive" name="SocketConnection.jar" />
+  </artifact>
+</component>
