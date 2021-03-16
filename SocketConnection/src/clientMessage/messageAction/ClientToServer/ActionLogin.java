@@ -3,6 +3,7 @@ package clientMessage.messageAction.ClientToServer;
 import Interface.Server.IControllerThread;
 import clientMessage.MessageData.ServerToClient.MessageLoginResponse;
 import  clientMessage.messageAction.IMessageAction;
+import socketconnection.Login;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,25 +16,27 @@ import  clientMessage.messageAction.IMessageAction;
  */
 public class ActionLogin implements IMessageAction{
 	private final IControllerThread controllerthread;
-	private final String username;
-	private final String password;
+	private final Login login;
 
-
-	public ActionLogin(IControllerThread controllerthread,  String username, String password) {
+	public ActionLogin(IControllerThread controllerthread, Login login) {
 		this.controllerthread = controllerthread;
-		this.username = username;
-		this.password = password;
+		this.login =login;
 	}
 
 	@Override
 	public void action() {
 		boolean indatabase =true;
 		String response = "You are logged in";
-		System.out.println("HI");
-		if(indatabase){
-		
-		controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(username,response));
+		if(true) {
+			if (indatabase) {
+				controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(login, response));
+			}
+		}else{
+
+
+
 		}
+
 	//	MessageLoginResponse x = new MessageLoginResponse(username, response);
 	//	x.
 

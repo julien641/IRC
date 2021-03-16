@@ -7,6 +7,7 @@ package clientMessage.MessageData;
 
 import java.sql.Timestamp;
 import clientMessage.messageAction.IMessageAction;
+import socketconnection.Login;
 
 /**
  *
@@ -14,9 +15,8 @@ import clientMessage.messageAction.IMessageAction;
  */
 public interface IMessage {
 
-	public IMessageAction getAction();
-
-	public String getFrom();
+	 IMessageAction getAction();
+	 Login getLogin();
 
 	public int getId();
 

@@ -7,6 +7,7 @@ package clientMessage;
 
 import clientMessage.MessageData.IMessage;
 import clientMessage.messageAction.IMessageAction;
+import socketconnection.Login;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -24,12 +25,12 @@ public abstract class Message implements Serializable, IMessage {
 	private final static Random RANDOM = new Random();
 	final private int id;
 	final private Timestamp timestamp;
-	final private String from;
+	final private Login login;
 	
-	public Message(String from) {
+	public Message(Login login) {
 		this.id = RANDOM.nextInt();
 		this.timestamp = Timestamp.from(Instant.now());
-		this.from = from;
+		this.login = login;
 	}
 
 	@Override
@@ -37,9 +38,9 @@ public abstract class Message implements Serializable, IMessage {
 		return id;
 	}
 
-	@Override
-	public String getFrom() {
-		return from;
+	public Login getLogin(){
+		return login;
+
 	}
 
 	@Override

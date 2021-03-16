@@ -6,6 +6,9 @@
 package javafxchatserver;
 
 import Commands.*;
+import Interface.Server.IJavafxchatserver;
+import Interface.Server.IServerConfig;
+import Interface.Server.IServerThread;
 import Properties.PropertyManager;
 import Properties.ServerConfig;
 import java.lang.reflect.Constructor;
@@ -17,33 +20,31 @@ import java.util.Scanner;
  *
  * @author julien
  */
-public class Javafxchatserver {
-	public static void main(String[] args) {
-		Javafxchatserver server = new Javafxchatserver();
-		server.start();
-	}
-	
+public class Javafxchatserver implements IJavafxchatserver {
+
 	private final String invalidinput = "Invalid command entered";
 	private boolean running = true;
 	private boolean debug = true;
 	private Thread thread;
-	private ServerThread server;
+	private IServerThread server;
 	private boolean testing= false;	
-	private ServerConfig serverconfig;
+	private IServerConfig serverconfig;
 	private String configpath ="server.properties";
 
-	public ServerConfig getServerconfig() {
+	@Override
+	public IServerConfig getServerconfig() {
 		return serverconfig;
 	}
 
-	public void setServerconfig(ServerConfig serverconfig) {
+	@Override
+	public void setServerconfig(IServerConfig serverconfig) {
 		this.serverconfig = serverconfig;
 	}
 
 	public Javafxchatserver() {
 
 	}
-	private ServerConfig loadserverproperties(String file) {
+	private IServerConfig loadserverproperties(String file) {
 		try{
 		PropertyManager propertymanager = new PropertyManager();
 			
@@ -52,7 +53,7 @@ public class Javafxchatserver {
 			property = propertymanager.PropertyManager(file);
 		
 		
-			ServerConfig config = ServerConfig.newInstance(property);
+			IServerConfig config = ServerConfig.newInstance(property);
 				
 		return config;
 		}catch(NumberFormatException number){
@@ -70,9 +71,10 @@ public class Javafxchatserver {
 			}
 				
 	}
+	@Override
 	public void start() {
 		startingmessage();
-		serverconfig=loadserverproperties(configpath);
+		serverconfig= loadserverproperties(configpath);
 		
 		Scanner kb = new Scanner(System.in);
 			
@@ -101,11 +103,13 @@ public class Javafxchatserver {
 		}
 
 	}
+	@Override
 	public void startingmessage(){
 	System.out.println("Welcome to the chat server");
 	
 	
 	}
+	@Override
 	public void commandlineerror(Exception ex) {
 		if (debug) {
 			ex.printStackTrace();
@@ -117,8 +121,8 @@ public class Javafxchatserver {
 	 */
 	
 
+	@Override
 	public int locate(String[] command, String arguments) {
-		boolean found = false;
 		for (int i = 0; i < command.length; i++) {
 			if (command.equals(arguments)) {
 				return i;
@@ -127,34 +131,42 @@ public class Javafxchatserver {
 		}
 		return -1;
 	}
+	@Override
 	public boolean isDebug() {
 		return debug;
 	}
 
+	@Override
 	public void setDebug(boolean debug) {
 		this.debug = debug;
 	}
 
+	@Override
 	public Thread getThread() {
 		return thread;
 	}
 
+	@Override
 	public void setThread(Thread thread) {
 		this.thread = thread;
 	}
 
-	public ServerThread getServer() {
+	@Override
+	public IServerThread getServer() {
 		return server;
 	}
 
-	public void setServer(ServerThread server) {
+	@Override
+	public void setServer(IServerThread server) {
 		this.server = server;
 	}
 
+	@Override
 	public boolean isRunning() {
 		return running;
 	}
 
+	@Override
 	public void setRunning(boolean running) {
 		this.running = running;
 	}

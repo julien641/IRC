@@ -8,40 +8,37 @@ package javafxchatclient;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import Interface.client.IChatThreadController;
+import Interface.client.IChatclientController;
+import Interface.client.IJavafxchatclient;
+import Interface.client.INewChattabController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
+import javafxchatclient.Tree.Cell.MyTreeCellRoot;
 import javafxchatclient.thread.ChatThreadController;
 
 /**
  * FXML Controller class
- *
+ * Main View for the client, hosts the list of channels, chat tabs, and the list of users in the server
  * @author julien
  */
-public class ChatclientController implements Initializable {
+public class ChatclientController implements Initializable, IChatclientController {
 
     @FXML
     private MenuItem newChannelMenuItem;
-    @FXML
-    private ListView<?> channelListView;
     @FXML
     private ListView<?> userListview;
     @FXML
@@ -84,15 +81,26 @@ public class ChatclientController implements Initializable {
     private Label rightStatusLabel;
     @FXML
     private TabPane tabPane;
-
-
+    @FXML
+    private TreeView treechannelview;
     //custom fields
     private Tab addChat;
-    private NewChattabController newChattabController;
-    private ArrayList<Tab> tabarray;
-    private ArrayList<ChatThreadController> chatcontrollers;
-    private Javafxchatclient javafxchatclient;
+    private INewChattabController newChattabController;
+    private List<Tab> tabarray;
+    private List<IChatThreadController> chatcontrollers;
+    private IJavafxchatclient javafxchatclient;
     //end custom fields
+
+    @Override
+    public TreeView getTreechannelview() {
+        return treechannelview;
+    }
+
+    @Override
+    public void setTreechannelview(TreeView treechannelview) {
+        this.treechannelview = treechannelview;
+    }
+
     /**
      * Initializes the controller class.
      * @param url
@@ -101,6 +109,10 @@ public class ChatclientController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("ChatclientController - Initializer");
+        treechannelview.setRoot(new TreeItem("root"));
+        setuptreechannel();
+
+
         VBox newChattabtab;
         try {
             FXMLLoader newtabloader = new FXMLLoader(getClass().getResource("newChattab.fxml"));
@@ -110,47 +122,92 @@ public class ChatclientController implements Initializable {
             addChat = new Tab("+",newChattabtab);
             addChat.closableProperty().setValue(false);
             tabPane.getTabs().add(addChat);
-            newChattabController.setupController(tabPane,this);
+            newChattabController.setupController(this);
         } catch (IOException ex) {
             Logger.getLogger(ChatclientController.class.getName()).log(Level.SEVERE, "IOException failed to load (+)new tab", ex);
            // System.exit(1);
+
         }finally{
         }
+
+
+
+    }
+
+    private void setuptreechannel() {
+        treechannelview.setCellFactory(new Callback<TreeView, TreeCell>() {
+            @Override
+            public TreeCell call(TreeView param) {
+
+                return new MyTreeCellRoot(param);
+            }
+        });
+
     }
 
 
-
+    @Override
     public void setAddChat(Tab addChat) { this.addChat = addChat; }
-    public void setNewChattabController(NewChattabController newChattabController) { this.newChattabController = newChattabController; }
+    @Override
+    public void setNewChattabController(INewChattabController newChattabController) { this.newChattabController = newChattabController; }
+    @Override
     public void setTabarray(ArrayList<Tab> tabarray) { this.tabarray = tabarray; }
-    public void setChatcontrollers(ArrayList<ChatThreadController> chatcontrollers) { this.chatcontrollers = chatcontrollers; }
-    public void setJavafxchatclient(Javafxchatclient javafxchatclient) { this.javafxchatclient = javafxchatclient; }
+    @Override
+    public void setChatcontrollers(ArrayList<IChatThreadController> chatcontrollers) { this.chatcontrollers = chatcontrollers; }
+    @Override
+    public void setJavafxchatclient(IJavafxchatclient javafxchatclient) { this.javafxchatclient = javafxchatclient; }
+    @Override
     public MenuItem getNewChannelMenuItem() { return newChannelMenuItem; }
-    public ListView<?> getChannelListView() { return channelListView; }
+    @Override
     public ListView<?> getUserListview() { return userListview; }
+    @Override
     public Color getX4() { return x4; }
+    @Override
     public Font getX3() { return x3; }
+    @Override
     public VBox getWindowVBox() { return windowVBox; }
+    @Override
     public MenuBar getMenuBar() { return menuBar; }
+    @Override
     public Menu getMenuFile() { return menuFile; }
+    @Override
     public MenuItem getMenuItemOpen() { return menuItemOpen; }
+    @Override
     public Menu getOpenRecentMenu() { return openRecentMenu; }
+    @Override
     public MenuItem getCloseMenuItem() { return closeMenuItem; }
+    @Override
     public MenuItem getSaveMenuItem() { return saveMenuItem; }
+    @Override
     public MenuItem getSaveAsMenuItem() { return saveAsMenuItem; }
+    @Override
     public MenuItem getRevertMenuItem() { return revertMenuItem; }
+    @Override
     public MenuItem getPreferencesMenuItems() { return preferencesMenuItems; }
+    @Override
     public MenuItem getQuitMenuItem() { return quitMenuItem; }
+    @Override
     public MenuItem getAbout() { return about; }
+    @Override
     public SplitPane getMainSplitPane() { return mainSplitPane; }
+    @Override
     public HBox getBottomHbox() { return bottomHbox; }
+    @Override
     public Label getLeftStatusLabel() { return leftStatusLabel; }
+    @Override
     public Pane getMiddleBottomPane() { return middleBottomPane; }
+    @Override
     public Label getRightStatusLabel() { return rightStatusLabel; }
+    @Override
     public TabPane getTabPane() { return tabPane; }
+    @Override
     public Tab getAddChat() { return addChat; }
-    public NewChattabController getNewChattabController() { return newChattabController; }
-    public ArrayList<Tab> getTabarray() { return tabarray; }
-    public ArrayList<ChatThreadController> getChatcontrollers() { return chatcontrollers; }
-    public Javafxchatclient getJavafxchatclient() { return javafxchatclient; }
+    @Override
+    public INewChattabController getNewChattabController() { return newChattabController; }
+    @Override
+    public List<Tab> getTabarray() { return tabarray; }
+    @Override
+    public List<IChatThreadController> getChatcontrollers() { return chatcontrollers; }
+    @Override
+    public IJavafxchatclient getJavafxchatclient() { return javafxchatclient; }
 }

@@ -45,8 +45,8 @@ public class ControllerThread implements IControllerThread {
 		this.recthread = new RecThread(this);
 
 		
-		this.sdthread = new Thread( this.sendthread);
-		this.rcthread =new Thread(  this.recthread);
+		this.sdthread = new Thread(this.sendthread);
+		this.rcthread =new Thread(this.recthread);
 		this.messagetosend =new <Message>MessagesToSend(sdthread);
 
 		sdthread.start();

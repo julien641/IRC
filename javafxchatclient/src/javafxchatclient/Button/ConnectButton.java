@@ -5,80 +5,59 @@
  */
 package javafxchatclient.Button;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import clientMessage.MessageData.ClientToServer.MessageLogin;
+import Interface.client.IChatThreadController;
+import Interface.client.IChatclientController;
+import Interface.client.IConnectButton;
+import Interface.client.INewChattabController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
-import javafxchatclient.ChattabController;
+import javafxchatclient.ChatclientController;
 import javafxchatclient.NewChattabController;
+import javafxchatclient.Processes.ServerConnection;
 import javafxchatclient.thread.ChatThreadController;
 
 
 import socketconnection.Login;
-import socketconnection.RC;
 import socketconnection.Socketwrapper;
 
 /**
  * @author julien
  */
-public class ConnectButton implements EventHandler {
-    private final NewChattabController newChattabController;
-    private final TabPane tabPane;
+public class ConnectButton implements IConnectButton {
+    private final INewChattabController newChattabController;
+   private final IChatclientController chatclientController;
 
-
-    public ConnectButton(NewChattabController newChattabController, TabPane tabPane) {
+    public ConnectButton(INewChattabController newChattabController, IChatclientController chatclientController) {
         this.newChattabController = newChattabController;
-        this.tabPane = tabPane;
+        this.chatclientController =chatclientController;
     }
 
 
     @Override
     public void handle(Event event) {
         Login login = setLogin(newChattabController);
-        if (login != null) {
-            Socketwrapper sw = new Socketwrapper();
-
-            RC rc = sw.connect(login.getIp(), login.getPort());
-            if (rc == RC.success) {
-                ChatThreadController chatThreadController = new ChatThreadController();
-                chatThreadController.setSw(sw);
-                chatThreadController.setLogin(login);
-                chatTabLoader(chatThreadController);
-                chatThreadController.start();
-                MessageLogin messageLogin = new MessageLogin(login.getUsername(), login.getPassword());
-                chatThreadController.getMts().addMessage(messageLogin);
-
-            } else {
-                newChattabController.getError().setText("Could not connect to the server");
-                // newChattabController.
-                //connection failed
-                //TODO Display message to the user for the failed connection
-
-            }
-
-        } else {
+        if (login == null) {
             newChattabController.getError().setText("Bad Login info");
-            //TODO Display message to the user for invalid credential
-
+            return;
         }
+        IChatThreadController iChatThreadController = new ChatThreadController(login,chatclientController);
+        Thread connection = new Thread(new ServerConnection(newChattabController,iChatThreadController));
+        connection.start();
+        iChatThreadController.setConnection(connection);
     }
 
 
-    public Login setLogin(NewChattabController newChattabController) {
+    public Login setLogin(INewChattabController newChattabController) {
         String username = newChattabController.getUsernameNewChatTab().getText();
         String password = newChattabController.getPasswordNewChatTab().getText();
         String hostname = newChattabController.getHostnameNewChatTab().getText();
         String port = newChattabController.getPortNewChatTab().getText();
+        String servername = newChattabController.getServer_name().getText();
         Login login = null;
         if (verifyTextFields(username, port)) {
-            login = new Login(username, password, Integer.valueOf(port), hostname);
+            login = new Login(username, password, Integer.valueOf(port), hostname,servername);
         }
         return login;
 
@@ -86,7 +65,7 @@ public class ConnectButton implements EventHandler {
     }
     //public
 
-
+/*
     public void chatTabLoader(ChatThreadController chatThreadController) {
         FXMLLoader Chattabloader = null;
         Tab server = null;
@@ -96,12 +75,14 @@ public class ConnectButton implements EventHandler {
             Chattabloader = new FXMLLoader(getClass().getResource("Chattab.fxml"));
             borderPane = Chattabloader.load();
             chattabController = Chattabloader.getController();
-
-
             chatThreadController.setChattabController(chattabController);
             chattabController.setIChatThreadController(chatThreadController);
+            //TODO assign tree item name to be fromt he form
+
             server = new Tab(chatThreadController.getLogin().getIp(), borderPane);
+            //TODO Change to tree
             chatThreadController.setTab(server);
+
 
             tabPane.getTabs().add(tabPane.getTabs().size() - 1, server);
             tabPane.getSelectionModel().select(server);
@@ -111,7 +92,7 @@ public class ConnectButton implements EventHandler {
         }
     }
 
-
+*/
     public boolean verifyTextFields(String username, String port) {
         boolean rc = false;
         if (!username.isEmpty()) {

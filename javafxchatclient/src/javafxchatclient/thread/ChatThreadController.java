@@ -5,13 +5,16 @@
  */
 package javafxchatclient.thread;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import Interface.client.IChatTabController;
 import Interface.client.IChatThreadController;
+import Interface.client.IChatclientController;
 import clientMessage.Message;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.TreeItem;
+import javafxchatclient.ChatclientController;
 import socketconnection.Login;
 import socketconnection.MessagesToSend;
 import socketconnection.Socketwrapper;
@@ -21,26 +24,38 @@ import socketconnection.Socketwrapper;
  * @author julien
  */
 public class ChatThreadController implements IChatThreadController {
+
+
+	private volatile AtomicBoolean running;
+
+	private Login login;
+	private Socketwrapper sw;
+	private IChatTabController chattabController;
+	private TreeItem<?> server;
+	private Thread connection;
+	private IChatclientController chatclientController;
+
+	public void setChatclientController(IChatclientController chatclientController) {
+		this.chatclientController = chatclientController;
+	}
+
+	public ChatThreadController(Login login, IChatclientController chatclientController) {
+		this.login =login;
+		sw =new Socketwrapper();
+		running = new AtomicBoolean();
+		this.server = server;
+		this.chatclientController =chatclientController;
+	}
+
+	public IChatclientController getChatclientController() {
+		return chatclientController;
+	}
+
 	private Thread trec;
 	private Thread tsend;
 	private RecChatThread recChatThread;
 	private SendChatThread sendChatThread;
-	private volatile AtomicBoolean running;
 	private MessagesToSend<Message> mts;
-
-	private Login login;
-	private TabPane tabpane;
-	private Tab tab;
-	private Socketwrapper sw;
-	private IChatTabController chattabController;
-
-	public ChatThreadController() {
-			running = new AtomicBoolean();
-
-
-
-	}
-	@Override
 	public void start(){
 		running.set(true);
 		recChatThread = new RecChatThread(this);
@@ -51,6 +66,36 @@ public class ChatThreadController implements IChatThreadController {
 		trec.start();
 		tsend.start();
 	}
+	public void end(){
+		running.set(false);
+		try {
+			sw.getSocket().setSoTimeout(1);
+			sw.getSocket().close();
+			server.getParent().getChildren().remove(server);
+			chatclientController.getChatcontrollers().remove(this);
+		} catch (SocketException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	public Thread  getConnection(){
+		return connection;
+	}
+	public void setConnection(Thread Connection){
+		this.connection =connection;
+
+	}
+
+	public TreeItem<?> getServer() {
+		return server;
+	}
+
+	public void setServer(TreeItem<?> server) {
+		this.server = server;
+	}
+
 
 	public Thread getTrec() {
 		return trec;
@@ -113,26 +158,6 @@ public class ChatThreadController implements IChatThreadController {
 	@Override
 	public void setLogin(Login login) {
 		this.login = login;
-	}
-
-	@Override
-	public TabPane getTabpane() {
-		return tabpane;
-	}
-
-	@Override
-	public void setTabpane(TabPane tabpane) {
-		this.tabpane = tabpane;
-	}
-
-	@Override
-	public Tab getTab() {
-		return tab;
-	}
-
-	@Override
-	public void setTab(Tab tab) {
-		this.tab = tab;
 	}
 
 	@Override
