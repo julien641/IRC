@@ -5,13 +5,15 @@
  */
 package Properties;
 
+import Interface.Server.IServerConfig;
+
 import java.util.Properties;
 
 /**
  *
  * @author julien
  */
-public class ServerConfig {
+public class ServerConfig implements IServerConfig {
 	final private String ADMIN_USERNAME;	
 	final private String ADMIN_PASSWORD;
 	final private boolean enable_whitelist;
@@ -28,6 +30,7 @@ public class ServerConfig {
 		this.PASS_REQ = PASS_REQ;
 	}
 
+	@Override
 	public String getADMIN_USERNAME() {
 		return ADMIN_USERNAME;
 	}
@@ -39,37 +42,42 @@ public class ServerConfig {
 			+ MAXUSER + ", name=" + name + ", PASS_REQ=" + PASS_REQ + '}';
 	}
 
+	@Override
 	public String getADMIN_PASSWORD() {
 		return ADMIN_PASSWORD;
 	}
 
+	@Override
 	public boolean isEnable_whitelist() {
 		return enable_whitelist;
 	}
 
+	@Override
 	public int getMAXUSER() {
 		return MAXUSER;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public boolean isPASS_REQ() {
 		return PASS_REQ;
 	}
-	public static ServerConfig newInstance(Properties p)throws NumberFormatException,NullPointerException{
-		
-			return	new ServerConfigBuilder() 
+	public static IServerConfig newInstance(Properties p) throws NumberFormatException, NullPointerException {
+
+		return new Properties.ServerConfig.ServerConfigBuilder()
 				.setADMIN_USERNAME(p.getProperty("ADMIN_USERNAME"))
 				.setADMIN_PASSWORD(p.getProperty("ADMIN_PASSWORD"))
-				.setEnable_whitelist( p.getProperty("whitelist"))
+				.setEnable_whitelist(p.getProperty("whitelist"))
 				.setName(p.getProperty("name"))
 				.setPASS_REQ(p.getProperty("PASS_REQ"))
 				.setMAXUSER(p.getProperty("MAXUSER")).
-				build();
-		}	
-	
+						build();
+	}
+
 	public static class ServerConfigBuilder{
 		private String ADMIN_USERNAME;	
 		private String ADMIN_PASSWORD;

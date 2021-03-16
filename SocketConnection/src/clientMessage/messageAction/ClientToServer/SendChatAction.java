@@ -1,17 +1,19 @@
 package clientMessage.messageAction.ClientToServer;
 
 import Interface.Server.IControllerThread;
+import clientMessage.Message;
+import clientMessage.MessageData.ClientToServer.MessageSendChat;
 import clientMessage.MessageData.ServerToClient.SendBackMessage;
 import clientMessage.messageAction.IMessageAction;
 
 public class SendChatAction implements IMessageAction {
     private final IControllerThread controllerThread;
-    private final String from;
+    private final MessageSendChat messageSendChat;
     private final String text;
 
-    public SendChatAction(IControllerThread controllerThread, String from, String text) {
+    public SendChatAction(IControllerThread controllerThread, MessageSendChat messageSendChat, String text) {
         this.controllerThread = controllerThread;
-        this.from = from;
+        this.messageSendChat = messageSendChat;
         this.text = text;
     }
 
@@ -20,7 +22,7 @@ public class SendChatAction implements IMessageAction {
         for(IControllerThread x :controllerThread.getServerthread().getControllerthreads()) {
             //TODO
 
-            x.getMessagetosend().addMessage(new SendBackMessage(from,text));
+            x.getMessagetosend().addMessage(new SendBackMessage(messageSendChat.getLogin(),text));
         }
     }
 }

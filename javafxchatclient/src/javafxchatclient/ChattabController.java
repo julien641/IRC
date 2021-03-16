@@ -20,7 +20,7 @@ import javafxchatclient.Button.SendButton;
 
 /**
  * FXML Controller class
- *
+ * controller class for chat tabs
  * @author julien
  */
 public class ChattabController implements IChatTabController {

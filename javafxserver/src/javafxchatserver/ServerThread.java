@@ -25,11 +25,21 @@ public class ServerThread implements Runnable , IServerThread {
 	final private int port;
 	private ArrayList<IControllerThread> controllerthreads;
 	final private int timeout = 1000;
-	
-	public ServerThread(int port) {
+	private Javafxchatserver mainthread;
+
+	public Javafxchatserver getMainthread() {
+		return mainthread;
+	}
+
+	public void setMainthread(Javafxchatserver mainthread) {
+		this.mainthread = mainthread;
+	}
+
+	public ServerThread(Javafxchatserver mainthread, int port) {
 		this.port = port;
 		controllerthreads = new ArrayList<>();
 		this.running = true;
+		this.mainthread = mainthread;
 	}
 
 

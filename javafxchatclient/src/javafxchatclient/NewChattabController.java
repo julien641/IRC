@@ -8,10 +8,11 @@ package javafxchatclient;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Interface.client.IChatclientController;
+import Interface.client.IConnectButton;
+import Interface.client.INewChattabController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -24,7 +25,7 @@ import javax.xml.soap.Text;
  *
  * @author julien
  */
-public class NewChattabController implements Initializable {
+public class NewChattabController implements Initializable, INewChattabController {
 
     @FXML
     private TextField usernameNewChatTab;
@@ -34,6 +35,9 @@ public class NewChattabController implements Initializable {
     private TextField portNewChatTab;
     @FXML
     private TextField hostnameNewChatTab;
+
+
+
     @FXML
     private TextField server_name;
     @FXML
@@ -54,69 +58,83 @@ public class NewChattabController implements Initializable {
     private Label servernamelabel;
 
     
-    private ConnectButton connectButton;
+    private IConnectButton connectButton;
     private TabPane tabPane;
-    private ChatclientController chatclientController;
+    private IChatclientController chatclientController;
     /**
      * Initializes the controller class.
      */
 
-
+    @Override
+    public TextField getServer_name() {
+        return server_name;
+    }
+    @Override
     public Label getError() {
         return error;
     }
 
+    @Override
     public void setError(Label error) {
         this.error = error;
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usernameNewChatTab.focusedProperty().addListener(new changingLabels(usernamelabel,usernameNewChatTab));
-
         passwordNewChatTab.focusedProperty().addListener(new changingLabels(passwordlabel,passwordNewChatTab));
-
         portNewChatTab.focusedProperty().addListener(new changingLabels(portlabel,portNewChatTab));
         hostnameNewChatTab.focusedProperty().addListener(new changingLabels(hostnamelabel,hostnameNewChatTab));
         server_name.focusedProperty().addListener(new changingLabels(servernamelabel,server_name));
+
     }
-    public void setupController(TabPane tabPane, ChatclientController chatclientController)
+    @Override
+    public void setupController(IChatclientController chatclientController)
     {
 	  this.chatclientController = chatclientController;
           this.tabPane =tabPane;
-          connectButton= new ConnectButton(this,this.tabPane);
+          connectButton= new ConnectButton(this,chatclientController);
           connectNewChatTab.setOnAction(connectButton);
     }
 
-	public ChatclientController getChatclientController() {
+	@Override
+    public IChatclientController getChatclientController() {
 		return chatclientController;
 	}
 
-	public void setChatclientController(ChatclientController chatclientController) { this.chatclientController = chatclientController; }
+	@Override
+    public void setChatclientController(IChatclientController chatclientController) { this.chatclientController = chatclientController; }
 
+    @Override
     public TextField getUsernameNewChatTab() {
         return usernameNewChatTab;
     }
 
+    @Override
     public TextField getPasswordNewChatTab() {
         return passwordNewChatTab;
     }
 
+    @Override
     public TextField getPortNewChatTab() {
         return portNewChatTab;
     }
 
+    @Override
     public TextField getHostnameNewChatTab() {
         return hostnameNewChatTab;
     }
 
+    @Override
     public Button getConnectNewChatTab() {
         return connectNewChatTab;
     }
 
-    public ConnectButton getConnectButton() {
+    @Override
+    public IConnectButton getConnectButton() {
         return connectButton;
     }
 
+    @Override
     public TabPane getTabPane() {
         return tabPane;
     }

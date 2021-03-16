@@ -9,6 +9,8 @@ import clientMessage.Message;
 import clientMessage.messageAction.ClientToServer.ActionLogin;
 import Interface.Server.IControllerThread;
 import clientMessage.MessageData.IServerMessage;
+import socketconnection.Login;
+
 import java.io.Serializable;
 
 /**
@@ -16,25 +18,16 @@ import java.io.Serializable;
  * @author julien
  */
 public class MessageLogin extends Message implements IServerMessage, Serializable {
-	private String password;
-	public MessageLogin(String from,String password) {
-		super(from);
-		this.password =password;
+	private Login login;
+	public MessageLogin(Login login) {
+		super(login);
+		this.login = login;
 	
 	}
 
-
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	@Override
 	public void setDefaultAction(IControllerThread controllerthread){
-		super.setAction(new ActionLogin(controllerthread,super.getFrom(),password));
+		super.setAction(new ActionLogin(controllerthread,login));
 	}
 
 

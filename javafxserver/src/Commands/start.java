@@ -20,7 +20,7 @@ public class start extends Commands{
 	private final String[] argument ={"-p",""};
 	final private int defaultport =55555;
 	public start(Javafxchatserver cli, String input){
-	super(cli,input);
+		super(cli,input);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class start extends Commands{
 		
 		}
 		System.out.println("Server starting on port:"+port);	
-		ServerThread serverthread =new ServerThread(port);
+		ServerThread serverthread =new ServerThread(super.getCli(),port);
 		
 		Thread thread =new Thread(serverthread);
 		thread.start();

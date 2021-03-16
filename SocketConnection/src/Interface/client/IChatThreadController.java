@@ -7,10 +7,12 @@ package Interface.client;
 
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TreeItem;
 import socketconnection.Login;
 import socketconnection.MessagesToSend;
 import socketconnection.Socketwrapper;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -21,7 +23,7 @@ public interface IChatThreadController {
     void start();
 
     AtomicBoolean getRunning();
-
+    void end();
     void setRunning(AtomicBoolean running);
 
     MessagesToSend getMts();
@@ -32,13 +34,6 @@ public interface IChatThreadController {
 
     void setLogin(Login login);
 
-    TabPane getTabpane();
-
-    void setTabpane(TabPane tabpane);
-
-    Tab getTab();
-
-    void setTab(Tab tab);
 
     Socketwrapper getSw();
 
@@ -47,4 +42,11 @@ public interface IChatThreadController {
     IChatTabController getChattabController();
 
     void setChattabController(IChatTabController chattabController);
+     void setServer(TreeItem<?> server);
+    TreeItem<?> getServer();
+    Thread getConnection();
+    void setConnection(Thread connection);
+    void setChatclientController(IChatclientController chatclientController);
+    public IChatclientController getChatclientController();
+
 }

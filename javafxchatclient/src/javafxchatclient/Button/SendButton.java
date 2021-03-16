@@ -15,7 +15,7 @@ public class SendButton implements EventHandler {
         String payload=chattabController.getSendchattextarea().getText();
         chattabController.getSendchattextarea().setText("");
         //TODO MAke message TO SEND TO THE SERVER
-        chattabController.getIChatThreadController().getMts().addMessage(new MessageSendChat(chattabController.getIChatThreadController().getLogin().getUsername(),payload));
+        chattabController.getIChatThreadController().getMts().addMessage(new MessageSendChat(chattabController.getIChatThreadController().getLogin(),payload));
 
     }
 }
