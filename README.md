@@ -87,12 +87,15 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 This my personal project to create a internet relay chat. The goal of this project is to have a server owner host the server I created and customize the different roles, permissions, channel and many other features. Then a user using my client will be able to chat, play games and many other features with other connected clients.
-[![Product Name Screen Shot][product-screenshot]](https://github.com/julien641/IRC/main.png)
 
+ <a href="https://github.com/julien641/IRC/">
+    <img src="main.PNG" alt="main" >
+  </a>
+<!--
 Here's a blank template to get started:
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
 `github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
-
+-->
 
 ### Built With
 
