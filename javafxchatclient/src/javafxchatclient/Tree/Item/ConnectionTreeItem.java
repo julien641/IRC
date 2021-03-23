@@ -7,27 +7,11 @@ import javafxchatclient.Tree.Cell.MyTreeCellRoot;
 import javafxchatclient.Tree.Item.Interface.IAccept;
 
 public class ConnectionTreeItem extends TreeItem<Text> implements IAccept {
-        private int index =0;
-        private final int max =3;
-        private String string = "Connecting ....(";
-        private String end =")";
-        private Text text;
         private IChatThreadController chatThreadController;
-
+        private final int max =4;
     public ConnectionTreeItem( IChatThreadController chatThreadController){
-        super(new Text());
-        super.setExpanded(false);
+        super();
         this.chatThreadController =chatThreadController;
-    }
-    public String newvalue(){
-        index++;
-        return string +index+end;
-    }
-    public int getIndex() {
-        return index;
-    }
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     public int getMax() {

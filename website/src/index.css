@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+
+}
+
+.code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.Top{
+  background-image: url("./img/fibre.jpg");
+  background-size: cover;
+  background-repeat:   no-repeat;
+  height : 600px;
+}
+.header{
+  margin:  auto;
+  width:   40%;
+  padding: 30px;
+}
+.headerspan{
+
+  text-align: center;
+
+
+}
+.headerlink{
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  color: white;
+  font-size:30px;
+  text-decoration: none;
+  font-weight: 900;
+}
+.loginbutton{
+  margin-left: 100px;
+  background-color: Transparent;
+  border-width: 10px;
+  border-style:solid;
+  border-radius: 25px;
+  width:150px;
+  height: 70px;
+  color: white;
+  border-color: white;
+  font-weight: 900;
+  font-size:30px;
+  text-align: center;
+}
+.logoimg{
+  width: 100px;
+  height: 50px;
+  float: left;
+  margin: 10px;
+
+}
+
+
+ /*
+.HeaderLink{
+ 
+padding-left: 10px;
+  width: 60%;
+}
+*/
+.colorizegreen {
+  background-color:chartreuse
+}
+.colorizepurp {
+  background-color:purple
+}

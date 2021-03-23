@@ -135,6 +135,7 @@ public class ChatclientController implements Initializable, IChatclientControlle
     }
 
     private void setuptreechannel() {
+
         treechannelview.setCellFactory(new Callback<TreeView, TreeCell>() {
             @Override
             public TreeCell call(TreeView param) {
