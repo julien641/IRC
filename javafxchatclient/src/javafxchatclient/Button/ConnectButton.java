@@ -11,16 +11,9 @@ import Interface.client.IChatclientController;
 import Interface.client.IConnectButton;
 import Interface.client.INewChattabController;
 import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.control.TabPane;
-import javafxchatclient.ChatclientController;
-import javafxchatclient.NewChattabController;
 import javafxchatclient.Processes.ServerConnection;
 import javafxchatclient.thread.ChatThreadController;
-
-
 import socketconnection.Login;
-import socketconnection.Socketwrapper;
 
 /**
  * @author julien
@@ -43,7 +36,7 @@ public class ConnectButton implements IConnectButton {
             return;
         }
         IChatThreadController iChatThreadController = new ChatThreadController(login,chatclientController);
-        Thread connection = new Thread(new ServerConnection(newChattabController,iChatThreadController));
+        Thread connection = new Thread(new ServerConnection(iChatThreadController));
         connection.start();
         iChatThreadController.setConnection(connection);
     }

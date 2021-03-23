@@ -20,33 +20,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author julien
  */
 public interface IChatThreadController {
-    void start();
-
     AtomicBoolean getRunning();
     void end();
     void setRunning(AtomicBoolean running);
-
     MessagesToSend getMts();
-
     void setMts(MessagesToSend mts);
-
     Login getLogin();
-
     void setLogin(Login login);
-
-
     Socketwrapper getSw();
-
     void setSw(Socketwrapper sw);
-
     IChatTabController getChattabController();
-
     void setChattabController(IChatTabController chattabController);
-     void setServer(TreeItem<?> server);
-    TreeItem<?> getServer();
     Thread getConnection();
     void setConnection(Thread connection);
     void setChatclientController(IChatclientController chatclientController);
     public IChatclientController getChatclientController();
-
+    void init();
 }

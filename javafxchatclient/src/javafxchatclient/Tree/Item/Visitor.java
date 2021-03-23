@@ -12,9 +12,6 @@ import javafxchatclient.Tree.Item.Interface.IVisit;
 
 
 public class Visitor implements IVisit {
-    private TreeItem<Text> connectionTreeItem;
-    private MyTreeCellRoot myTreeCellRoot;
-    private Text item;
 
     @Override
     public void visit(ChannelTreeRoot channelTreeRoot, MyTreeCellRoot myTreeCellRoot, Text item) {
@@ -32,6 +29,7 @@ public class Visitor implements IVisit {
     public void visit(ConnectionTreeItem connectionTreeItem, MyTreeCellRoot myTreeCellRoot,Text item) {
         myTreeCellRoot.setText(item.getText());
         myTreeCellRoot.setTextFill(Color.RED);
+
     }
 
 

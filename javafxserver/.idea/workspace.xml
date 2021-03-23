@@ -2,6 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b01fa3f-dc26-460c-9c47-5e9c4a40a13e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/src/main/java/com/IRC/IRC_Main_server/Config/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/src/main/java/com/IRC/IRC_Main_server/IrcMainServerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/src/main/java/com/IRC/IRC_Main_server/ServletInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/src/main/java/com/IRC/IRC_Main_server/models/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../IRC_Main_server/src/test/java/com/IRC/IRC_Main_server/IrcMainServerApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/thread/ChatThreadController$STATUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/artifacts/SocketConnection_jar/SocketConnection.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/out/artifacts/SocketConnection_jar/SocketConnection.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/Interface/client/IChatThreadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/out/production/SocketConnection/Interface/client/IChatThreadController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/Interface/client/IChatThreadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/Interface/client/IChatThreadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/messageAction/ServerToClient/ActionLoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SocketConnection/src/clientMessage/messageAction/ServerToClient/ActionLoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Button/ConnectButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Button/ConnectButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/ChatclientController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/ChatclientController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/ChatclientController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/ChatclientController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Processes/ServerConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Processes/ServerConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Tree/Item/ConnectionTreeItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Tree/Item/ConnectionTreeItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Tree/Item/ServerTreeItem$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Tree/Item/ServerTreeItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Tree/Item/ServerTreeItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Tree/Item/Visitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/Tree/Item/Visitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/thread/ChatThreadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/out/production/javafxchatclient/javafxchatclient/thread/ChatThreadController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Button/ConnectButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Button/ConnectButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/ChatclientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/ChatclientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Processes/ServerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Processes/ServerConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Tree/Cell/MyTreeCellRoot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Tree/Item/ConnectionTreeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Tree/Item/ConnectionTreeItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Tree/Item/ServerTreeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Tree/Item/ServerTreeItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Tree/Item/Visitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/Tree/Item/Visitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/thread/ChatThreadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javafxchatclient/src/javafxchatclient/thread/ChatThreadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/javafxchatserver/SQLlitewrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javafxchatserver/Database/SQLlitewrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../test/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../test/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../test/.idea/vcs.xml" beforeDir="false" />
@@ -55,6 +93,9 @@
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="Properties" />
       <recent name="javafxchatserver" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="javafxchatserver.Database" />
     </key>
   </component>
   <component name="RunManager">

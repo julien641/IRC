@@ -19,6 +19,8 @@ public class ServerTreeItem extends TreeItem<Text> implements IAccept {
     private IChatThreadController ichatThreadController;
     private MyTreeCellRoot myTreeCellRoot =null;
     private int pos;
+    private ServerTreeItem  serverTreeItem= this;
+
     public ServerTreeItem(String text ,IChatThreadController ichatThreadController) {
         super(new Text(text));
         super.setExpanded(false);
@@ -34,19 +36,18 @@ public class ServerTreeItem extends TreeItem<Text> implements IAccept {
         this.myTreeCellRoot = myTreeCellRoot;
         visitor.visit(this,myTreeCellRoot,text);
     }
+
     public ContextMenu serverTreeContextMenubuilder(){
         ServerTreeItem current =this;
         ContextMenu x = new ContextMenu();
         MenuItem reconnect = new MenuItem("Reconnect");
         MenuItem edit = new MenuItem("Edit");
         MenuItem disconnect = new MenuItem("Disconnect");
-        reconnect.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-               removeCurrent(current);
 
+        reconnect.setOnAction(event -> {
+            removeCurrent(current);
+            ichatThreadController.end();
 
-            }
         });
         x.getItems().addAll(reconnect,edit,disconnect);
         return x;

@@ -29,7 +29,8 @@ public class ActionLoginResponse implements IMessageAction{
 	@Override
 	public void action() {
 		System.out.println("Response");
-		Platform.runLater(() -> client.getChattabController().getChatbox().getChildren().add(new Text(message.getLogin().getUsername()+" welcome to my server \n")));
+		 client.start();
+	//	Platform.runLater(() -> client.getChattabController().getChatbox().getChildren().add(new Text(message.getLogin().getUsername()+" welcome to my server \n")));
 
 
 	}
