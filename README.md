@@ -86,7 +86,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This my personal project to create a internet relay chat. The goal of this project is to have a server owner host the server I created and customize the different roles, permissions, channel and many other features. Then a user using my client will be able to chat, play games and many other features with other connected clients.
+This is my personal project to create a internet relay chat. The goal of this project is to have a server owner host the server I created and customize the different roles, permissions, channel and many other features. Then a user using my client will be able to chat, play games and many other features with other connected clients.
 
  <a href="https://github.com/julien641/IRC/">
     <img src="main.PNG" alt="main" >

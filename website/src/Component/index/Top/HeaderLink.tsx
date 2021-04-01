@@ -5,10 +5,8 @@ class HeaderLink extends Component<{ websitelink:string, text:string}>{
 
 
     render(){
-
-
         return(
-            <a className="headerlink "  href = {this.props.websitelink}>
+            <a className="headerlink"  href = {this.props.websitelink}>
                    <span> {this.props.text}</span>
             </a>
            )
