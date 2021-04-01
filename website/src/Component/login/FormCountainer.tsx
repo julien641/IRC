@@ -46,7 +46,7 @@ function signupdata(): arrayform {
         placeholder: "Email",
         id: "email",
         name: "email",
-        label: "email:",
+        label: "Email:",
         send: true,
         required: true,
       },

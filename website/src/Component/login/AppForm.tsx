@@ -190,11 +190,15 @@ function construct(
   updateValue: (type: any, value: string) => void,
   resetlabel: () => void
 ) {
-  return input.map((data) => {
+  return input.map((data,index) => {
+
+
+    
     return (
-      <>
+     
+      <React.Fragment key={data.id.toString()}>
         <LoginInput
-          key={data.name}
+          
           value={data.value}
           fielderror={data.error}
           class={props.class}
@@ -204,7 +208,7 @@ function construct(
           resetlabel={resetlabel}
         />
         <br />
-      </>
+      </React.Fragment>
     );
   });
 }
