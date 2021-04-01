@@ -1,0 +1,42 @@
+.Second {
+  background-color: #c9b4b4;
+  width: 100%;
+  padding: 0px;
+  border: 0px;
+  margin: 0px;
+  display: inline-block;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.ApplicationImg {
+  width: 100%;
+  height: 100%;
+}
+.ApplicationImgCountainer {
+  padding: 25px;
+  width: 50%;
+  margin: auto;
+}
+.descrCountainer {
+  width: 50%;
+  margin: auto;
+  padding: 0;
+  color: #011425;
+}
+.Descrtitle {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.DescrParagraph {
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  text-align: justify;
+}
+.Inner {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}

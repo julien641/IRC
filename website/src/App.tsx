@@ -1,27 +1,29 @@
-import './App.css';
-import Top from './Component/Top';
-
-
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Index from "./Component/index/Index";
+import FormCountainer from "./Component/login/FormCountainer";
 
 function App() {
+
+
+
+
+
+  
+
   return (
-    <div>
-      <Top/>
-      <nav>
-        nav
-        </nav>
-        <section>
-          section
-          </section>
-          <article>
-            article
-          </article>
-          <aside>
-            aside
-          </aside>
-          <footer>footer</footer>
-
-
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route path="/" exact component={() => <Index />} />
+          <Route
+            path="/forms"
+            
+            component={() => <FormCountainer />}
+          />
+         
+        </Switch>
+      </Router>
     </div>
   );
 }
