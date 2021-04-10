@@ -5,11 +5,12 @@
  */
 package Interface.client;
 
+import clientMessage.Message;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
-import socketconnection.Login;
 import socketconnection.MessagesToSend;
+import socketconnection.ServerInfo;
 import socketconnection.Socketwrapper;
 
 import java.util.ArrayList;
@@ -20,20 +21,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author julien
  */
 public interface IChatThreadController {
-    AtomicBoolean getRunning();
     void end();
-    void setRunning(AtomicBoolean running);
-    MessagesToSend getMts();
-    void setMts(MessagesToSend mts);
-    Login getLogin();
-    void setLogin(Login login);
-    Socketwrapper getSw();
-    void setSw(Socketwrapper sw);
-    IChatTabController getChattabController();
-    void setChattabController(IChatTabController chattabController);
-    Thread getConnection();
-    void setConnection(Thread connection);
-    void setChatclientController(IChatclientController chatclientController);
-    public IChatclientController getChatclientController();
     void init();
+    void setuptree();
+    void start();
+    boolean isRunning();
+    void processMessage();
+    void sendMessage(Message message);
+    void connectingToServer();
 }

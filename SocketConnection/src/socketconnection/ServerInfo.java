@@ -2,19 +2,17 @@ package socketconnection;
 
 import java.io.Serializable;
 
-public class Login implements Serializable {
+public class ServerInfo implements Serializable {
     private String username;
     private String password;
     private int port;
     private String ip;
     private String servername;
 
-    public Login(String username, String password, int port, String ip,String servername) {
-        this.username = username;
+    public ServerInfo(String ip,String password, int port) {
         this.password = password;
         this.port = port;
         this.ip = ip;
-        this.servername =servername.isEmpty() ? ip :servername;
     }
 
     public String getPassword() {

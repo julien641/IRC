@@ -12,71 +12,66 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxchatclient.NewChattabController">
+<Pane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxchatclient.NewChattabController">
    <children>
-      <Pane VBox.vgrow="ALWAYS" />
-      <HBox>
+      <VBox layoutX="26.0">
          <children>
-            <Pane HBox.hgrow="ALWAYS" />
-            <AnchorPane HBox.hgrow="NEVER">
+            <Pane VBox.vgrow="ALWAYS" />
+            <HBox>
                <children>
-                  <VBox fillWidth="false">
-                     <children>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Pane HBox.hgrow="ALWAYS" />
-                              <Pane>
-                                 <children>
-                                    <Label alignment="CENTER" layoutX="22.0" text="Sign in to a new chat" />
-                                 </children>
-                              </Pane>
-                              <Pane prefHeight="17.0" HBox.hgrow="ALWAYS" />
-                           </children>
-                        </HBox>
-                        <Label fx:id="usernamelabel" prefHeight="5.0" prefWidth="60.0" text="Username" visible="false" />
-                        <TextField fx:id="usernameNewChatTab" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="149.0" promptText="Username">
-                           <tooltip>
-                              <Tooltip text="Username is Required" />
-                           </tooltip>
-                        </TextField>
-                        <Label fx:id="passwordlabel" prefHeight="17.0" prefWidth="58.0" text="Password" visible="false" />
-                        <TextField fx:id="passwordNewChatTab" prefHeight="25.0" prefWidth="149.0" promptText="Password (Optional)">
-                           <tooltip>
-                              <Tooltip text="Password is Optional" />
-                           </tooltip>
-                        </TextField>
-                        <Label fx:id="hostnamelabel" text="Host Name" visible="false" />
-                        <TextField fx:id="hostnameNewChatTab" prefHeight="25.0" prefWidth="149.0" promptText="Hostname">
-                           <tooltip>
-                              <Tooltip text="Host name is required" />
-                           </tooltip>
-                        </TextField>
-                        <Label fx:id="portlabel" prefHeight="17.0" prefWidth="25.0" text="Port" visible="false" />
-                        <TextField fx:id="portNewChatTab" prefHeight="25.0" prefWidth="58.0" promptText="Port (Required)" text="55555">
-                           <tooltip>
-                              <Tooltip text="Port is required, must be a positive number" />
-                           </tooltip>
-                        </TextField>
-                        <Label fx:id="servernamelabel" text="Server Name" visible="false" />
-                        <TextField fx:id="server_name" prefHeight="25.0" prefWidth="149.0" promptText="Server Name (Optional)" />
-                        <HBox>
-                           <children>
-                              <Label alignment="TOP_LEFT" prefHeight="17.0" prefWidth="77.0" text="Remember:" />
-                              <CheckBox fx:id="save" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" textAlignment="JUSTIFY" />
-                           </children>
-                        </HBox>
-                        <Button fx:id="connectNewChatTab" mnemonicParsing="false" text="Connect" />
-                        <Label fx:id="error" alignment="TOP_LEFT" prefHeight="51.0" prefWidth="149.0" wrapText="true" />
-                     </children>
-                  </VBox>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <AnchorPane HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </AnchorPane>
+                  <Pane HBox.hgrow="ALWAYS" />
                </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </AnchorPane>
-            <Pane HBox.hgrow="ALWAYS" />
+            </HBox>
+            <Pane VBox.vgrow="ALWAYS" />
          </children>
-      </HBox>
-      <Pane VBox.vgrow="ALWAYS" />
+      </VBox>
+      <VBox fillWidth="false" layoutX="126.0" layoutY="24.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <Pane>
+                     <children>
+                        <Label alignment="CENTER" layoutX="22.0" text="Sign in to a new chat" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="17.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <Label fx:id="hostnamelabel" text="Host Name" visible="false" />
+            <TextField fx:id="hostnameNewChatTab" prefHeight="25.0" prefWidth="149.0" promptText="Hostname">
+               <tooltip>
+                  <Tooltip text="Host name is required" />
+               </tooltip>
+            </TextField>
+            <Label fx:id="passwordlabel" prefHeight="17.0" prefWidth="58.0" text="Password" visible="false" />
+            <TextField fx:id="passwordNewChatTab" prefHeight="25.0" prefWidth="149.0" promptText="Password (Optional)">
+               <tooltip>
+                  <Tooltip text="Password is Optional" />
+               </tooltip>
+            </TextField>
+            <Label fx:id="portlabel" prefHeight="17.0" prefWidth="25.0" text="Port" visible="false" />
+            <TextField fx:id="portNewChatTab" prefHeight="25.0" prefWidth="58.0" promptText="Port (Required)" text="55555">
+               <tooltip>
+                  <Tooltip text="Port is required, must be a positive number" />
+               </tooltip>
+            </TextField>
+            <Label fx:id="servernamelabel" text="Server Name" visible="false" />
+            <HBox>
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="17.0" prefWidth="77.0" text="Remember:" />
+                  <CheckBox fx:id="save" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" textAlignment="JUSTIFY" />
+               </children>
+            </HBox>
+            <Button fx:id="connectNewChatTab" mnemonicParsing="false" text="Connect" />
+            <Label fx:id="error" alignment="TOP_LEFT" prefHeight="51.0" prefWidth="149.0" wrapText="true" />
+         </children>
+      </VBox>
    </children>
-</VBox>
+</Pane>

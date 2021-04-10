@@ -8,15 +8,15 @@ body {
     monospace;
 }
 .Top{
-  background-image: url("../img/fibre.jpg");
+  background-image: url("./img/fibre.jpg");
   background-size: cover;
   background-repeat:   no-repeat;
   height : 600px;
 }
 .header{
-  margin:  auto;
-  width:   40%;
+
   padding: 30px;
+  text-align: center;
 }
 .headerspan{
 
@@ -39,12 +39,13 @@ body {
 }
 
 .loginbutton{
-  margin-left: 100px;
+  
   background-color: Transparent;
   border-width: 10px;
   border-style:solid;
   border-radius: 25px;
-  width:150px;
+  width:fit-content;
+  
   height: 70px;
   color: #c9b4b4;
   border-color: #c9b4b4;

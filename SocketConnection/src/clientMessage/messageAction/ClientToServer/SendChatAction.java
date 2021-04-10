@@ -22,7 +22,7 @@ public class SendChatAction implements IMessageAction {
         for(IControllerThread x :controllerThread.getServerthread().getControllerthreads()) {
             //TODO
 
-            x.getMessagetosend().addMessage(new SendBackMessage(messageSendChat.getLogin(),text));
+            x.getMessagetosend().addMessage(new SendBackMessage(messageSendChat.getServerInfo(),text));
         }
     }
 }

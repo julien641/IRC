@@ -1,20 +1,16 @@
 package javafxchatclient.Tree.Item;
 
 import Interface.client.IChatThreadController;
-import com.sun.security.ntlm.Server;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.text.Text;
-import javafxchatclient.Processes.ServerConnection;
 import javafxchatclient.Tree.Cell.MyTreeCellRoot;
 import javafxchatclient.Tree.Item.Interface.IAccept;
-import socketconnection.Login;
+import socketconnection.ServerInfo;
 
 public class ServerTreeItem extends TreeItem<Text> implements IAccept {
-    private Login login;
+    private ServerInfo login;
     private Boolean connected;
     private IChatThreadController ichatThreadController;
     private MyTreeCellRoot myTreeCellRoot =null;
@@ -23,11 +19,10 @@ public class ServerTreeItem extends TreeItem<Text> implements IAccept {
 
     public ServerTreeItem(String text ,IChatThreadController ichatThreadController) {
         super(new Text(text));
-        super.setExpanded(false);
-
-        this.login = login;
+        super.setExpanded(true);
         connected =false;
         this.ichatThreadController =ichatThreadController;
+        super.getChildren().add(new ConnectionTreeItem(ichatThreadController));
     }
 
 

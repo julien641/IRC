@@ -9,13 +9,23 @@ export interface Forms {
   send: boolean;
   required: boolean;
 }
+export interface Button{
+    type:string
+    value:string
 
+}
+export interface Link{
+    label:string
+    to:string
+}
 export type arrayform = {
   form: Forms[];
   header:string;
   class:string;
   url: string;
   method: string;
+  button:Button;
+  link:Link
   datachecking(appform:AppForm): boolean;
   datahandling(data: any,appform:AppForm): any;
   error(error: any,appForm:AppForm): any;

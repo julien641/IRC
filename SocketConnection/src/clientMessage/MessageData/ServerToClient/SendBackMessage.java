@@ -4,13 +4,13 @@ import Interface.client.IChatThreadController;
 import clientMessage.Message;
 import clientMessage.MessageData.IClientMessage;
 import clientMessage.messageAction.ServerToClient.SendBackMessageAction;
-import socketconnection.Login;
+import socketconnection.ServerInfo;
 
 public class SendBackMessage extends Message implements IClientMessage {
     private String payload;
 
-    public SendBackMessage(Login login,String payload) {
-        super(login);
+    public SendBackMessage(ServerInfo serverInfo, String payload) {
+        super(serverInfo);
         this.payload =payload;
     }
 

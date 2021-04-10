@@ -58,15 +58,15 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane fx:id="mainSplitPane" dividerPositions="0.3307349665924276, 0.8307349665924276" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0">
+    <SplitPane fx:id="mainSplitPane" dividerPositions="0.2, 0.8" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0">
       <items>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" SplitPane.resizableWithParent="false">
                <content>
-                  <TreeView fx:id="treechannelview" editable="true" prefHeight="551.0" prefWidth="237.0" showRoot="false" />
+                  <TreeView fx:id="treechannelview" editable="true" prefHeight="551.0" prefWidth="272.0" showRoot="false" />
                </content>
             </ScrollPane>
-            <TabPane fx:id="tabPane" prefHeight="551.0" prefWidth="366.0" SplitPane.resizableWithParent="false" />
-            <ListView fx:id="userListview" />
+            <TabPane fx:id="tabPane" prefHeight="551.0" prefWidth="366.0" style="-fx-background-image: url(&quot;C:\Users\julien\Documents\projects\javafxchats\javafxchatclient\src\javafxchatclient\fibre.jpg&quot;);" SplitPane.resizableWithParent="false" />
+            <ListView fx:id="userListview" SplitPane.resizableWithParent="false" />
       </items>
     </SplitPane>
     <HBox id="HBox" fx:id="bottomHbox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

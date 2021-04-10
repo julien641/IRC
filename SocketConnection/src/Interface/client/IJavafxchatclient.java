@@ -6,4 +6,6 @@ public interface IJavafxchatclient {
     void start(Stage primaryStage) throws Exception;
 
     IChatclientController getController();
+    Stage getPrimaryStage();
+
 }

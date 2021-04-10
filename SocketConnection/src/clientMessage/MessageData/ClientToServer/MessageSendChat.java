@@ -4,12 +4,12 @@ import Interface.Server.IControllerThread;
 import clientMessage.Message;
 import clientMessage.MessageData.IServerMessage;
 import clientMessage.messageAction.ClientToServer.SendChatAction;
-import socketconnection.Login;
+import socketconnection.ServerInfo;
 
 public class MessageSendChat extends Message implements IServerMessage {
 private String text;
-    public MessageSendChat(Login login, String text) {
-        super(login);
+    public MessageSendChat(ServerInfo serverInfo, String text) {
+        super(serverInfo);
         this.text = text;
     }
 

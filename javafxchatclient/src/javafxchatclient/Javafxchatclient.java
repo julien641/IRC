@@ -15,8 +15,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.SocketException;
+import java.util.Scanner;
 
 /**
  * entry point to the application
@@ -24,41 +31,99 @@ import java.net.SocketException;
  *
  */
 public class Javafxchatclient extends Application implements IJavafxchatclient {
-	private IChatclientController controller;
+    private static String token ="";
+    private static String type;
+    private Stage primaryStage;
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    private IChatclientController controller;
+
+    public static String getToken() {
+        return type+" "+token;
+    }
+
+    public static void setToken(String token,String type) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("token",token);
+        jsonObject.put("type",type);
+
+        File auth = new File("secret.json");
+
+        try {
+            if(auth.exists()){
+                auth.delete();
+
+            }
+            if(auth.createNewFile() && auth.canWrite()) {
+                FileWriter fw = new FileWriter(auth);
+                fw.write(jsonObject.toString());
+                fw.flush();
+                fw.close();
+                Javafxchatclient.token = token;
+                Javafxchatclient.type = type;
+            }else{
+                throw new IOException();
+
+            }
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         //loads the main scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("chatclient.fxml"));
-        //get the main sce
-        Parent root = loader.load();
-        controller = loader.getController();
+        this.primaryStage =primaryStage;
+        loadtoken();
+        if(token=="" || type==""){
+            login();
+        }else{
+            setupClient();
+        }
 
-
-        Scene  scene = new Scene(root,900,600);
-        primaryStage.setTitle("IRC");
-        primaryStage.setScene(scene);
-        //changes the on close event to end all sockets
-        controller.setJavafxchatclient(this);
-
-
-
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                System.out.println(event.toString());
-                if(controller.getChatcontrollers()!=null) {
-                    for (IChatThreadController x : controller.getChatcontrollers()) {
-                            x.end();
-                    }
-                }
-                primaryStage.close();
-            }
-
-        });
-
-
-        primaryStage.show();
     }
+
+
+
+    public static void loadtoken(){
+        Scanner scanner = new Scanner("secret.json");
+        String json = "";
+        while(scanner.hasNextLine()){
+            json+= scanner.nextLine();
+        }
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject object = (JSONObject)parser.parse(json);
+            if(object.containsKey("token")&& object.containsKey(type)) {
+                token = (String) object.get("token");
+                type = (String) object.get("type");
+            }
+            }catch(Exception exception){
+
+
+        }
+
+    }
+
+
+    public void login() throws IOException {
+        FXMLLoader loginloader = new FXMLLoader(getClass().getResource("login.fxml"));
+        //get the main sce
+        Parent loginroot = loginloader.load();
+        LoginController logincontroller = loginloader.getController();
+        Stage loginstage = new Stage();
+        Scene loginscene = new Scene(loginroot);
+        loginstage.setScene(loginscene);
+        logincontroller.setup(loginstage,this);
+        loginstage.show();
+
+    }
+
+
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -66,4 +131,14 @@ public class Javafxchatclient extends Application implements IJavafxchatclient {
     public IChatclientController getController() {
         return controller;
     }
+
+    public void setupClient() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("chatclient.fxml"));
+        Parent root = loader.load();
+        controller = loader.getController();
+        //changes the on close event to end all sockets
+        controller.constructor(this,primaryStage,root);
+    }
+
+
 }

@@ -2,11 +2,16 @@ import React, { Component } from "react";
 import "./Login.css";
 
 import { arrayform } from "../../interface";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Cookies from "universal-cookie";
 import AppForm from "./AppForm";
 import logo from "./img/irc.png";
-class FormCountainer extends Component {
+
+interface Iprops {
+  auth: boolean;
+}
+
+class FormCountainer extends Component<Iprops> {
   render() {
     return (
       <div className="body">
@@ -14,14 +19,19 @@ class FormCountainer extends Component {
           <img className="logo" src={logo} alt="IRC" width="300" height="200" />
         </div>
         <div className="OuterLoginbox">
+          <Switch>
           <Route
             path="/forms/login"
-            component={() => <AppForm form={logindata()} class="login" />}
+            component={() => <AppForm form={this.props.auth?wrongroute():logindata()} class="login" />}
           />
           <Route
             path="/forms/register"
-            component={() => <AppForm form={signupdata()} class="login" />}
+            component={() => <AppForm form={this.props.auth?wrongroute():signupdata()} class="login" />}
           />
+          <Route
+            component={() => <AppForm form={wrongroute()} class="login" />}
+          />
+          </Switch>
         </div>
         <div className="bottom"></div>
       </div>
@@ -69,23 +79,19 @@ function signupdata(): arrayform {
         required: true,
       },
     ],
+    button: { type: "submit", value: "Submit" },
+    link: { label: "", to: "" },
     class: "login",
     header: "Register",
     method: "post",
     url: "http://localhost:8080/api/signup",
 
     datachecking: function (appform: AppForm) {
-      //let password = appform.state.input.find((data)=>{ return data.id ===   "password" });
-      //  let Retype_password = appform.state.input[3];
-      console.log(
-        appform.state.input[2].value === appform.state.input[3].value
-      );
       return appform.state.input[2].value === appform.state.input[3].value;
     },
     datahandling: function (data: any, appform: AppForm) {
       console.log(data);
       new Cookies().set("login", { token: data.token, type: data.type });
-    
       window.location.href = "/";
     },
 
@@ -94,6 +100,24 @@ function signupdata(): arrayform {
 
       appform.setState({ error: "Invalid Login" });
     },
+  };
+}
+
+function wrongroute(): arrayform {
+  return {
+    form: [],
+    class: "login",
+    header: "Unauthorized",
+    method: "",
+    url: "",
+    button: { type: "", value: "" },
+    link: { label: "", to: "" },
+    datachecking: function (appform: AppForm) {
+      return true;
+    },
+    datahandling: function (data: any, appform: AppForm) {},
+
+    error: function (error: any, appform: AppForm) {},
   };
 }
 
@@ -119,6 +143,9 @@ function logindata(): arrayform {
         required: true,
       },
     ],
+    button: { type: "submit", value: "Submit" },
+    link: { label: "Create an account", to: "/forms/register" },
+
     class: "login",
     header: "Sign In",
     method: "post",

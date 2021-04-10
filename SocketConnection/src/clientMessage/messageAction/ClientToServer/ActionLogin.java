@@ -3,7 +3,7 @@ package clientMessage.messageAction.ClientToServer;
 import Interface.Server.IControllerThread;
 import clientMessage.MessageData.ServerToClient.MessageLoginResponse;
 import  clientMessage.messageAction.IMessageAction;
-import socketconnection.Login;
+import socketconnection.ServerInfo;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,11 +16,10 @@ import socketconnection.Login;
  */
 public class ActionLogin implements IMessageAction{
 	private final IControllerThread controllerthread;
-	private final Login login;
-
-	public ActionLogin(IControllerThread controllerthread, Login login) {
+	private final ServerInfo serverinfo;
+	public ActionLogin(IControllerThread controllerthread, ServerInfo serverInfo) {
 		this.controllerthread = controllerthread;
-		this.login =login;
+		this.serverinfo =serverInfo;
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class ActionLogin implements IMessageAction{
 		String response = "You are logged in";
 		if(true) {
 			if (indatabase) {
-				controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(login, response));
+				controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(serverinfo, response));
 			}
 		}else{
 
