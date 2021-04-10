@@ -19,7 +19,7 @@ public class SendBackMessageAction implements IMessageAction {
     }
     @Override
     public void action() {
-        Platform.runLater(() ->  client.getChattabController().getChatbox().getChildren().add(new Text(message.getLogin().getUsername()+":"+payload+"\n")));
+      //  Platform.runLater(() ->  client.getChattabController().getChatbox().getChildren().add(new Text(message.getServerInfo().getUsername()+":"+payload+"\n")));
 
     }
 }

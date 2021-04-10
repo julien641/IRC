@@ -14,243 +14,196 @@ import Interface.client.IChatThreadController;
 import Interface.client.IChatclientController;
 import clientMessage.Message;
 import clientMessage.MessageData.ClientToServer.MessageLogin;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import clientMessage.MessageData.IClientMessage;
 import javafx.scene.text.Text;
+import javafxchatclient.NewChattabController;
 import javafxchatclient.Tree.Item.ConnectionTreeItem;
 import javafxchatclient.Tree.Item.ServerTreeItem;
-import socketconnection.Login;
 import socketconnection.MessagesToSend;
 import socketconnection.RC;
+import socketconnection.ServerInfo;
 import socketconnection.Socketwrapper;
 
 /**
- *
  * @author julien
  */
 public class ChatThreadController implements IChatThreadController {
 
 
-	private volatile AtomicBoolean running;
+    private volatile AtomicBoolean running;
 
-	private Login login;
-	private Socketwrapper sw;
-	private IChatTabController chattabController;
-	private ServerTreeItem server;
-	private Thread connection;
-	private IChatclientController chatclientController;
-	private boolean connected = false;
-	private STATUS status;
-	public void setChatclientController(IChatclientController chatclientController) {
-		this.chatclientController = chatclientController;
-	}
-
-	public ChatThreadController(Login login, IChatclientController chatclientController) {
-		status =STATUS.initialized;
-		this.login =login;
-		sw =new Socketwrapper();
-		running = new AtomicBoolean();
-		this.server = server;
-		this.chatclientController =chatclientController;
-	}
-
-	public IChatclientController getChatclientController() {
-		return chatclientController;
-	}
-
-	private Thread trec;
-	private Thread tsend;
-	private RecChatThread recChatThread;
-	private SendChatThread sendChatThread;
-	private MessagesToSend<Message> mts;
-
-	private void setuptree(){
-
-		server =new ServerTreeItem(login.getServername(), this);
-		server.setExpanded(true);
-		ConnectionTreeItem connectionTreeItem = new ConnectionTreeItem(this);
-		server.getChildren().add(connectionTreeItem);
-		TreeView view  =chatclientController.getTreechannelview();
-		view.getRoot().getChildren().add(server);
-	}
+    private ServerInfo serverInfo;
+    private Socketwrapper sw;
+    private IChatTabController chattabController;
+    private ServerTreeItem server;
+    private Thread connection;
+    private IChatclientController chatclientController;
+    private boolean connected = false;
+    private STATUS status;
 
 
+    public boolean isRunning() {
+        return running.get();
 
-	public void init(){
-		setuptree();
-		RC rc = RC.failed;
+    }
 
-		if( server.getChildren().size() ==1 && server.getChildren().get(0) instanceof ConnectionTreeItem) {
-			ConnectionTreeItem connecting = (ConnectionTreeItem) server.getChildren().get(0);
-			status = STATUS.connecting;
-
-			for (int i = 0; i < connecting.getMax(); i++) {
-				connecting.setValue(new Text("Connecting ....(" + i + ")"));
-				rc = this.getSw().connect(this.getLogin().getIp(), this.getLogin().getPort());
-				if (rc == RC.success) {
-					status =STATUS.connected;
-					break;
-				}
-				try {
-					connecting.setValue(new Text("Sleeping for 10 seconds"));
-					Thread.currentThread().sleep(10000);
-
-				} catch (InterruptedException ignored) {
-				}
-
-			}
-			if (rc != RC.success) {
-				connecting.setValue(new Text("Failed to connect"));
-				status = STATUS.failedtoconnect;
-			}else{
-				start();
-				MessageLogin messageLogin = new MessageLogin(this.getLogin());
-				getMts().addMessage(messageLogin);
-				connecting.setValue(new Text("Waiting for the server"));
-				status = STATUS.waitingforresponse;
-			}
-		}
+    public ChatThreadController(ServerInfo login, IChatclientController chatclientController) {
+        status = STATUS.initialized;
+        this.serverInfo = login;
+        sw = new Socketwrapper();
+        running = new AtomicBoolean();
+        this.server = server;
+        this.chatclientController = chatclientController;
+    }
 
 
-	}
+    private Thread trec;
+    private Thread tsend;
+    private RecChatThread recChatThread;
+    private SendChatThread sendChatThread;
+    private MessagesToSend<Message> mts;
 
-	private void start(){
+    public void setuptree() {
 
-		if(status ==STATUS.connected) {
-			status = STATUS.started;
-			running.set(true);
-			recChatThread = new RecChatThread(this);
-			sendChatThread = new SendChatThread(this);
-			trec = new Thread(recChatThread);
-			tsend = new Thread(sendChatThread);
-			mts = new MessagesToSend<>(tsend);
-			trec.start();
-			tsend.start();
-		}
+        server = new ServerTreeItem(serverInfo.getServername(), this);
+        chatclientController.addToTreeChannelView(server);
+    }
+    public void connectingToServer(){
+        connection = new Thread(new ServerConnection());
+        connection.start();
+    }
 
-	}
-	enum STATUS{
+    public void init() {
+        setuptree();
+        RC rc = RC.failed;
 
-		initialized,
-		started,
-		waitingforresponse,
-		failedtoconnect,
-		connecting,
-		connected, disconnected
-	}
+        if (server.getChildren().size() == 1 && server.getChildren().get(0) instanceof ConnectionTreeItem) {
+            ConnectionTreeItem connecting = (ConnectionTreeItem) server.getChildren().get(0);
+            status = STATUS.connecting;
 
+            for (int i = 0; i < connecting.getMax(); i++) {
+                connecting.setValue(new Text("Connecting ....(" + i + ")"));
+                rc = sw.connect(serverInfo.getIp(), serverInfo.getPort());
+                if (rc == RC.success) {
+                    status = STATUS.connected;
+                    break;
+                }
+                try {
+                    connecting.setValue(new Text("Sleeping for 10 seconds"));
+                    Thread.currentThread().sleep(10000);
 
+                } catch (InterruptedException ignored) {
+                }
 
-	public void end(){
-		status =STATUS.disconnected;
-		running.set(false);
-		try {
-			sw.getSocket().setSoTimeout(1);
-			sw.getSocket().close();
-			server.getParent().getChildren().remove(server);
-			chatclientController.getChatcontrollers().remove(this);
-		} catch (SocketException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-	public Thread  getConnection(){
-		return connection;
-	}
-	public void setConnection(Thread Connection){
-		this.connection =connection;
-
-	}
-
-	public TreeItem<?> getServer() {
-		return server;
-	}
+            }
+            if (rc != RC.success) {
+                connecting.setValue(new Text("Failed to connect"));
+                status = STATUS.failedtoconnect;
+            } else {
+                start();
+                mts.addMessage(new MessageLogin(serverInfo));
+                connecting.setValue(new Text("Waiting for the server"));
+                status = STATUS.waitingforresponse;
+            }
+        }
 
 
+    }
 
-	public Thread getTrec() {
-		return trec;
-	}
+    public void start() {
 
-	public void setTrec(Thread trec) {
-		this.trec = trec;
-	}
+        if (status == STATUS.connected) {
+            status = STATUS.started;
+            running.set(true);
+            recChatThread = new RecChatThread();
+            sendChatThread = new SendChatThread();
+            trec = new Thread(recChatThread);
+            tsend = new Thread(sendChatThread);
+            mts = new MessagesToSend<>(tsend);
+            trec.start();
+            tsend.start();
+        }
 
-	public Thread getTsend() {
-		return tsend;
-	}
+    }
 
-	public void setTsend(Thread tsend) {
-		this.tsend = tsend;
-	}
+    enum STATUS {
 
-	public RecChatThread getRecChatThread() {
-		return recChatThread;
-	}
-
-	public void setRecChatThread(RecChatThread recChatThread) {
-		this.recChatThread = recChatThread;
-	}
-
-	public SendChatThread getSendChatThread() {
-		return sendChatThread;
-	}
-
-	public void setSendChatThread(SendChatThread sendChatThread) {
-		this.sendChatThread = sendChatThread;
-	}
+        initialized,
+        started,
+        waitingforresponse,
+        failedtoconnect,
+        connecting,
+        connected, disconnected
+    }
 
 
-	@Override
-	public AtomicBoolean getRunning() {
-		return running;
-	}
+    public void end() {
+        status = STATUS.disconnected;
+        running.set(false);
+        try {
+            sw.closeSocket();
+            server.getParent().getChildren().remove(server);
+            chatclientController.remove(this);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-	@Override
-	public void setRunning(AtomicBoolean running) {
-		this.running = running;
-	}
+    }
 
-	@Override
-	public MessagesToSend getMts() {
-		return mts;
-	}
+    public void sendMessageLoop() {
 
-	@Override
-	public void setMts(MessagesToSend mts) {
-		this.mts = mts;
-	}
+        while (!mts.hasremaining()) {
+            try {
+                mts.getMessagetosend().wait();
+            } catch (InterruptedException ignored) {
+            }
+        }
+        sw.sendMessage(mts.getRemMessage());
+    }
 
-	@Override
-	public Login getLogin() {
-		return login;
-	}
+    public void sendMessage(Message message) {
+        mts.addMessage(message);
+    }
 
-	@Override
-	public void setLogin(Login login) {
-		this.login = login;
-	}
+    public void processMessage() {
+        Message message = sw.receivemessage();
+        ((IClientMessage) message).setDefaultAction(this);
+        message.activateAction();
+    }
 
-	@Override
-	public Socketwrapper getSw() {
-		return sw;
-	}
+    private class RecChatThread implements Runnable {
+        @Override
+        public void run() {
 
-	@Override
-	public void setSw(Socketwrapper sw) {
-		this.sw = sw;
-	}
+            while (ChatThreadController.this.isRunning()) {
+                ChatThreadController.this.processMessage();
 
-	@Override
-	public IChatTabController getChattabController() {
-		return chattabController;
-	}
+            }
+        }
+
+    }
+    private class ServerConnection implements Runnable{
+
+        public void run() {
+            ChatThreadController.this.init();
+        }
 
 
-	@Override
-	public void setChattabController(IChatTabController chattabController) {
-		this.chattabController = chattabController;
-	}
+    }
+    private class SendChatThread implements Runnable {
+        @Override
+        public void run() {
+            synchronized (ChatThreadController.this.mts.getMessagetosend()) {
+                while (ChatThreadController.this.isRunning()) {
+                    ChatThreadController.this.sendMessageLoop();
+                }
+
+            }
+        }
+
+    }
+
+
 }

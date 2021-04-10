@@ -57,6 +57,17 @@ class AppForm extends Component<IProp, IState> {
   }
   render() {
     //console.log(this.state);
+    let button;
+    
+    if(this.props.form.button.type!==""){
+      button=(<input
+        className={`${this.props.class} submit`}
+        type={this.props.form.button.type}
+        value={this.props.form.button.value}
+      ></input>)
+
+    }
+
 
     return (
       <div className={`${this.props.class} formDiv`}>
@@ -77,18 +88,14 @@ class AppForm extends Component<IProp, IState> {
                 this.resetlabel
               )}
             </div>
-            <input
-              className={`${this.props.class} submit`}
-              type="submit"
-              value="Submit"
-            ></input>
+            {button}
             <br />
           </form>
           <NavLink
             className={`${this.props.class} regacc`}
-            to="/forms/register"
+            to={this.props.form.link.to}
           >
-            Create an account
+            {this.props.form.link.label}
           </NavLink>
         </div>
       </div>
@@ -137,7 +144,7 @@ class AppForm extends Component<IProp, IState> {
     });
   }
 
-  loginfetch() {
+loginfetch() {
     let data = {};
     this.state.input.forEach((datas, index) => {
       Object.assign(data, { [datas.id]: datas.value });
@@ -191,9 +198,6 @@ function construct(
   resetlabel: () => void
 ) {
   return input.map((data,index) => {
-
-
-    
     return (
      
       <React.Fragment key={data.id.toString()}>

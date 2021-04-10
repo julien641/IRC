@@ -9,7 +9,7 @@ import Interface.client.IChatThreadController;
 import clientMessage.Message;
 import clientMessage.messageAction.ServerToClient.ActionLoginResponse;
 import clientMessage.MessageData.IClientMessage;
-import socketconnection.Login;
+import socketconnection.ServerInfo;
 
 /**
  *
@@ -18,8 +18,8 @@ import socketconnection.Login;
 public class MessageLoginResponse extends Message implements IClientMessage {
 	//toclient
 	private String response;
-	public MessageLoginResponse(Login login, String response) {
-		super(login);
+	public MessageLoginResponse(ServerInfo serverInfo, String response) {
+		super(serverInfo);
 		this.response =response;
 	}
 

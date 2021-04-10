@@ -12,6 +12,6 @@ import Interface.Server.IControllerThread;
  * @author julien
  */
 public interface IServerMessage {
-	public abstract void setDefaultAction(IControllerThread controllerthread);
+	void setDefaultAction(IControllerThread controllerthread);
 	
 }

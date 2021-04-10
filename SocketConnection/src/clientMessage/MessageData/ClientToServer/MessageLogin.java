@@ -9,7 +9,7 @@ import clientMessage.Message;
 import clientMessage.messageAction.ClientToServer.ActionLogin;
 import Interface.Server.IControllerThread;
 import clientMessage.MessageData.IServerMessage;
-import socketconnection.Login;
+import socketconnection.ServerInfo;
 
 import java.io.Serializable;
 
@@ -18,16 +18,15 @@ import java.io.Serializable;
  * @author julien
  */
 public class MessageLogin extends Message implements IServerMessage, Serializable {
-	private Login login;
-	public MessageLogin(Login login) {
+
+	public MessageLogin(ServerInfo login) {
 		super(login);
-		this.login = login;
-	
+
 	}
 
 	@Override
 	public void setDefaultAction(IControllerThread controllerthread){
-		super.setAction(new ActionLogin(controllerthread,login));
+		super.setAction(new ActionLogin(controllerthread,super.getServerInfo()));
 	}
 
 

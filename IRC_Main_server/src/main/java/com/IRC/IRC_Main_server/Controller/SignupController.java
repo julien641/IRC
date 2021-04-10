@@ -70,7 +70,11 @@ public class SignupController {
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(), 
 												 roles));
+	
+		
 	}
+	
+
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser (@RequestBody SignupRequest  signUpRequest) {
 		

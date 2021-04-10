@@ -14,16 +14,4 @@ public interface IChatTabController extends Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle rb);
-
-    BorderPane getBorderPane();
-
-    ButtonBar getChatbuttonbar();
-
-    TextArea getSendchattextarea();
-
-    Button getSendchatbutton();
-
-    TextFlow getChatbox();
-    IChatThreadController getIChatThreadController();
-    void setIChatThreadController(IChatThreadController iChatThreadController);
 }
