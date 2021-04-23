@@ -17,7 +17,6 @@ class Index extends Component<IProps, IState> {
         <>
           <HeaderLogin link="/forms/login" label="Login" />
           <HeaderLogin link="/forms/register" label="Sign Up" />
-          <LogOut />
         </>
       );
     } else {
@@ -39,6 +38,7 @@ class Index extends Component<IProps, IState> {
           />
           <header className="header">
             <HeaderLink text="Download" websitelink="/download" />
+            <Headerhref text="GitHub" websitelink="https://github.com/julien641/IRC" />
             <HeaderLink text="Why IRC" websitelink="/Why-IRC" />
             <HeaderLink text="About" websitelink="/About" />
             {topright}
@@ -57,13 +57,13 @@ class Index extends Component<IProps, IState> {
                 connected clients.
               </p>
             </div>
-            <div className="ApplicationImgCountainer">
+           
               <img
                 className="ApplicationImg"
                 alt="ApplicationImg"
                 src="img/main.PNG"
               ></img>
-            </div>
+          
           </div>
         </div>
       </div>
@@ -90,6 +90,14 @@ function HeaderLink(props: { text: string; websitelink: string }) {
     </NavLink>
   );
 }
+function Headerhref(props: { text: string; websitelink: string }) {
+  return (
+    <a className="headerlink" href={props.websitelink}>
+      <span> {props.text}</span>
+    </a>
+  );
+}
+
 function HeaderLogin(props: { link: string; label: string }) {
   return (
     <NavLink to={props.link}>

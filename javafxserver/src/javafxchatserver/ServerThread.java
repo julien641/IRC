@@ -8,141 +8,133 @@ package javafxchatserver;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import Interface.Server.IControllerThread;
 import Interface.Server.IServerThread;
 
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
+
 /**
- *
  * @author julien
  */
-public class ServerThread implements Runnable , IServerThread {
-	
-	private ServerSocket serversocket;
-	private volatile boolean running;
-	final private int port;
-	private ArrayList<IControllerThread> controllerthreads;
-	final private int timeout = 1000;
-	private Javafxchatserver mainthread;
+public class ServerThread implements Runnable, IServerThread {
 
-	public Javafxchatserver getMainthread() {
-		return mainthread;
-	}
-
-	public void setMainthread(Javafxchatserver mainthread) {
-		this.mainthread = mainthread;
-	}
-
-	public ServerThread(Javafxchatserver mainthread, int port) {
-		this.port = port;
-		controllerthreads = new ArrayList<>();
-		this.running = true;
-		this.mainthread = mainthread;
-	}
+    private SSLServerSocket sslserversocket;
+    private ServerSocket serverSocket;
+    private AtomicBoolean running;
+    final private int port;
+    private ArrayList<IControllerThread> controllerthreads;
+    final private int timeout = 0;
+    private Javafxchatserver mainthread;
 
 
-
-	@Override
-	public void run() {
-		
-		serversocket = startingserversocket(port);
-
-		while (running && serversocket != null) {
-			Socket s = socketcreation();
-			if (s != null) {
-				System.out.println("Socket Initialized");
-				ControllerThread current= new ControllerThread(s,this);
-
-				current.Start();
-				controllerthreads.add(current);
-				
-				
-				
-			}
-		}
-		System.out.println("Closing server");
-		cleanend();
-	}
-
-	@Override
-	public ServerSocket startingserversocket(int port) {
-		ServerSocket serversocket = null;
-		try {
-			serversocket = new ServerSocket(port);
-			serversocket.setSoTimeout(timeout);
-		} catch (IOException ex) {
-			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return serversocket;
-	}
-
-	@Override
-	public Socket socketcreation() {
-
-		Socket s = null;
-		try {
-			s = serversocket.accept();
-		} catch (IOException ex) {
-			//	Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return s;
-
-	}
-
-	@Override
-	public boolean isRunning() {
-		return running;
-	}
-
-	@Override
-	public void setRunning(boolean running) {
-		this.running = running;
-	}
+    public ServerThread(Javafxchatserver mainthread, int port) {
+        this.port = port;
+        controllerthreads = new ArrayList<>();
+        this.running = new AtomicBoolean(true);
+        this.mainthread = mainthread;
+    }
 
 
+    @Override
+    public void run() {
 
-	@Override
-	public int getPort() {
-		return port;
-	}
+        serverSocket = startingserversocket(port);
+        try {
+            while (running.get() && serverSocket != null) {
 
-	private void cleanend() {
-		try {
-			serversocket.close();
-			serversocket = null;
-			for(IControllerThread thread:controllerthreads){
-				thread.getRunning().set(false);
-				thread.getSw().getSocket().close();
+                Socket s = null;
+                try {
+                    s = serverSocket.accept();
 
-			}
+                    if (s != null && s.isConnected() && s.isBound() && !s.isClosed() && !s.isInputShutdown() && !s.isOutputShutdown()) {
+                        System.out.println("Socket accepted");
+                        try {
+                            ControllerThread current = new ControllerThread(s, this);
+                            current.Start();
+                            controllerthreads.add(current);
+                        } catch (Exception x) {
+                            System.out.println("Failed to connect initialize socket wrapper");
+                        }
+                    }
+                } catch (SocketTimeoutException timeout) {
 
-		} catch (IOException ex) {
-			System.out.println("");
-			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, "Cleaning error", ex);
-		}
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-	}
-	@Override
-	public ServerSocket getServersocket() {
-		return serversocket;
-	}
+        System.out.println("Closing server");
+        cleanend();
+    }
 
-	@Override
-	public void setServersocket(ServerSocket serversocket) {
-		this.serversocket = serversocket;
-	}
 
-	@Override
-	public ArrayList<IControllerThread> getControllerthreads() {
-		return controllerthreads;
-	}
+    public ServerSocket startingserversocket(int port) {
+        ServerSocket serversocket = null;
+        try {
+            serversocket = ServerSocketFactory.getDefault().createServerSocket(port);
+            serversocket.setSoTimeout(timeout);
+        } catch (IOException ex) {
+            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return serversocket;
+    }
 
-	@Override
-	public void setControllerthreads(ArrayList<IControllerThread> controllerthreads) {
-		this.controllerthreads = controllerthreads;
-	}
+    public SSLServerSocket SSLstartingserversocket(int port) {
+        SSLServerSocket serversocket = null;
+        try {
+            serversocket = (SSLServerSocket) SSLServerSocketFactory.getDefault().createServerSocket(port);
+            serversocket.setEnabledCipherSuites(new String[]{"SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA"});
+            serversocket.setSoTimeout(timeout);
+        } catch (IOException ex) {
+            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return serversocket;
+    }
 
-	
+    public Socket socketcreation() {
+
+        Socket s = null;
+        try {
+            s = serverSocket.accept();
+        } catch (IOException ex) {
+            //	Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return s;
+
+    }
+
+    public void stop() {
+        running.set(false);
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    private void cleanend() {
+        try {
+            serverSocket.close();
+            serverSocket = null;
+            for (IControllerThread thread : controllerthreads) {
+                thread.close();
+            }
+
+        } catch (IOException ex) {
+            System.out.println("");
+            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, "Cleaning error", ex);
+        }
+
+    }
+
+
 }

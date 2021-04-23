@@ -6,17 +6,12 @@
 package socketconnection;
 
 import clientMessage.Message;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.ConnectException;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,143 +19,64 @@ import java.util.logging.Logger;
  */
 public class Socketwrapper<E extends Message> {
 
-
-
 	private Socket socket;
+
+	private SSLSocket SSLsocket;
 	private boolean connected;
 	private OutputStream outputstream;
 	private ObjectOutputStream objectOutputStream;
 	private InputStream inputStream;
 	private ObjectInputStream objectInputStream;
 
-	public  E receivemessage() {
-
-		E message = null;
-		try {
-			message = (E) objectInputStream.readObject();
-		} catch (IOException ex) {
-			System.out.println("IOException");
-		} catch (ClassNotFoundException ex) {
-			System.out.println("ClassNotFoundException");
-		}
-		return message;
+	public  E receivemessage() throws IOException, ClassNotFoundException {
+		return  (E) objectInputStream.readObject();
 	}
 
-	public  RC sendMessage(E message) {
-
-		RC rc = RC.disconnected;
-		if (connected) {
-			rc = RC.connected;
-			try {
+	public  void sendMessage(E message) throws IOException {
 				objectOutputStream.writeObject(message);
 				objectOutputStream.flush();
-
-			} catch (UnknownHostException unknownHostException) {
-
-				System.out.println("unknownHostException");
-				System.out.println(unknownHostException.getMessage());
-				rc = RC.unknownHostException;
-
-			} catch (IOException e) {
-				//TODO: better error loging
-				System.out.println("IOException");
-				System.out.println(e.getMessage());
-				rc = RC.IOException;
-
-			}
-		}
-		return rc;
 	}
+	public void connect(Socket socket) throws IOException {
 
-	public RC connect(Socket socket) {
-		RC rc = RC.failed;
-		try {
 			this.socket = socket;
 			outputstream = this.socket.getOutputStream();
 			objectOutputStream = new ObjectOutputStream(outputstream);
 			inputStream = this.socket.getInputStream();
 			objectInputStream = new ObjectInputStream(inputStream);
-			rc = RC.success;
-		} catch (IOException ex) {
-			rc = RC.IOException;
-		} finally {
-
-		}
-
-		connected = socket.isConnected();
-		return rc;
+			connected = socket.isConnected();
+	}
+	public void SSLconnect(SSLSocket socket) throws IOException {
+			this.SSLsocket = socket;
+			outputstream = this.socket.getOutputStream();
+			objectOutputStream = new ObjectOutputStream(outputstream);
+			inputStream = this.socket.getInputStream();
+			objectInputStream = new ObjectInputStream(inputStream);
+			connected = socket.isConnected();
 
 	}
 
-	public RC connect(String website, int port) {
-		RC rc = RC.failed;
-		try {
-			socket = new Socket(website, port);
+	public void connect(String website, int port) throws IOException {
+			socket = SocketFactory.getDefault().createSocket(website, port);
 			outputstream = socket.getOutputStream();
 			objectOutputStream = new ObjectOutputStream(outputstream);
 			inputStream = socket.getInputStream();
 			objectInputStream = new ObjectInputStream(inputStream);
-			rc = RC.success;
 			connected = socket.isConnected();
 			System.out.println("Connected to Website: " + website + " Port : " + port);
-		} catch (ConnectException CE) {
-			rc = RC.ConnectException;
-		} catch (IOException ex) {
-			rc = RC.IOException;
-		}
-		return rc;
 	}
-
-	public Socket getSocket() {
-		return socket;
+	public void SSLconnect(String website, int port) throws IOException {
+			SSLsocket = (SSLSocket) SSLSocketFactory.getDefault().createSocket(website, port);
+			outputstream = socket.getOutputStream();
+			objectOutputStream = new ObjectOutputStream(outputstream);
+			inputStream = socket.getInputStream();
+			objectInputStream = new ObjectInputStream(inputStream);
+			connected = socket.isConnected();
+			System.out.println("Connected to Website: " + website + " Port : " + port);
 	}
 
 	public void closeSocket() throws IOException {
 		socket.setSoTimeout(1);
 		socket.close();
-
-
 	}
 
-
-
-	public boolean isConnected() {
-		return connected;
-	}
-
-	public void setConnected(boolean connected) {
-		this.connected = connected;
-	}
-
-	public OutputStream getOutputstream() {
-		return outputstream;
-	}
-
-	public void setOutputstream(OutputStream outputstream) {
-		this.outputstream = outputstream;
-	}
-
-	public ObjectOutputStream getObjectOutputStream() {
-		return objectOutputStream;
-	}
-
-	public void setObjectOutputStream(ObjectOutputStream objectOutputStream) {
-		this.objectOutputStream = objectOutputStream;
-	}
-
-	public InputStream getInputStream() {
-		return inputStream;
-	}
-
-	public void setInputStream(InputStream inputStream) {
-		this.inputStream = inputStream;
-	}
-
-	public ObjectInputStream getObjectInputStream() {
-		return objectInputStream;
-	}
-
-	public void setObjectInputStream(ObjectInputStream objectInputStream) {
-		this.objectInputStream = objectInputStream;
-	}
 }

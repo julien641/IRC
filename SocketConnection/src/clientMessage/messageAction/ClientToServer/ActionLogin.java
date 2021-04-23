@@ -28,7 +28,7 @@ public class ActionLogin implements IMessageAction{
 		String response = "You are logged in";
 		if(true) {
 			if (indatabase) {
-				controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(serverinfo, response));
+			//	controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(serverinfo, response));
 			}
 		}else{
 

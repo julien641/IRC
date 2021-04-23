@@ -16,27 +16,6 @@ import java.util.ArrayList;
  * @author julien
  */
 public interface IServerThread {
-
-	ArrayList<IControllerThread> getControllerthreads();
-
-	int getPort();
-
-	ServerSocket getServersocket();
-
-	boolean isRunning();
-
-	void run();
-
-	void setControllerthreads(ArrayList<IControllerThread> controllerthreads);
-
-	void setRunning(boolean running);
-
-	void setServersocket(ServerSocket serversocket);
-
-	Socket socketcreation();
-
-	ServerSocket startingserversocket(int port);
-
-	
+    void stop();
 	
 }

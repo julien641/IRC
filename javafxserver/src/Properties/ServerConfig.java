@@ -68,7 +68,7 @@ public class ServerConfig implements IServerConfig {
 	}
 	public static IServerConfig newInstance(Properties p) throws NumberFormatException, NullPointerException {
 
-		return new Properties.ServerConfig.ServerConfigBuilder()
+		return new ServerConfig.ServerConfigBuilder()
 				.setADMIN_USERNAME(p.getProperty("ADMIN_USERNAME"))
 				.setADMIN_PASSWORD(p.getProperty("ADMIN_PASSWORD"))
 				.setEnable_whitelist(p.getProperty("whitelist"))

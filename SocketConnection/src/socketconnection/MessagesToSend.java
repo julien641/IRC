@@ -16,11 +16,38 @@ public class MessagesToSend <T>{
 
 	private final ReentrantLock lock = new ReentrantLock();
 	private final ArrayList<T> messagetosend = new ArrayList<>();
-	private Thread sendthread;
 
-	public MessagesToSend(Thread sendthread) {
-		this.sendthread = sendthread;
+	public ArrayList<T> getMessagetosend() {
+		return messagetosend;
 	}
+
+	public boolean addFrontMessage(T message) {
+
+		synchronized (messagetosend) {
+			System.out.println("adding message");
+			boolean rc = true;
+			lock.lock();
+			try {
+				messagetosend.add(0,message);
+			} finally {
+				lock.unlock();
+				messagetosend.notify();
+			}
+
+			return rc;
+		}
+	}
+	public void waitOnMessage(){
+		while (!hasremaining()) {
+			try {
+				messagetosend.wait();
+			} catch (InterruptedException ignored) {
+				Thread.currentThread().interrupt();
+			}
+		}
+
+	}
+
 
 	public boolean addMessage(T message) {
 
@@ -67,15 +94,4 @@ public class MessagesToSend <T>{
 		}
 	}
 
-	public ReentrantLock getLock() {
-		return lock;
-	}
-
-	public ArrayList<T> getMessagetosend() {
-		return messagetosend;
-	}
-
-	public Thread getSendthread() {
-		return sendthread;
-	}
 }

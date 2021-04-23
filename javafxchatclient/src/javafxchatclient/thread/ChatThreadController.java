@@ -68,46 +68,39 @@ public class ChatThreadController implements IChatThreadController {
         server = new ServerTreeItem(serverInfo.getServername(), this);
         chatclientController.addToTreeChannelView(server);
     }
-    public void connectingToServer(){
+
+    public void connectingToServer() {
         connection = new Thread(new ServerConnection());
         connection.start();
     }
 
     public void init() {
         setuptree();
-        RC rc = RC.failed;
-
         if (server.getChildren().size() == 1 && server.getChildren().get(0) instanceof ConnectionTreeItem) {
             ConnectionTreeItem connecting = (ConnectionTreeItem) server.getChildren().get(0);
             status = STATUS.connecting;
 
             for (int i = 0; i < connecting.getMax(); i++) {
                 connecting.setValue(new Text("Connecting ....(" + i + ")"));
-                rc = sw.connect(serverInfo.getIp(), serverInfo.getPort());
-                if (rc == RC.success) {
-                    status = STATUS.connected;
-                    break;
-                }
                 try {
-                    connecting.setValue(new Text("Sleeping for 10 seconds"));
-                    Thread.currentThread().sleep(10000);
-
-                } catch (InterruptedException ignored) {
+                    sw.connect(serverInfo.getIp(), serverInfo.getPort());
+                    start();
+                    mts.addMessage(new MessageLogin(serverInfo));
+                    connecting.setValue(new Text("Waiting for the server"));
+                    status = STATUS.waitingforresponse;
+                    return;
+                } catch (IOException e) {
+                        connecting.setValue(new Text("Sleeping for 10 seconds"));
+                    try {
+                        Thread.currentThread().sleep(10000);
+                    } catch (InterruptedException interruptedException) {
+                        Thread.currentThread().interrupt();
+                    }
                 }
-
             }
-            if (rc != RC.success) {
                 connecting.setValue(new Text("Failed to connect"));
                 status = STATUS.failedtoconnect;
-            } else {
-                start();
-                mts.addMessage(new MessageLogin(serverInfo));
-                connecting.setValue(new Text("Waiting for the server"));
-                status = STATUS.waitingforresponse;
             }
-        }
-
-
     }
 
     public void start() {
@@ -119,7 +112,7 @@ public class ChatThreadController implements IChatThreadController {
             sendChatThread = new SendChatThread();
             trec = new Thread(recChatThread);
             tsend = new Thread(sendChatThread);
-            mts = new MessagesToSend<>(tsend);
+            mts = new MessagesToSend<>();
             trec.start();
             tsend.start();
         }
@@ -153,14 +146,18 @@ public class ChatThreadController implements IChatThreadController {
     }
 
     public void sendMessageLoop() {
-
-        while (!mts.hasremaining()) {
-            try {
-                mts.getMessagetosend().wait();
-            } catch (InterruptedException ignored) {
+        synchronized (mts.getMessagetosend()) {
+            while (isRunning()) {
+                mts.waitOnMessage();
+                Message message = mts.getRemMessage();
+                try {
+                    sw.sendMessage(message);
+                } catch (IOException e) {
+                    //TODO create a different error handler for each different message
+                    mts.addFrontMessage(message);
+                }
             }
         }
-        sw.sendMessage(mts.getRemMessage());
     }
 
     public void sendMessage(Message message) {
@@ -168,23 +165,30 @@ public class ChatThreadController implements IChatThreadController {
     }
 
     public void processMessage() {
-        Message message = sw.receivemessage();
-        ((IClientMessage) message).setDefaultAction(this);
-        message.activateAction();
+        Message message = null;
+        while (isRunning()) {
+            try {
+                message = sw.receivemessage();
+                ((IClientMessage) message).setDefaultAction(this);
+                message.activateAction();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private class RecChatThread implements Runnable {
         @Override
         public void run() {
 
-            while (ChatThreadController.this.isRunning()) {
-                ChatThreadController.this.processMessage();
 
-            }
+            ChatThreadController.this.processMessage();
         }
-
     }
-    private class ServerConnection implements Runnable{
+
+    private class ServerConnection implements Runnable {
 
         public void run() {
             ChatThreadController.this.init();
@@ -192,17 +196,12 @@ public class ChatThreadController implements IChatThreadController {
 
 
     }
+
     private class SendChatThread implements Runnable {
         @Override
         public void run() {
-            synchronized (ChatThreadController.this.mts.getMessagetosend()) {
-                while (ChatThreadController.this.isRunning()) {
-                    ChatThreadController.this.sendMessageLoop();
-                }
-
-            }
+            ChatThreadController.this.sendMessageLoop();
         }
-
     }
 
 

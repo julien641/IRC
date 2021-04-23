@@ -84,14 +84,13 @@ function signupdata(): arrayform {
     class: "login",
     header: "Register",
     method: "post",
-    url: "http://localhost:8080/api/signup",
+    url: "http://192.155.88.98:8080/Internet-relay-Chat-Main-Server-0.0.1-SNAPSHOT/api/signup",
 
     datachecking: function (appform: AppForm) {
       return appform.state.input[2].value === appform.state.input[3].value;
     },
     datahandling: function (data: any, appform: AppForm) {
       console.log(data);
-      new Cookies().set("login", { token: data.token, type: data.type });
       window.location.href = "/";
     },
 
@@ -149,10 +148,13 @@ function logindata(): arrayform {
     class: "login",
     header: "Sign In",
     method: "post",
-    url: "http://localhost:8080/api/signin",
+    url: "http://192.155.88.98:8080/Internet-relay-Chat-Main-Server-0.0.1-SNAPSHOT/api/signin",
     datahandling: function (data: any, appform: AppForm) {
       console.log(data);
-      new Cookies().set("login", { token: data.token, type: data.type });
+
+      let cookies = new Cookies();
+      cookies.set("login", { token: data.session.token, type: data.session.type });
+      cookies.set("refresh", { refresh: data.refresh.token });
       window.location.href = "/";
     },
     datachecking: function (appform: AppForm) {
