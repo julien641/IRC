@@ -9,18 +9,22 @@
     monospace;
 }
 .ApplicationImg {
-  width: 100%;
-  height: 100%;
+  width: 50vw;
+  height:30vw;
+  padding-left: 20vw;
+  padding-right:8vw;
+  padding-top: 1vw;
+  padding-bottom:5vw;
+  text-align: center;
 }
 .ApplicationImgCountainer {
-  padding: 25px;
-  width: 50%;
-  margin: auto;
+
 }
 .descrCountainer {
-  width: 50%;
+padding-left: 5vw;
+padding-right: 5vw;
   margin: auto;
-  padding: 0;
+  text-align: center;
   color: #011425;
 }
 .Descrtitle {

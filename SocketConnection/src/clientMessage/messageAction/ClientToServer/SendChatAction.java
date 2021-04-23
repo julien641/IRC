@@ -19,10 +19,10 @@ public class SendChatAction implements IMessageAction {
 
     @Override
     public void action() {
-        for(IControllerThread x :controllerThread.getServerthread().getControllerthreads()) {
+      //  for(IControllerThread x :controllerThread.getServerthread().getControllerthreads()) {
             //TODO
 
-            x.getMessagetosend().addMessage(new SendBackMessage(messageSendChat.getServerInfo(),text));
-        }
+       //     x.getMessagetosend().addMessage(new SendBackMessage(messageSendChat.getServerInfo(),text));
+       // }
     }
 }

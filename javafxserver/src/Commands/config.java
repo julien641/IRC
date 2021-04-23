@@ -20,7 +20,7 @@ public class config extends Commands{
 
 	@Override
 	public RC run() {
-		System.out.println(super.getCli().getServerconfig().toString());
+		System.out.println(Javafxchatserver.serverconfig.toString());
 
 		
 		return null;

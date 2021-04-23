@@ -4,128 +4,122 @@
  * and open the template in the editor.
  */
 package javafxchatserver;
+
+import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import Interface.Server.IControllerThread;
-import Interface.Server.IRecThread;
-import Interface.Server.ISendThread;
 import Interface.Server.IServerThread;
 import clientMessage.Message;
+import clientMessage.MessageData.IServerMessage;
 import socketconnection.MessagesToSend;
 import socketconnection.RC;
 import socketconnection.Socketwrapper;
 
+import javax.net.ssl.SSLSocket;
+
 /**
- *
  * @author julien
  */
 public class ControllerThread implements IControllerThread {
-	private ISendThread sendthread;
-	private IRecThread recthread;
-	private Thread sdthread;
-	private Thread rcthread;
-	private volatile AtomicBoolean running;
-	private MessagesToSend messagetosend;
-	private Socketwrapper <Message>sw;
-	private IServerThread serverthread;
+    private Runnable sendthread;
+    private Runnable recthread;
+    private Thread sdthread;
+    private Thread rcthread;
+    private volatile AtomicBoolean running;
+    private MessagesToSend messagetosend;
+    private Socketwrapper<Message> sw;
+    private IServerThread serverthread;
 
-	public IServerThread getServerthread() {
-		return serverthread;
-	}
+    public ControllerThread(Socket socket, IServerThread serverthread) throws Exception {
+        sw = new Socketwrapper<>();
+        sw.connect(socket);
+        this.serverthread = serverthread;
+        this.running = new AtomicBoolean(true);
+        this.sendthread = new SendThread();
+        this.recthread = new RecThread();
+        this.sdthread = new Thread(this.sendthread);
+        this.rcthread = new Thread(this.recthread);
+        this.messagetosend = new <Message>MessagesToSend();
+        sdthread.start();
+        rcthread.start();
+    }
+    public ControllerThread(SSLSocket socket, IServerThread serverthread) throws IOException {
+        this.serverthread = serverthread;
+        running = new AtomicBoolean(true);
+        sw = new Socketwrapper<>();
+        sw.SSLconnect(socket);
+        this.sendthread = new SendThread();
+        this.recthread = new RecThread();
+        this.sdthread = new Thread(this.sendthread);
+        this.rcthread = new Thread(this.recthread);
+        this.messagetosend = new <Message>MessagesToSend();
+        sdthread.start();
+        rcthread.start();
+    }
+    @Override
+    public RC Start() {
+        //	sdthread.start();
+        //	rcthread.start();
+        return RC.failed;
+    }
+    public boolean isRunning() {
+        return running.get();
 
-	
-	public ControllerThread(Socket socket,IServerThread serverthread){
-		this.serverthread =serverthread;
-		running = new AtomicBoolean(true);
-		sw = new Socketwrapper();
-		sw.connect(socket);
+    }
+    public void close(){
+        running.set(false);
+        try {
+            sw.closeSocket();
+        } catch (IOException e) {
+        }
 
-		this.sendthread = new SendThread(this);
-		this.recthread = new RecThread(this);
+    }
 
-		
-		this.sdthread = new Thread(this.sendthread);
-		this.rcthread =new Thread(this.recthread);
-		this.messagetosend =new <Message>MessagesToSend(sdthread);
+    public void sendThread() {
+        synchronized (messagetosend.getMessagetosend()) {
+            while (isRunning()) {
+                messagetosend.waitOnMessage();
 
-		sdthread.start();
+                try {
+                    sw.sendMessage((Message) messagetosend.getRemMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-		rcthread.start();
-	}
-	@Override
-	public RC Start(){
-	//	sdthread.start();
-	//	rcthread.start();
-	return RC.failed;	
-	}	
-	@Override
-	public ISendThread getSendthread() {
-		return sendthread;
-	}
+            }
+        }
 
-	@Override
-	public void setSendthread(ISendThread sendthread) {
-		this.sendthread = sendthread;
-	}
+    }
+    public void RecThread() {
+        while (isRunning()) {
 
-	@Override
-	public IRecThread getRecthread() {
-		return recthread;
-	}
+            Message message = null;
+            try {
+                message = (Message) sw.receivemessage();
 
-	@Override
-	public void setRecthread(IRecThread recthread) {
-		this.recthread = recthread;
-	}
+                ((IServerMessage) message).setDefaultAction(this);
+                message.activateAction();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
-	@Override
-	public Thread getSdthread() {
-		return sdthread;
-	}
-
-	@Override
-	public void setSdthread(Thread sdthread) {
-		this.sdthread = sdthread;
-	}
-
-	@Override
-	public Thread getRcthread() {
-		return rcthread;
-	}
-
-	@Override
-	public void setRcthread(Thread rcthread) {
-		this.rcthread = rcthread;
-	}
-
-
-	@Override
-	public MessagesToSend getMessagetosend() {
-		return messagetosend;
-	}
-
-	@Override
-	public void setMessagetosend(MessagesToSend messagetosend) {
-		this.messagetosend = messagetosend;
-	}
-
-	@Override
-	public Socketwrapper getSw() {
-		return sw;
-	}
-
-
-	@Override
-	public void setSw(Socketwrapper sw) {
-		this.sw = sw;
-	}
-	@Override
-	public AtomicBoolean getRunning() {
-		return running;
-	}
-	@Override
-	public void setRunning(AtomicBoolean running) {
-		this.running = running;
-	}
+        }
+    }
+    private class SendThread implements Runnable {
+        @Override
+        public void run() {
+            ControllerThread.this.sendThread();
+            System.out.println("closing send thread");
+        }
+    }
+    private class RecThread implements Runnable {
+        public void run() {
+            System.out.println("rec Thread running");
+            ControllerThread.this.RecThread();
+        }
+    }
 }

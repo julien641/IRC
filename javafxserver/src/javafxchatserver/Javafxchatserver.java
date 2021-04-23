@@ -11,10 +11,14 @@ import Interface.Server.IServerConfig;
 import Interface.Server.IServerThread;
 import Properties.PropertyManager;
 import Properties.ServerConfig;
+import socketconnection.RC;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,25 +27,17 @@ import java.util.Scanner;
 public class Javafxchatserver implements IJavafxchatserver {
 
 	private final String invalidinput = "Invalid command entered";
-	private boolean running = true;
+	private AtomicBoolean running;
 	private boolean debug = true;
 	private Thread thread;
 	private IServerThread server;
 	private boolean testing= false;	
-	private IServerConfig serverconfig;
+	static  public IServerConfig serverconfig;
 	private String configpath ="server.properties";
 
-	@Override
-	public IServerConfig getServerconfig() {
-		return serverconfig;
-	}
-
-	@Override
-	public void setServerconfig(IServerConfig serverconfig) {
-		this.serverconfig = serverconfig;
-	}
 
 	public Javafxchatserver() {
+		this.running =new AtomicBoolean(true);
 
 	}
 	private IServerConfig loadserverproperties(String file) {
@@ -51,11 +47,9 @@ public class Javafxchatserver implements IJavafxchatserver {
 			Properties  property;
 		
 			property = propertymanager.PropertyManager(file);
-		
-		
-			IServerConfig config = ServerConfig.newInstance(property);
-				
-		return config;
+
+
+		return  ServerConfig.newInstance(property);
 		}catch(NumberFormatException number){
 			
 		System.out.println("error loading config file");
@@ -71,14 +65,20 @@ public class Javafxchatserver implements IJavafxchatserver {
 			}
 				
 	}
-	@Override
+	public RC stop(){
+		stopServerThread();
+		running.set(false);
+
+
+		return RC.success;
+	}
 	public void start() {
 		startingmessage();
 		serverconfig= loadserverproperties(configpath);
 		
 		Scanner kb = new Scanner(System.in);
 			
-		while (running) {
+		while (isRunning()) {
 			String input="";
 			if(!testing){	
 			input = kb.nextLine();
@@ -103,13 +103,9 @@ public class Javafxchatserver implements IJavafxchatserver {
 		}
 
 	}
-	@Override
 	public void startingmessage(){
 	System.out.println("Welcome to the chat server");
-	
-	
 	}
-	@Override
 	public void commandlineerror(Exception ex) {
 		if (debug) {
 			ex.printStackTrace();
@@ -117,58 +113,69 @@ public class Javafxchatserver implements IJavafxchatserver {
 		System.out.println(invalidinput);
 	}
 
+	public RC stopServerThread(){
+		if(server!=null){
+			server.stop();
+			server =null;
+		}
+		if(thread!=null){
+			try {
+				thread.join();
+				thread=null;
+			} catch (InterruptedException ex) {
+				Logger.getLogger(start.class.getName()).log(Level.SEVERE, null, ex);
+			}
+
+		}
+	return RC.success;
+	}
+	public void startserver(int port) {
+
+		System.out.println("Starting server on port:"+port);
+		if(server!=null){
+			System.out.println("Restarting server");
+			//	super.getCli().getServer().setRunning(false);
+			server=null;
+		}
+		if(thread!=null){
+			System.out.println("Restarting server");
+			try {
+				thread.join();
+			} catch (InterruptedException ex) {
+				Logger.getLogger(start.class.getName()).log(Level.SEVERE,
+						"joining thread in startserver caused a InterruptedException",
+						ex);
+				thread.interrupt();
+			}
+			thread=null;
+		}
+		System.out.println("Server starting on port:"+port);
+		server =new ServerThread(this,port);
+		thread =new Thread((Runnable) server);
+		thread.setName("Server Thread");
+		thread.start();
+		System.out.println("Server started on port:"+port);
+
+	}
+
+
 	/**
 	 */
-	
+	public boolean isRunning(){
+		return running.get();
 
-	@Override
+	}
+  public static void main(String[] args) {
+	  Javafxchatserver javafxchatserver = new Javafxchatserver();
+	  javafxchatserver.start();
+  }
 	public int locate(String[] command, String arguments) {
 		for (int i = 0; i < command.length; i++) {
 			if (command.equals(arguments)) {
 				return i;
 			}
-
 		}
 		return -1;
-	}
-	@Override
-	public boolean isDebug() {
-		return debug;
-	}
-
-	@Override
-	public void setDebug(boolean debug) {
-		this.debug = debug;
-	}
-
-	@Override
-	public Thread getThread() {
-		return thread;
-	}
-
-	@Override
-	public void setThread(Thread thread) {
-		this.thread = thread;
-	}
-
-	@Override
-	public IServerThread getServer() {
-		return server;
-	}
-
-	@Override
-	public void setServer(IServerThread server) {
-		this.server = server;
-	}
-
-	@Override
-	public boolean isRunning() {
-		return running;
-	}
-
-	@Override
-	public void setRunning(boolean running) {
-		this.running = running;
 	}
 
 }

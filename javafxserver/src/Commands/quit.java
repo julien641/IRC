@@ -14,7 +14,7 @@ public class quit extends Commands {
 
         stop stop = new stop(getCli(), "stop");
         stop.run();
-        getCli().setRunning(false);
+        super.getCli().stop();
         return RC.success;
 
 

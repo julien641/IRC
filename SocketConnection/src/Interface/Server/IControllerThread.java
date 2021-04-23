@@ -17,36 +17,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author julien
  */
 public interface IControllerThread {
-
 	RC Start();
+	boolean isRunning();
+	void close();
 
-	MessagesToSend getMessagetosend();
-
-	Thread getRcthread();
-
-	IRecThread getRecthread();
-
-	Thread getSdthread();
-
-	ISendThread getSendthread();
-
-	Socketwrapper getSw();
-
-
-	void setMessagetosend(MessagesToSend messagetosend);
-
-	void setRcthread(Thread rcthread);
-
-	void setRecthread(IRecThread recthread);
-
-
-	void setSdthread(Thread sdthread);
-
-	void setSendthread(ISendThread sendthread);
-
-	void setSw(Socketwrapper sw);
-	IServerThread getServerthread();
-
-	AtomicBoolean getRunning();
-	void setRunning(AtomicBoolean running);
 }
