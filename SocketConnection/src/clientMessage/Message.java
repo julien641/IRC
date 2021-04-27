@@ -6,7 +6,7 @@
 package clientMessage;
 
 import clientMessage.MessageData.IMessage;
-import clientMessage.messageAction.IMessageAction;
+import clientMessage.MessageData.IMessageAction;
 import socketconnection.ServerInfo;
 
 import java.io.Serializable;

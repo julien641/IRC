@@ -6,9 +6,9 @@
 package clientMessage.MessageData.ClientToServer;
 
 import clientMessage.Message;
-import clientMessage.messageAction.ClientToServer.ActionLogin;
 import Interface.Server.IControllerThread;
 import clientMessage.MessageData.IServerMessage;
+import clientMessage.MessageData.IMessageAction;
 import socketconnection.ServerInfo;
 
 import java.io.Serializable;
@@ -31,6 +31,35 @@ public class MessageLogin extends Message implements IServerMessage, Serializabl
 
 
 
+
+	private class ActionLogin implements IMessageAction {
+		private final IControllerThread controllerthread;
+		private final ServerInfo serverinfo;
+
+		public ActionLogin(IControllerThread controllerthread, ServerInfo serverInfo) {
+			this.controllerthread = controllerthread;
+			this.serverinfo = serverInfo;
+		}
+
+		@Override
+		public void action() {
+			boolean indatabase = true;
+			String response = "You are logged in";
+			if (true) {
+				if (indatabase) {
+					//	controllerthread.getMessagetosend().addMessage(new MessageLoginResponse(serverinfo, response));
+				}
+			} else {
+
+
+			}
+
+			//	MessageLoginResponse x = new MessageLoginResponse(username, response);
+			//	x.
+
+
+		}
+	}
 	
 	
 }

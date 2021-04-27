@@ -41,7 +41,7 @@ public class LoginController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("hello");
-        submit.setOnAction(new ButtonEvent(username, password));
+        submit.setOnAction(new LoginEvent(username, password));
 
     }
     public void setup(Stage stage,Javafxchatclient client){
@@ -50,13 +50,13 @@ public class LoginController implements Initializable {
     }
 
 
-    private class ButtonEvent implements EventHandler {
+    private class LoginEvent implements EventHandler {
 
         private TextField usernamefield;
         private TextField passwordfield;
 
 
-        public ButtonEvent(TextField username, TextField password) {
+        public LoginEvent(TextField username, TextField password) {
             this.usernamefield = username;
             this.passwordfield = password;
         }
@@ -66,7 +66,12 @@ public class LoginController implements Initializable {
             String username = this.usernamefield.getText();
             String password = this.passwordfield.getText();
 
-            if (username.isEmpty() && password.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty()) {
+               /*
+                 TODO
+
+                */
+
                 return;
             }
             try {
@@ -95,6 +100,10 @@ public class LoginController implements Initializable {
                 }
             } catch (URISyntaxException | InterruptedException | IOException | ParseException e) {
                 e.printStackTrace();
+                /*
+                    TODO Handle network exeptions
+
+                   */
             }
 
         }

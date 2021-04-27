@@ -72,7 +72,11 @@ public class Javafxchatclient extends Application implements IJavafxchatclient {
             e.printStackTrace();
         }
     }
-
+    /*
+    Starting point of the client, depending if the token
+    is valid it either sends to the login or to the client
+    TODO Set up refresh token
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         //loads the main scene
@@ -87,7 +91,9 @@ public class Javafxchatclient extends Application implements IJavafxchatclient {
     }
 
 
-
+/*
+Loads token from file
+ */
     public static void loadtoken(){
         Scanner scanner = new Scanner("secret.json");
         String json = "";
@@ -107,7 +113,9 @@ public class Javafxchatclient extends Application implements IJavafxchatclient {
         }
 
     }
-
+/*
+Sets up the login window See Login Controller for  code
+ */
 
     public void login() throws IOException {
         FXMLLoader loginloader = new FXMLLoader(getClass().getResource("login.fxml"));
@@ -127,11 +135,17 @@ public class Javafxchatclient extends Application implements IJavafxchatclient {
     public static void main(String[] args) {
         launch(args);
     }
+    /*
+    * Todo Delete?
+    * */
     @Override
     public IChatclientController getController() {
         return controller;
     }
-
+/*
+* Sets up client window to the primary stage
+*
+* */
     public void setupClient() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatclient.fxml"));
         Parent root = loader.load();

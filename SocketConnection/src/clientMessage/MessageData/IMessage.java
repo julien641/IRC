@@ -6,7 +6,7 @@
 package clientMessage.MessageData;
 
 import java.sql.Timestamp;
-import clientMessage.messageAction.IMessageAction;
+
 import socketconnection.ServerInfo;
 
 /**
